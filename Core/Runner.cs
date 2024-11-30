@@ -13,7 +13,15 @@ public static class Runner
         var part1Time = watch.ElapsedMilliseconds;
 
         watch.Restart();
-        var part2Result = day.Part2(ReadFile.GetFileStream(path));
+        var part2Result = -1;
+        try
+        {
+            part2Result = day.Part2(ReadFile.GetFileStream(path));
+        }
+        catch (NotImplementedException e)
+        {
+            part2Result = -1;
+        }
         watch.Stop();
         var part2Time = watch.ElapsedMilliseconds;
 
