@@ -5,7 +5,7 @@ namespace Solutions._2015;
 
 public class Day2 : IDay
 {
-    public int Part1(FileStream fileStream)
+    public long Part1(FileStream fileStream)
     {
         var lines = fileStream.ReadLines();
         var total = 0;
@@ -26,7 +26,7 @@ public class Day2 : IDay
         return total;
     }
 
-    public int Part2(FileStream fileStream)
+    public long Part2(FileStream fileStream)
     {
         var lines = fileStream.ReadLines();
         var total = 0;

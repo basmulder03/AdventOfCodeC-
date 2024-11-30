@@ -14,14 +14,14 @@ public class Day7 : IDay
         {"NOT", (a, _) => ~a}
     };
 
-    public int Part1(FileStream fileStream)
+    public long Part1(FileStream fileStream)
     {
         var (wiresDict, wires) = ParseInput(fileStream);
         const string wireToFind = "a";
         return FindValue(wireToFind, wires, wiresDict);
     }
 
-    public int Part2(FileStream fileStream)
+    public long Part2(FileStream fileStream)
     {
         var (wiresDict, wires) = ParseInput(fileStream);
         const string wireToFind = "a";
