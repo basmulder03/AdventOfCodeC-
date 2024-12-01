@@ -13,7 +13,7 @@ public class Day6Test
         var day = new Day6();
         var data = FileStreamHelper.GetFileStream("turn on 0,0 through 999,999");
         var result = day.Part1(data);
-        result.ShouldBe(1000000);
+        result.ShouldBe("1000000");
     }
     
     [TestMethod]
@@ -22,7 +22,7 @@ public class Day6Test
         var day = new Day6();
         var data = FileStreamHelper.GetFileStream("toggle 0,0 through 999,0");
         var result = day.Part1(data);
-        result.ShouldBe(1000);
+        result.ShouldBe("1000");
     }
     
     [TestMethod]
@@ -31,7 +31,7 @@ public class Day6Test
         var day = new Day6();
         var data = FileStreamHelper.GetFileStream("turn off 499,499 through 500,500");
         var result = day.Part1(data);
-        result.ShouldBe(0);
+        result.ShouldBe("0");
     }
     
     [TestMethod]
@@ -40,7 +40,7 @@ public class Day6Test
         var day = new Day6();
         var data = FileStreamHelper.GetFileStream("turn on 0,0 through 0,0");
         var result = day.Part2(data);
-        result.ShouldBe(1);
+        result.ShouldBe("1");
     }
     
     [TestMethod]
@@ -49,6 +49,6 @@ public class Day6Test
         var day = new Day6();
         var data = FileStreamHelper.GetFileStream("toggle 0,0 through 999,999");
         var result = day.Part2(data);
-        result.ShouldBe(2000000);
+        result.ShouldBe("2000000");
     }
 }

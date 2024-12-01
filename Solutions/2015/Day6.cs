@@ -5,7 +5,7 @@ namespace Solutions._2015;
 
 public class Day6: IDay
 {
-    public long Part1(FileStream fileStream)
+    public string Part1(FileStream fileStream)
     {
         var strings = fileStream.ReadLines();
         var grid = new bool[1000, 1000];
@@ -58,10 +58,10 @@ public class Day6: IDay
             }
         }
         
-        return count;
+        return count.ToString();
     }
 
-    public long Part2(FileStream fileStream)
+    public string Part2(FileStream fileStream)
     {
         var strings = fileStream.ReadLines();
         var grid = new int[1000, 1000];
@@ -111,6 +111,6 @@ public class Day6: IDay
             }
         }
         
-        return count;
+        return count.ToString();
     }
 }

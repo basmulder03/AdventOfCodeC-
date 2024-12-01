@@ -6,18 +6,18 @@ namespace Solutions._2015;
 
 public class Day10 : IDay
 {
-    public long Part1(FileStream fileStream)
+    public string Part1(FileStream fileStream)
     {
         var line = fileStream.ReadSingleLine();
         var result = Solve(line, 40);
-        return result;
+        return result.ToString();
     }
 
-    public long Part2(FileStream fileStream)
+    public string Part2(FileStream fileStream)
     {
         var line = fileStream.ReadSingleLine();
         var result = Solve(line, 50);
-        return result;
+        return result.ToString();
     }
 
     private long Solve(string line, int times)

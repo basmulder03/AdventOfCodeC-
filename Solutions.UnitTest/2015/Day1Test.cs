@@ -14,7 +14,7 @@ public class Day1Test
         var day = new Day1();
         var data = FileStreamHelper.GetFileStream("(())");
         var result = day.Part1(data);
-        result.ShouldBe(0);
+        result.ShouldBe("0");
     }
     
     [TestMethod]
@@ -23,7 +23,7 @@ public class Day1Test
         var day = new Day1();
         var data = FileStreamHelper.GetFileStream("()()");
         var result = day.Part1(data);
-        result.ShouldBe(0);
+        result.ShouldBe("0");
     }
     
     [TestMethod]
@@ -32,7 +32,7 @@ public class Day1Test
         var day = new Day1();
         var data = FileStreamHelper.GetFileStream("(((");
         var result = day.Part1(data);
-        result.ShouldBe(3);
+        result.ShouldBe("3");
     }
     
     [TestMethod]
@@ -41,7 +41,7 @@ public class Day1Test
         var day = new Day1();
         var data = FileStreamHelper.GetFileStream("(()(()(");
         var result = day.Part1(data);
-        result.ShouldBe(3);
+        result.ShouldBe("3");
     }
     
     [TestMethod]
@@ -50,7 +50,7 @@ public class Day1Test
         var day = new Day1();
         var data = FileStreamHelper.GetFileStream("))(((((");
         var result = day.Part1(data);
-        result.ShouldBe(3);
+        result.ShouldBe("3");
     }
     
     [TestMethod]
@@ -59,7 +59,7 @@ public class Day1Test
         var day = new Day1();
         var data = FileStreamHelper.GetFileStream("())");
         var result = day.Part1(data);
-        result.ShouldBe(-1);
+        result.ShouldBe("-1");
     }
     
     [TestMethod]
@@ -68,7 +68,7 @@ public class Day1Test
         var day = new Day1();
         var data = FileStreamHelper.GetFileStream("))(");
         var result = day.Part1(data);
-        result.ShouldBe(-1);
+        result.ShouldBe("-1");
     }
     
     [TestMethod]
@@ -77,7 +77,7 @@ public class Day1Test
         var day = new Day1();
         var data = FileStreamHelper.GetFileStream(")))");
         var result = day.Part1(data);
-        result.ShouldBe(-3);
+        result.ShouldBe("-3");
     }
     
     [TestMethod]
@@ -86,7 +86,7 @@ public class Day1Test
         var day = new Day1();
         var data = FileStreamHelper.GetFileStream(")())())");
         var result = day.Part1(data);
-        result.ShouldBe(-3);
+        result.ShouldBe("-3");
     }
 
     [TestMethod]
@@ -95,7 +95,7 @@ public class Day1Test
         var day = new Day1();
         var data = FileStreamHelper.GetFileStream(")");
         var result = day.Part2(data);
-        result.ShouldBe(1);
+        result.ShouldBe("1");
     }
     
     [TestMethod]
@@ -104,6 +104,6 @@ public class Day1Test
         var day = new Day1();
         var data = FileStreamHelper.GetFileStream("()())");
         var result = day.Part2(data);
-        result.ShouldBe(5);
+        result.ShouldBe("5");
     }
 }

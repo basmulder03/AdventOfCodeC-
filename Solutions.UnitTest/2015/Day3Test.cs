@@ -14,7 +14,7 @@ public class Day3Test
         var day = new Day3();
         var data = FileStreamHelper.GetFileStream(">");
         var result = day.Part1(data);
-        result.ShouldBe(2);
+        result.ShouldBe("2");
     }
     
     [TestMethod]
@@ -23,7 +23,7 @@ public class Day3Test
         var day = new Day3();
         var data = FileStreamHelper.GetFileStream("^>v<");
         var result = day.Part1(data);
-        result.ShouldBe(4);
+        result.ShouldBe("4");
     }
     
     [TestMethod]
@@ -32,7 +32,7 @@ public class Day3Test
         var day = new Day3();
         var data = FileStreamHelper.GetFileStream("^v^v^v^v^v");
         var result = day.Part1(data);
-        result.ShouldBe(2);
+        result.ShouldBe("2");
     }
     
     [TestMethod]
@@ -41,7 +41,7 @@ public class Day3Test
         var day = new Day3();
         var data = FileStreamHelper.GetFileStream("^v");
         var result = day.Part2(data);
-        result.ShouldBe(3);
+        result.ShouldBe("3");
     }
     
     [TestMethod]
@@ -50,7 +50,7 @@ public class Day3Test
         var day = new Day3();
         var data = FileStreamHelper.GetFileStream("^>v<");
         var result = day.Part2(data);
-        result.ShouldBe(3);
+        result.ShouldBe("3");
     }
     
     [TestMethod]
@@ -59,6 +59,6 @@ public class Day3Test
         var day = new Day3();
         var data = FileStreamHelper.GetFileStream("^v^v^v^v^v");
         var result = day.Part2(data);
-        result.ShouldBe(11);
+        result.ShouldBe("11");
     }
 }

@@ -5,7 +5,7 @@ namespace Solutions._2015;
 
 public class Day2 : IDay
 {
-    public long Part1(FileStream fileStream)
+    public string Part1(FileStream fileStream)
     {
         var lines = fileStream.ReadLines();
         var total = 0;
@@ -23,10 +23,10 @@ public class Day2 : IDay
             total += 2 * lw + 2 * wh + 2 * hl + smallest;
         }
         
-        return total;
+        return total.ToString();
     }
 
-    public long Part2(FileStream fileStream)
+    public string Part2(FileStream fileStream)
     {
         var lines = fileStream.ReadLines();
         var total = 0;
@@ -42,6 +42,6 @@ public class Day2 : IDay
             total += smallestPerimeter + volume;
         }
         
-        return total;
+        return total.ToString();
     }
 }

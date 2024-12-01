@@ -5,7 +5,7 @@ namespace Solutions._2015;
 
 public class Day1 : IDay
 {
-    public long Part1(FileStream fileStream)
+    public string Part1(FileStream fileStream)
     {
         var chars = fileStream.ReadSingleLineAsChars();
         var floor = 0;
@@ -21,10 +21,10 @@ public class Day1 : IDay
             }
         }
 
-        return floor;
+        return floor.ToString();
     }
 
-    public long Part2(FileStream fileStream)
+    public string Part2(FileStream fileStream)
     {
         var chars = fileStream.ReadSingleLineAsChars();
         var floor = 0;
@@ -41,10 +41,10 @@ public class Day1 : IDay
 
             if (floor == -1)
             {
-                return i + 1;
+                return (i + 1).ToString();
             }
         }
 
-        return -1;
+        return "Not Found";
     }
 }

@@ -6,7 +6,7 @@ namespace Solutions._2015;
 
 public class Day4 : IDay
 {
-    public long Part1(FileStream fileStream)
+    public string Part1(FileStream fileStream)
     {
         var data = fileStream.ReadSingleLine();
         var hasher = new MD5Hasher();
@@ -16,14 +16,14 @@ public class Day4 : IDay
             var hash = hasher.Hash($"{data}{i}");
             if (hash.StartsWith("00000"))
             {
-                return i;
+                return i.ToString();
             }
         }
 
-        return -1;
+        return "Error";
     }
 
-    public long Part2(FileStream fileStream)
+    public string Part2(FileStream fileStream)
     {
         var data = fileStream.ReadSingleLine();
         var hasher = new MD5Hasher();
@@ -33,10 +33,10 @@ public class Day4 : IDay
             var hash = hasher.Hash($"{data}{i}");
             if (hash.StartsWith("000000"))
             {
-                return i;
+                return i.ToString();
             }
         }
 
-        return -1;
+        return "Error";
     }
 }

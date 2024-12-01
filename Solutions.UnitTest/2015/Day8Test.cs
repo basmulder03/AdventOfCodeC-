@@ -13,7 +13,7 @@ public class Day8Test
         var day = new Day8();
         var data = FileStreamHelper.GetFileStream("\"\"");
         var result = day.Part1(data);
-        result.ShouldBe(2);
+        result.ShouldBe("2");
     }
     
     [TestMethod]
@@ -22,7 +22,7 @@ public class Day8Test
         var day = new Day8();
         var data = FileStreamHelper.GetFileStream("\"abc\"");
         var result = day.Part1(data);
-        result.ShouldBe(2);
+        result.ShouldBe("2");
     }
     
     [TestMethod]
@@ -31,7 +31,7 @@ public class Day8Test
         var day = new Day8();
         var data = FileStreamHelper.GetFileStream("\"aaa\\\"aaa\"");
         var result = day.Part1(data);
-        result.ShouldBe(3);
+        result.ShouldBe("3");
     }
     
     [TestMethod]
@@ -40,7 +40,7 @@ public class Day8Test
         var day = new Day8();
         var data = FileStreamHelper.GetFileStream("\"\\x27\"");
         var result = day.Part1(data);
-        result.ShouldBe(5);
+        result.ShouldBe("5");
     }
     
     [TestMethod]
@@ -49,7 +49,7 @@ public class Day8Test
         var day = new Day8();
         var data = FileStreamHelper.GetFileStream("\"\"");
         var result = day.Part2(data);
-        result.ShouldBe(4);
+        result.ShouldBe("4");
     }
     
     [TestMethod]
@@ -58,7 +58,7 @@ public class Day8Test
         var day = new Day8();
         var data = FileStreamHelper.GetFileStream("\"abc\"");
         var result = day.Part2(data);
-        result.ShouldBe(4);
+        result.ShouldBe("4");
     }
     
     [TestMethod]
@@ -67,7 +67,7 @@ public class Day8Test
         var day = new Day8();
         var data = FileStreamHelper.GetFileStream("\"aaa\\\"aaa\"");
         var result = day.Part2(data);
-        result.ShouldBe(6);
+        result.ShouldBe("6");
     }
     
     [TestMethod]
@@ -76,6 +76,6 @@ public class Day8Test
         var day = new Day8();
         var data = FileStreamHelper.GetFileStream("\"\\x27\"");
         var result = day.Part2(data);
-        result.ShouldBe(5);
+        result.ShouldBe("5");
     }
 }

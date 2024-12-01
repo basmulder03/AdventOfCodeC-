@@ -14,14 +14,14 @@ public class Day7 : IDay
         {"NOT", (a, _) => ~a}
     };
 
-    public long Part1(FileStream fileStream)
+    public string Part1(FileStream fileStream)
     {
         var (wiresDict, wires) = ParseInput(fileStream);
         const string wireToFind = "a";
-        return FindValue(wireToFind, wires, wiresDict);
+        return FindValue(wireToFind, wires, wiresDict).ToString();
     }
 
-    public long Part2(FileStream fileStream)
+    public string Part2(FileStream fileStream)
     {
         var (wiresDict, wires) = ParseInput(fileStream);
         const string wireToFind = "a";
@@ -30,7 +30,7 @@ public class Day7 : IDay
         wiresDict["b"] = part1Result.ToString();
         wires.Clear();
 
-        return FindValue(wireToFind, wires, wiresDict);
+        return FindValue(wireToFind, wires, wiresDict).ToString();
     }
 
     private static (Dictionary<string, string> wiresDict, Dictionary<string, int> wires) ParseInput(FileStream fileStream)

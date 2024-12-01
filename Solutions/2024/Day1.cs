@@ -5,7 +5,7 @@ namespace Solutions._2024;
 
 public class Day1 : IDay
 {
-    public long Part1(FileStream fileStream)
+    public string Part1(FileStream fileStream)
     {
         var lines = fileStream.ReadLines();
         var listA = new List<int>();
@@ -27,10 +27,10 @@ public class Day1 : IDay
             result += Math.Abs(listA[i] - listB[i]);
         }
 
-        return result;
+        return result.ToString();
     }
 
-    public long Part2(FileStream fileStream)
+    public string Part2(FileStream fileStream)
     {
         var lines = fileStream.ReadLines();
         var listA = new List<int>();
@@ -59,6 +59,6 @@ public class Day1 : IDay
             result += listA[i] * group;
         }
 
-        return result;
+        return result.ToString();
     }
 }
