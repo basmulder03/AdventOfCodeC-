@@ -8,14 +8,15 @@ public class Year2024 : IYear
     {
         {1, new Day1()}
     };
+    private const string PathPrefix = "./2024/Data/";
     
     public void RunAll()
     {
-        throw new NotImplementedException();
+        
     }
 
     public void RunDay(int day)
     {
-        throw new NotImplementedException();
+        _days[day].Run($"{PathPrefix}Day{day}");
     }
 }
