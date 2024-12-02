@@ -6,7 +6,8 @@ public class Year2024 : IYear
 {
     private readonly IDictionary<int, IDay> _days = new Dictionary<int, IDay>
     {
-        {1, new Day1()}
+        {1, new Day1()},
+        {2, new Day2()}
     };
     private const string PathPrefix = "./2024/Data/";
     

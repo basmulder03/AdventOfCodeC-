@@ -10,3 +10,4 @@ riderModule.iml
 **/obj/
 
 **/Data/**
+!**/Data/.gitkeep
