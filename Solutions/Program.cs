@@ -1,8 +1,8 @@
 ﻿using Solutions._2015;
-using Solutions._2024.Data;
+using Solutions._2024;
 
 // Run current day
-new Year2024().RunDay(2);
+new Year2024().RunDay(3);
 
 // 2015
 // new Year2015().RunAll();

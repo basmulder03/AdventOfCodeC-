@@ -1,13 +1,14 @@
 ﻿using Core;
 
-namespace Solutions._2024.Data;
+namespace Solutions._2024;
 
 public class Year2024 : IYear
 {
     private readonly IDictionary<int, IDay> _days = new Dictionary<int, IDay>
     {
         {1, new Day1()},
-        {2, new Day2()}
+        {2, new Day2()},
+        {3, new Day3()}
     };
     private const string PathPrefix = "./2024/Data/";
     
