@@ -8,7 +8,8 @@ public class Year2024 : IYear
     {
         {1, new Day1()},
         {2, new Day2()},
-        {3, new Day3()}
+        {3, new Day3()},
+        {4, new Day4()}
     };
     private const string PathPrefix = "./2024/Data/";
     
