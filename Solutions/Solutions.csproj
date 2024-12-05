@@ -17,4 +17,8 @@
         </None>
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="JsonConverter.Newtonsoft.Json" Version="0.7.1" />
+    </ItemGroup>
+
 </Project>
