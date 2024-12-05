@@ -59,5 +59,9 @@ public static class DownloadInput
     private static void WriteInputToFile(string input, string pathToWriteInputTo)
     {
         File.WriteAllText(pathToWriteInputTo, input);
+        Console.WriteLine("Input downloaded and written to file.");
+        
+        // Show the input in the console
+        Console.WriteLine(input);
     }
 }

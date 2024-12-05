@@ -16,6 +16,18 @@ public static partial class Extensions
         return result;
     }
 
+    public static long[] GetLongs(this string str)
+    {
+        var regex = NumberGroupRegex();
+        var matches = regex.Matches(str);
+        var result = new long[matches.Count];
+        for (var i = 0; i < matches.Count; i++)
+        {
+            result[i] = long.Parse(matches[i].Value);
+        }
+        return result;
+    }
+
     [GeneratedRegex(@"-?\d+")]
     private static partial Regex NumberGroupRegex();
 }
