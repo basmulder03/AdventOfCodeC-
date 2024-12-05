@@ -6,7 +6,7 @@ namespace Solutions._2015;
 
 public class Day9 : IDay
 {
-    public string Part1(FileStream fileStream)
+    public int Part1(FileStream fileStream)
     {
         var lines = fileStream.ReadLines();
         var distances = new Dictionary<(string, string), int>();
@@ -36,10 +36,10 @@ public class Day9 : IDay
             minDistance = Math.Min(minDistance, distance);
         }
         
-        return minDistance.ToString();
+        return minDistance;
     }
 
-    public string Part2(FileStream fileStream)
+    public int Part2(FileStream fileStream)
     {
         var lines = fileStream.ReadLines();
         var distances = new Dictionary<(string, string), int>();
@@ -69,6 +69,6 @@ public class Day9 : IDay
             maxDistance = Math.Max(maxDistance, distance);
         }
         
-        return maxDistance.ToString();
+        return maxDistance;
     }
 }

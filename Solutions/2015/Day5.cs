@@ -8,7 +8,7 @@ public class Day5 : IDay
     private const string Vowels = "aeiou";
     private const string BadStrings = "ab,cd,pq,xy";
     
-    public string Part1(FileStream fileStream)
+    public int Part1(FileStream fileStream)
     {
         var strings = fileStream.ReadLines();
         var niceStrings = 0;
@@ -43,10 +43,10 @@ public class Day5 : IDay
             }
         }
         
-        return niceStrings.ToString();
+        return niceStrings;
     }
 
-    public string Part2(FileStream fileStream)
+    public int Part2(FileStream fileStream)
     {
         var strings = fileStream.ReadLines();
         var niceStrings = 0;
@@ -75,6 +75,6 @@ public class Day5 : IDay
             }
         }
         
-        return niceStrings.ToString();
+        return niceStrings;
     }
 }

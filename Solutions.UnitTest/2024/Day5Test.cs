@@ -5,7 +5,7 @@ using Solutions._2024;
 namespace Solutions.UnitTest._2024;
 
 [TestClass]
-public class Day5Test1
+public class Day5Test
 {
     [TestMethod]
     public void Part1Test1()
@@ -42,7 +42,7 @@ public class Day5Test1
                                                   97,13,75,29,47
                                                   """);
         var result = day.Part1(data);
-        result.ShouldBe("143");
+        result.ShouldBe(143);
     }
     
     [TestMethod]

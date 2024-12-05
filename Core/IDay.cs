@@ -2,6 +2,6 @@
 
 public interface IDay
 {
-    public string Part1(FileStream fileStream);
-    public string Part2(FileStream fileStream);
+    public int Part1(FileStream fileStream);
+    public int Part2(FileStream fileStream);
 }

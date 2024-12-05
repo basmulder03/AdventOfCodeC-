@@ -13,7 +13,7 @@ public class Day4Test
         var day = new Day4();
         var data = FileStreamHelper.GetFileStream("abcdef");
         var result = day.Part1(data);
-        result.ShouldBe("609043");
+        result.ShouldBe(609043);
     }
     
     [TestMethod]
@@ -22,6 +22,6 @@ public class Day4Test
         var day = new Day4();
         var data = FileStreamHelper.GetFileStream("pqrstuv");
         var result = day.Part1(data);
-        result.ShouldBe("1048970");
+        result.ShouldBe(1048970);
     }
 }

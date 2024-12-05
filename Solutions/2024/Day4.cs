@@ -1,4 +1,5 @@
 ﻿using Core;
+using Core.Constants;
 using Core.DataHelper;
 using Core.DataStructures;
 
@@ -6,112 +7,60 @@ namespace Solutions._2024;
 
 public class Day4 : IDay
 {
-    public string Part1(FileStream fileStream)
+    public int Part1(FileStream fileStream)
     {
         var grid = Parse(fileStream.ReadLines());
-        var xmasCounter = 0;
 
-        for (var y = 0; y < grid.Length; y++)
-        {
-            for (var x = 0; x < grid[y].Length; x++)
-            {
-                if (grid[y][x] == 'X')
-                {
-                    xmasCounter += FindWord(grid, x, y, "XMAS");
-                }
-            }
-        }
-
-        return xmasCounter.ToString();
+        return (
+            from row in grid.Rows 
+            from column in row 
+            where column.HasValue && column.Value == 'X' 
+            select FindXmas(grid, column)).Sum();
     }
 
-    public string Part2(FileStream fileStream)
+    public int Part2(FileStream fileStream)
     {
         var grid = Parse(fileStream.ReadLines());
-        var xmasCounter = 0;
-
-        for (var y = 0; y < grid.Length; y++)
-        {
-            for (var x = 0; x < grid[y].Length; x++)
-            {
-                if (grid[y][x] == 'A')
-                {
-                    xmasCounter += FindCrossedWord(grid, x, y);
-                }
-            }
-        }
-
-        return xmasCounter.ToString();
+        return (from row in grid.Rows from cell in row where cell.HasValue && cell.Value == 'A' select FindXMas(grid, cell)).Sum();
     }
 
     private static Grid<char> Parse(List<string> lines)
     {
-        return Grid<char>.Parse(lines, (line) => line.ToCharArray());
+        return Grid<char>.Parse(lines, str => str.ToCharArray());
     }
-
-    private static int FindWord(char[][] grid, int x, int y, string word)
+    
+    private static int FindXmas(Grid<char> grid, GridCell<char> cell)
     {
-        var directions = new (int x, int y)[]
-        {
-            (1, 0), (0, 1), (-1, 0), (0, -1), // Horizontal and vertical
-            (1, 1), (1, -1), (-1, 1), (-1, -1) // Diagonal
-        };
-        var counter = 0;
+        var xmasCounter = 0;
+        const string word = "XMAS";
 
-        foreach (var (dx, dy) in directions)
+        foreach (var direction in GridDirectionsHelper.GridDirections)
         {
-            var found = true;
-
-            for (var i = 0; i < word.Length; i++)
+            var currentCell = cell.Copy();
+            var foundWord = true;
+            foreach (var letter in word)
             {
-                var nx = x + dx * i;
-                var ny = y + dy * i;
-
-                if (nx < 0 || nx >= grid[0].Length || ny < 0 || ny >= grid.Length || grid[ny][nx] != word[i])
+                if (currentCell.HasValue && currentCell.Value == letter)
                 {
-                    found = false;
+                    currentCell = currentCell[direction];
+                }
+                else
+                {
+                    foundWord = false;
                     break;
                 }
             }
 
-            if (found)
-            {
-                counter++;
-            }
+            if (!foundWord) continue;
+            xmasCounter++;
         }
 
-        return counter;
+        return xmasCounter;
     }
 
-    private static int FindCrossedWord(char[][] grid, int x, int y)
+    private static int FindXMas(Grid<char> grid, GridCell<char> cell)
     {
-        var counter = 0;
-        var directions = new (int x, int y)[]
-        {
-            (1, 1), (1, -1), (-1, -1), (-1, 1) // Diagonal cross
-        };
-
-        foreach (var (dx, dy) in directions)
-        {
-            var ny = y + dy;
-            var nx = x + dx;
-
-            if (nx < 0 || nx >= grid[0].Length || ny < 0 || ny >= grid.Length || grid[ny][nx] != 'M')
-            {
-                continue;
-            }
-
-            var oppNy = y - dy;
-            var oppNx = x - dx;
-
-            if (oppNx < 0 || oppNx >= grid[0].Length || oppNy < 0 || oppNy >= grid.Length || grid[oppNy][oppNx] != 'S')
-            {
-                continue;
-            }
-
-            counter++;
-        }
-
-        return counter > 1 ? 1 : 0;
+        var xmasCounter = GridDirectionsHelper.DiagonalDirections.Count(direction => cell[direction].HasValue && cell[direction].Value == 'M' && cell[direction.GetOppositeDirection()].HasValue && cell[direction.GetOppositeDirection()].Value == 'S');
+        return xmasCounter > 1 ? 1 : 0;
     }
 }

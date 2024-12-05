@@ -5,16 +5,18 @@ namespace Solutions._2015;
 
 public class Day11 : IDay
 {
-    public string Part1(FileStream fileStream)
+    public int Part1(FileStream fileStream)
     {
         var currentPassword = fileStream.ReadSingleLine();
-        return GetNextValidPassword(currentPassword);
+        Console.Write(GetNextValidPassword(currentPassword));
+        return 0;
     }
 
-    public string Part2(FileStream fileStream)
+    public int Part2(FileStream fileStream)
     {
         var currentPassword = fileStream.ReadSingleLine();
-        return GetNextValidPassword(IncrementPassword(GetNextValidPassword(currentPassword)));
+        Console.Write(GetNextValidPassword(IncrementPassword(GetNextValidPassword(currentPassword))));
+        return 0;
     }
 
     private static string IncrementPassword(string password)
@@ -53,12 +55,10 @@ public class Day11 : IDay
             var hasStraight = false;
             for (var i = 0; i < currentPassword.Length - 2; i++)
             {
-                if (currentPassword[i] + 1 == currentPassword[i + 1] &&
-                    currentPassword[i + 1] + 1 == currentPassword[i + 2])
-                {
-                    hasStraight = true;
-                    break;
-                }
+                if (currentPassword[i] + 1 != currentPassword[i + 1] ||
+                    currentPassword[i + 1] + 1 != currentPassword[i + 2]) continue;
+                hasStraight = true;
+                break;
             }
 
             // Check for two different, non-overlapping pairs of letters
@@ -71,12 +71,10 @@ public class Day11 : IDay
                     continue;
                 }
 
-                if (currentPassword[i] == currentPassword[i + 1])
-                {
-                    pairCount++;
-                    i++;
-                    lastPairIndex = i;
-                }
+                if (currentPassword[i] != currentPassword[i + 1]) continue;
+                pairCount++;
+                i++;
+                lastPairIndex = i;
             }
 
             if (hasStraight && pairCount >= 2)

@@ -5,7 +5,7 @@ namespace Solutions._2015;
 
 public class Day3 : IDay
 {
-    public string Part1(FileStream fileStream)
+    public int Part1(FileStream fileStream)
     {
         var chars = fileStream.ReadSingleLineAsChars();
         
@@ -34,10 +34,10 @@ public class Day3 : IDay
             visited.Add((x, y));
         }
         
-        return visited.Count.ToString();
+        return visited.Count;
     }
 
-    public string Part2(FileStream fileStream)
+    public int Part2(FileStream fileStream)
     {
         var chars = fileStream.ReadSingleLineAsChars();
         
@@ -83,6 +83,6 @@ public class Day3 : IDay
             }
         }
         
-        return visited.Count.ToString();
+        return visited.Count;
     }
 }

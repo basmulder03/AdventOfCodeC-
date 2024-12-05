@@ -5,46 +5,48 @@ namespace Solutions._2015;
 
 public class Day1 : IDay
 {
-    public string Part1(FileStream fileStream)
+    public int Part1(FileStream fileStream)
     {
         var chars = fileStream.ReadSingleLineAsChars();
         var floor = 0;
         foreach (var c in chars)
         {
-            if (c == '(')
+            switch (c)
             {
-                floor++;
-            }
-            else if (c == ')')
-            {
-                floor--;
+                case '(':
+                    floor++;
+                    break;
+                case ')':
+                    floor--;
+                    break;
             }
         }
 
-        return floor.ToString();
+        return floor;
     }
 
-    public string Part2(FileStream fileStream)
+    public int Part2(FileStream fileStream)
     {
         var chars = fileStream.ReadSingleLineAsChars();
         var floor = 0;
         for (var i = 0; i < chars.Count; i++)
         {
-            if (chars[i] == '(')
+            switch (chars[i])
             {
-                floor++;
-            }
-            else if (chars[i] == ')')
-            {
-                floor--;
+                case '(':
+                    floor++;
+                    break;
+                case ')':
+                    floor--;
+                    break;
             }
 
             if (floor == -1)
             {
-                return (i + 1).ToString();
+                return i + 1;
             }
         }
 
-        return "Not Found";
+        return -1;
     }
 }

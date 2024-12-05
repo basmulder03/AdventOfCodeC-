@@ -20,7 +20,7 @@ public class Day1Test
                                                   3   3
                                                   """);
         var result = day.Part1(data);
-        result.ShouldBe("11");
+        result.ShouldBe(11);
     }
 
     [TestMethod]
@@ -36,6 +36,6 @@ public class Day1Test
                                                   3   3
                                                   """);
         var result = day.Part2(data);
-        result.ShouldBe("31");
+        result.ShouldBe(31);
     }
 }

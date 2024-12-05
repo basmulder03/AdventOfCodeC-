@@ -8,6 +8,26 @@ namespace Solutions.UnitTest._2024;
 public class Day4Test
 {
     [TestMethod]
+    public void Part1Test1()
+    {
+        var day = new Day4();
+        var data = FileStreamHelper.GetFileStream("""
+                                                  ....XXMAS.
+                                                  .SAMXMS...
+                                                  ...S..A...
+                                                  ..A.A.MS.X
+                                                  XMASAMX.MM
+                                                  X.....XA.A
+                                                  S.S.S.S.SS
+                                                  .A.A.A.A.A
+                                                  ..M.M.M.MM
+                                                  .X.X.XMASX
+                                                  """);
+        var result = day.Part1(data);
+        result.ShouldBe(18);
+    }
+    
+    [TestMethod]
     public void Part2Test1()
     {
         var day = new Day4();
@@ -24,6 +44,6 @@ public class Day4Test
                                                   ..........
                                                   """);
         var result = day.Part2(data);
-        result.ShouldBe("9");
+        result.ShouldBe(9);
     }
 }

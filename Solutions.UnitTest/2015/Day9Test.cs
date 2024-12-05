@@ -17,7 +17,7 @@ public class Day9Test
                                                   Dublin to Belfast = 141
                                                   """);
         var result = day.Part1(data);
-        result.ShouldBe("605");
+        result.ShouldBe(605);
     }
     
     [TestMethod]
@@ -30,6 +30,6 @@ public class Day9Test
                                                   Dublin to Belfast = 141
                                                   """);
         var result = day.Part2(data);
-        result.ShouldBe("982");
+        result.ShouldBe(982);
     }
 }

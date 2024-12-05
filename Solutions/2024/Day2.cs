@@ -5,7 +5,7 @@ namespace Solutions._2024;
 
 public class Day2 : IDay
 {
-    public string Part1(FileStream fileStream)
+    public int Part1(FileStream fileStream)
     {
         var lines = fileStream.ReadLines();
         var safeReports = 0;
@@ -19,30 +19,21 @@ public class Day2 : IDay
             }
         }
 
-        return safeReports.ToString();
+        return safeReports;
     }
 
-    public string Part2(FileStream fileStream)
+    public int Part2(FileStream fileStream)
     {
         var lines = fileStream.ReadLines();
-        var safeReports = 0;
+        var safeReports = lines.Select(line => line.Split(" ").Select(int.Parse).ToList()).Count(levels => IsSafe(levels) || CanBeMadeSafeByRemovingOne(levels));
 
-        foreach (var line in lines)
-        {
-            var levels = line.Split(" ").Select(int.Parse).ToList();
-            if (IsSafe(levels) || CanBeMadeSafeByRemovingOne(levels))
-            {
-                safeReports++;
-            }
-        }
-
-        return safeReports.ToString();
+        return safeReports;
     }
 
-    private bool IsSafe(List<int> levels)
+    private static bool IsSafe(List<int> levels)
     {
         var isIncreasing = levels[1] > levels[0];
-        for (int i = 1; i < levels.Count; i++)
+        for (var i = 1; i < levels.Count; i++)
         {
             if ((isIncreasing && levels[i] < levels[i - 1]) || (!isIncreasing && levels[i] > levels[i - 1]))
             {
@@ -56,16 +47,8 @@ public class Day2 : IDay
         return true;
     }
 
-    private bool CanBeMadeSafeByRemovingOne(List<int> levels)
+    private static bool CanBeMadeSafeByRemovingOne(List<int> levels)
     {
-        for (int i = 0; i < levels.Count; i++)
-        {
-            var newLevels = levels.Take(i).Concat(levels.Skip(i + 1)).ToList();
-            if (IsSafe(newLevels))
-            {
-                return true;
-            }
-        }
-        return false;
+        return levels.Select((t, i) => (List<int>)levels.Take(i).Concat(levels.Skip(i + 1)).ToList()).Any(IsSafe);
     }
 }

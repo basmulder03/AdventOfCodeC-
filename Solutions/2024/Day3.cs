@@ -9,16 +9,16 @@ public class Day3 : IDay
     private static readonly Regex Part1Regex = new(@"mul\(\d+,\d+\)");
     private static readonly Regex Part2Regex = new(@"mul\(\d+,\d+\)|do\(\)|don't\(\)");
 
-    public string Part1(FileStream fileStream)
+    public int Part1(FileStream fileStream)
     {
         var result = ProcessLines(fileStream, Part1Regex, true);
-        return result.ToString();
+        return result;
     }
 
-    public string Part2(FileStream fileStream)
+    public int Part2(FileStream fileStream)
     {
         var result = ProcessLines(fileStream, Part2Regex, false);
-        return result.ToString();
+        return result;
     }
 
     private static int ProcessLines(FileStream fileStream, Regex regex, bool alwaysEnabled)

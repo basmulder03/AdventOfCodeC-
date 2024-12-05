@@ -1,4 +1,6 @@
-﻿namespace Core.DataStructures;
+﻿using System.Collections;
+
+namespace Core.DataStructures;
 
 public class Grid<T>
 {
@@ -7,6 +9,24 @@ public class Grid<T>
     public int Width { get; }
 
     public int Height { get; }
+    
+    public GridCell<T>[][] Rows => _grid;
+    public GridCell<T>[][] Columns => Transpose().Rows;
+    public T[][] Values => _grid.Select(row => row.Where(cell => cell.HasValue).Select(cell => cell.Value!).ToArray()).ToArray();
+    
+    public Grid<T> Transpose()
+    {
+        var data = new T[Width][];
+        for (var x = 0; x < Width; x++)
+        {
+            data[x] = new T[Height];
+            for (var y = 0; y < Height; y++)
+            {
+                data[x][y] = _grid[y][x].Value!;
+            }
+        }
+        return new Grid<T>(data);
+    }
 
     private Grid(T[][] data)
     {
@@ -64,5 +84,10 @@ public class Grid<T>
             data[y] = parser(lines.ElementAt(y)).ToArray();
         }
         return new Grid<T>(data);
+    }
+
+    public Grid<T> Copy()
+    {
+        return new Grid<T>(_grid.Select(row => row.Select(cell => cell.Copy().Value!).ToArray()).ToArray());
     }
 }

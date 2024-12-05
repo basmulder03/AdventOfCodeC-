@@ -1,26 +1,19 @@
-﻿using Core;
+﻿using System.Reflection;
+using Core;
 
 namespace Solutions._2024;
 
-public class Year2024 : IYear
+public class Year2024 : Year
 {
-    private readonly IDictionary<int, IDay> _days = new Dictionary<int, IDay>
-    {
-        {1, new Day1()},
-        {2, new Day2()},
-        {3, new Day3()},
-        {4, new Day4()},
-        {5, new Day5()}
-    };
-    private const string PathPrefix = "./2024/Data/";
+    private static readonly Assembly LocalAssembly = Assembly.GetExecutingAssembly();
     
-    public void RunAll()
+    public override void RunAll()
     {
-        
+        RunAllInYear(LocalAssembly, 2024);
     }
 
-    public void RunDay(int day)
+    public override void RunDay(int day)
     {
-        _days[day].Run($"{PathPrefix}Day{day}");
+        Run(LocalAssembly, 2024, day);
     }
 }

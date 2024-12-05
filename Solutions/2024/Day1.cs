@@ -5,15 +5,14 @@ namespace Solutions._2024;
 
 public class Day1 : IDay
 {
-    public string Part1(FileStream fileStream)
+    public int Part1(FileStream fileStream)
     {
         var lines = fileStream.ReadLines();
         var listA = new List<int>();
         var listB = new List<int>();
         
-        foreach (var line in lines)
+        foreach (var split in lines.Select(line => line.Split("   ")))
         {
-            var split = line.Split("   ");
             listA.Add(int.Parse(split[0]));
             listB.Add(int.Parse(split[1]));
         }
@@ -21,24 +20,19 @@ public class Day1 : IDay
         listA = listA.OrderBy(x => x).ToList();
         listB = listB.OrderBy(x => x).ToList();
 
-        var result = 0;
-        for (var i = 0; i < listA.Count; i++)
-        {
-            result += Math.Abs(listA[i] - listB[i]);
-        }
+        var result = listA.Select((t, i) => Math.Abs(t - listB[i])).Sum();
 
-        return result.ToString();
+        return result;
     }
 
-    public string Part2(FileStream fileStream)
+    public int Part2(FileStream fileStream)
     {
         var lines = fileStream.ReadLines();
         var listA = new List<int>();
         var listB = new List<int>();
         
-        foreach (var line in lines)
+        foreach (var split in lines.Select(line => line.Split("   ")))
         {
-            var split = line.Split("   ");
             listA.Add(int.Parse(split[0]));
             listB.Add(int.Parse(split[1]));
         }
@@ -48,17 +42,17 @@ public class Day1 : IDay
         var listBGroup = listB.GroupBy(x => x).ToDictionary(x => x.Key, x => x.Count());
 
         var result = 0;
-        for (var i = 0; i < listA.Count; i++)
+        foreach (var t in listA)
         {
-            listBGroup.TryGetValue(listA[i], out var group);
-            if (group == null)
+            
+            if (!listBGroup.TryGetValue(t, out var group))
             {
                 continue;
             }
             
-            result += listA[i] * group;
+            result += t * group;
         }
 
-        return result.ToString();
+        return result;
     }
 }

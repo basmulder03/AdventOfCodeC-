@@ -5,7 +5,7 @@ namespace Solutions._2024;
 
 public class Day5 : IDay
 {
-    public string Part1(FileStream fileStream)
+    public int Part1(FileStream fileStream)
     {
         var lines = fileStream.ReadLines();
         var (orderingRules, rulePages) = Parse(lines);        
@@ -16,10 +16,10 @@ public class Day5 : IDay
                 let centerIndex = (int)Math.Ceiling(rulePage.Count / 2.0) - 1 
                 select rulePage[centerIndex]).Sum();
 
-        return correctUpdatesCounter.ToString();
+        return correctUpdatesCounter;
     }
 
-    public string Part2(FileStream fileStream)
+    public int Part2(FileStream fileStream)
     {
         var lines = fileStream.ReadLines();
         var (orderingRules, rulePages) = Parse(lines);
@@ -34,10 +34,10 @@ public class Day5 : IDay
             let centerIndex = (int)Math.Ceiling(page.Count / 2.0) - 1 
             select page[centerIndex]).Sum();
 
-        return resultCounter.ToString();
+        return resultCounter;
     }
 
-    private (Dictionary<int, List<int>>, List<List<int>>) Parse(List<string> lines)
+    private static (Dictionary<int, List<int>>, List<List<int>>) Parse(List<string> lines)
     {
         var orderingRules = new Dictionary<int, List<int>>();
         var rulePages = new List<List<int>>();
@@ -56,11 +56,13 @@ public class Day5 : IDay
                 var parts = line.Split('|');
                 var first = int.Parse(parts[0]);
                 var second = int.Parse(parts[1]);
-                if (!orderingRules.ContainsKey(first))
+                if (!orderingRules.TryGetValue(first, out var value))
                 {
-                    orderingRules[first] = new List<int>();
+                    value = [];
+                    orderingRules[first] = value;
                 }
-                orderingRules[first].Add(second);
+
+                value.Add(second);
             }
             else
             {
