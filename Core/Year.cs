@@ -1,14 +1,15 @@
 ﻿using System.Reflection;
+using Core.InputDownloader;
 
 namespace Core;
 
 public abstract class Year
 {
-    public abstract void RunAll();
+    public abstract Task RunAll();
 
-    public abstract void RunDay(int day);
+    public abstract Task RunDay(int day);
 
-    protected static void Run(Assembly assembly, int year, int day)
+    protected static async Task Run(Assembly assembly, int year, int day)
     {
         var types = GetTypesInNamespace(assembly, $"Solutions._{year}");
         var type = types.FirstOrDefault(t => t.Name == $"Day{day}");
@@ -19,10 +20,11 @@ public abstract class Year
         }
 
         var instance = (IDay)Activator.CreateInstance(type)!;
+        await PuzzleInputForDayExist(assembly, year, day);
         instance.Run($"./{year}/Data/Day{day}");
     }
 
-    protected static void RunAllInYear(Assembly assembly, int year)
+    protected static async Task RunAllInYear(Assembly assembly, int year)
     {
         var types = GetTypesInNamespace(assembly, $"Solutions._{year}")
             .Where(t => t.GetInterfaces().Contains(typeof(IDay)))
@@ -30,6 +32,7 @@ public abstract class Year
         foreach (var type in types)
         {
             var instance = (IDay)Activator.CreateInstance(type)!;
+            await PuzzleInputForDayExist(assembly, year, int.Parse(type.Name[3..]));
             instance.Run($"./{year}/Data/{type.Name}");
         }
     }
@@ -39,5 +42,12 @@ public abstract class Year
         return assembly.GetTypes()
             .Where(t => string.Equals(t.Namespace, nameSpace, StringComparison.Ordinal))
             .ToArray();
+    }
+
+    private static Task PuzzleInputForDayExist(Assembly assembly, int year, int day)
+    {
+        // Base the start of the path on the available assembly information
+        var path = Path.Combine(Path.GetDirectoryName(assembly.Location)!, year.ToString(), "Data", $"Day{day}");
+        return DownloadInput.ForYear(year, day, path);
     }
 }

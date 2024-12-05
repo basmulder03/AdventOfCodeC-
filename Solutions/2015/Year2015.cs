@@ -7,13 +7,13 @@ public class Year2015: Year
 {
     private static readonly Assembly LocalAssembly = Assembly.GetExecutingAssembly();
     
-    public override void RunAll()
+    public override async Task RunAll()
     {
-        RunAllInYear(LocalAssembly, 2015);
+        await RunAllInYear(LocalAssembly, 2015);
     }
     
-    public override void RunDay(int day)
+    public override async Task RunDay(int day)
     {
-        Run(LocalAssembly, 2015, day);
+        await Run(LocalAssembly, 2015, day);
     }
 }
