@@ -40,4 +40,7 @@ public class GridCell<T>(Grid<T> parent, T? value, int x, int y)
     }
     
     public GridCell<T> this[GridDirection direction] => GetNeighbor(direction);
+    public GridCell<T>[] AllNeighbors => new List<GridCell<T>>{Up, Down, Left, Right, UpLeft, UpRight, DownLeft, DownRight}.Where(cell => cell.HasValue).ToArray();
+    public GridCell<T>[] CardinalNeighbors => new List<GridCell<T>>{Up, Down, Left, Right}.Where(cell => cell.HasValue).ToArray();
+    public GridCell<T>[] DiagonalNeighbors => new List<GridCell<T>>{UpLeft, UpRight, DownLeft, DownRight}.Where(cell => cell.HasValue).ToArray();
 }

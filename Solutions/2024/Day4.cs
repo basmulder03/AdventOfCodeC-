@@ -15,13 +15,13 @@ public class Day4 : IDay
             from row in grid.Rows 
             from column in row 
             where column.HasValue && column.Value == 'X' 
-            select FindXmas(grid, column)).Sum();
+            select FindXmas(column)).Sum();
     }
 
     public int Part2(FileStream fileStream)
     {
         var grid = Parse(fileStream.ReadLines());
-        return (from row in grid.Rows from cell in row where cell.HasValue && cell.Value == 'A' select FindXMas(grid, cell)).Sum();
+        return (from row in grid.Rows from cell in row where cell.HasValue && cell.Value == 'A' select FindXMas(cell)).Sum();
     }
 
     private static Grid<char> Parse(List<string> lines)
@@ -29,7 +29,7 @@ public class Day4 : IDay
         return Grid<char>.Parse(lines, str => str.ToCharArray());
     }
     
-    private static int FindXmas(Grid<char> grid, GridCell<char> cell)
+    private static int FindXmas(GridCell<char> cell)
     {
         var xmasCounter = 0;
         const string word = "XMAS";
@@ -58,7 +58,7 @@ public class Day4 : IDay
         return xmasCounter;
     }
 
-    private static int FindXMas(Grid<char> grid, GridCell<char> cell)
+    private static int FindXMas(GridCell<char> cell)
     {
         var xmasCounter = GridDirectionsHelper.DiagonalDirections.Count(direction => cell[direction].HasValue && cell[direction].Value == 'M' && cell[direction.GetOppositeDirection()].HasValue && cell[direction.GetOppositeDirection()].Value == 'S');
         return xmasCounter > 1 ? 1 : 0;
