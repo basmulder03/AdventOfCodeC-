@@ -1,5 +1,6 @@
 ﻿using Core;
 using Core.DataHelper;
+using Core.DataStructures;
 
 namespace Solutions._2024;
 
@@ -43,17 +44,9 @@ public class Day4 : IDay
         return xmasCounter.ToString();
     }
 
-    private static char[][] Parse(List<string> lines)
+    private static Grid<char> Parse(List<string> lines)
     {
-        var height = lines.Count;
-        var result = new char[height][];
-
-        for (var i = 0; i < height; i++)
-        {
-            result[i] = lines[i].ToCharArray();
-        }
-
-        return result;
+        return Grid<char>.Parse(lines, (line) => line.ToCharArray());
     }
 
     private static int FindWord(char[][] grid, int x, int y, string word)
