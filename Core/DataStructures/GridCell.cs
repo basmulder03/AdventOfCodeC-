@@ -41,7 +41,12 @@ public class GridCell<T>(Grid<T> parent, T? value, int x, int y) : ICloneable
     
     public object Clone()
     {
+        return Clone(parent);
+    }
+
+    public object Clone(Grid<T> newParent)
+    {
         var val = Value is ICloneable cloneable ? (T)cloneable.Clone() : Value;
-        return new GridCell<T>((Grid<T>)parent.Clone(), Value != null ? val : default, X, Y);
+        return new GridCell<T>(newParent, Value != null ? val : default, X, Y);
     }
 }

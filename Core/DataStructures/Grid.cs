@@ -118,6 +118,16 @@ public class Grid<T> : ICloneable
 
     public object Clone()
     {
-        return new Grid<T>(_grid.Select(row => row.Select(cell => (T)cell.Clone()).ToArray()).ToArray());
+        var data = new T[Height][];
+        for (var y = 0; y < Height; y++)
+        {
+            data[y] = new T[Width];
+            for (var x = 0; x < Width; x++)
+            {
+                var val = _grid[y][x].Value is ICloneable cloneable ? (T)cloneable.Clone() : _grid[y][x].Value;
+                data[y][x] = val!;
+            }
+        }
+        return new Grid<T>(data);
     }
 }
