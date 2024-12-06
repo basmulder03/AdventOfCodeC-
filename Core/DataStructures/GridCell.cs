@@ -2,7 +2,7 @@
 
 namespace Core.DataStructures;
 
-public class GridCell<T>(Grid<T> parent, T? value, int x, int y)
+public class GridCell<T>(Grid<T> parent, T? value, int x, int y) : ICloneable
 {
     public T? Value { get; set; } = value;
     
@@ -34,13 +34,14 @@ public class GridCell<T>(Grid<T> parent, T? value, int x, int y)
     public GridCell<T> DownLeft => GetNeighbor(GridDirection.DownLeft);
     public GridCell<T> DownRight => GetNeighbor(GridDirection.DownRight);
     
-    public GridCell<T> Copy()
-    {
-        return new GridCell<T>(parent, Value, X, Y);
-    }
-    
     public GridCell<T> this[GridDirection direction] => GetNeighbor(direction);
     public GridCell<T>[] AllNeighbors => new List<GridCell<T>>{Up, Down, Left, Right, UpLeft, UpRight, DownLeft, DownRight}.Where(cell => cell.HasValue).ToArray();
     public GridCell<T>[] CardinalNeighbors => new List<GridCell<T>>{Up, Down, Left, Right}.Where(cell => cell.HasValue).ToArray();
     public GridCell<T>[] DiagonalNeighbors => new List<GridCell<T>>{UpLeft, UpRight, DownLeft, DownRight}.Where(cell => cell.HasValue).ToArray();
+    
+    public object Clone()
+    {
+        var val = Value is ICloneable cloneable ? (T)cloneable.Clone() : Value;
+        return new GridCell<T>((Grid<T>)parent.Clone(), Value != null ? val : default, X, Y);
+    }
 }

@@ -73,4 +73,68 @@ public static class GridDirectionsHelper
             _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
         };
     }
+    
+    public static GridDirection Rotate90DegreesClockwise(this GridDirection direction)
+    {
+        return direction switch
+        {
+            GridDirection.Up => GridDirection.Right,
+            GridDirection.Right => GridDirection.Down,
+            GridDirection.Down => GridDirection.Left,
+            GridDirection.Left => GridDirection.Up,
+            GridDirection.UpLeft => GridDirection.UpRight,
+            GridDirection.UpRight => GridDirection.DownRight,
+            GridDirection.DownRight => GridDirection.DownLeft,
+            GridDirection.DownLeft => GridDirection.UpLeft,
+            _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
+        };
+    }
+    
+    public static GridDirection Rotate90DegreesCounterClockwise(this GridDirection direction)
+    {
+        return direction switch
+        {
+            GridDirection.Up => GridDirection.Left,
+            GridDirection.Left => GridDirection.Down,
+            GridDirection.Down => GridDirection.Right,
+            GridDirection.Right => GridDirection.Up,
+            GridDirection.UpLeft => GridDirection.DownLeft,
+            GridDirection.DownLeft => GridDirection.DownRight,
+            GridDirection.DownRight => GridDirection.UpRight,
+            GridDirection.UpRight => GridDirection.UpLeft,
+            _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
+        };
+    }
+    
+    public static GridDirection Rotate45DegreesClockwise(this GridDirection direction)
+    {
+        return direction switch
+        {
+            GridDirection.Up => GridDirection.UpRight,
+            GridDirection.UpRight => GridDirection.Right,
+            GridDirection.Right => GridDirection.DownRight,
+            GridDirection.DownRight => GridDirection.Down,
+            GridDirection.Down => GridDirection.DownLeft,
+            GridDirection.DownLeft => GridDirection.Left,
+            GridDirection.Left => GridDirection.UpLeft,
+            GridDirection.UpLeft => GridDirection.Up,
+            _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
+        };
+    }
+    
+    public static GridDirection Rotate45DegreesCounterClockwise(this GridDirection direction)
+    {
+        return direction switch
+        {
+            GridDirection.Up => GridDirection.UpLeft,
+            GridDirection.UpLeft => GridDirection.Left,
+            GridDirection.Left => GridDirection.DownLeft,
+            GridDirection.DownLeft => GridDirection.Down,
+            GridDirection.Down => GridDirection.DownRight,
+            GridDirection.DownRight => GridDirection.Right,
+            GridDirection.Right => GridDirection.UpRight,
+            GridDirection.UpRight => GridDirection.Up,
+            _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
+        };
+    }
 }

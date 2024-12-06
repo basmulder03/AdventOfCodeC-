@@ -12,12 +12,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Update="**/Data/**/*">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-    </ItemGroup>
-
-    <ItemGroup>
       <PackageReference Include="JsonConverter.Newtonsoft.Json" Version="0.7.1" />
     </ItemGroup>
 

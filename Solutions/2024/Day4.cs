@@ -36,7 +36,7 @@ public class Day4 : IDay
 
         foreach (var direction in GridDirectionsHelper.GridDirections)
         {
-            var currentCell = cell.Copy();
+            var currentCell = (GridCell<char>)cell.Clone();
             var foundWord = true;
             foreach (var letter in word)
             {

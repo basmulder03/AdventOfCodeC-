@@ -1,8 +1,9 @@
 ﻿using System.Collections;
+using System.Text;
 
 namespace Core.DataStructures;
 
-public class Grid<T>
+public class Grid<T> : ICloneable
 {
     private readonly GridCell<T>[][] _grid;
 
@@ -85,9 +86,38 @@ public class Grid<T>
         }
         return new Grid<T>(data);
     }
-
-    public Grid<T> Copy()
+    
+    public GridCell<T> First(Func<T, bool> predicate)
     {
-        return new Grid<T>(_grid.Select(row => row.Select(cell => cell.Copy().Value!).ToArray()).ToArray());
+        return _grid.SelectMany(row => row).First(cell => predicate(cell.Value!));
+    }
+    
+    public GridCell<T>? FirstOrDefault(T value)
+    {
+        return _grid.SelectMany(row => row).FirstOrDefault(cell => cell.Value!.Equals(value));
+    }
+    
+    public IEnumerable<GridCell<T>> Where(Func<T, bool> predicate)
+    {
+        return _grid.SelectMany(row => row).Where(cell => predicate(cell.Value!));
+    }
+    
+    public string ToString(Func<T, string> formatter)
+    {
+        var sb = new StringBuilder();
+        for (var y = 0; y < Height; y++)
+        {
+            for (var x = 0; x < Width; x++)
+            {
+                sb.Append(formatter(_grid[y][x].Value!));
+            }
+            sb.AppendLine();
+        }
+        return sb.ToString();
+    }
+
+    public object Clone()
+    {
+        return new Grid<T>(_grid.Select(row => row.Select(cell => (T)cell.Clone()).ToArray()).ToArray());
     }
 }
