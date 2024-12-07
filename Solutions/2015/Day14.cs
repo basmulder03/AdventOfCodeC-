@@ -6,14 +6,14 @@ namespace Solutions._2015;
 
 public class Day14 : IDay
 {
-    public int Part1(FileStream fileStream)
+    public long Part1(FileStream fileStream)
     {
         var lines = fileStream.ReadLines();
         var reindeer = ParseReindeer(lines);
         return reindeer.Values.Select(r => CalculateDistance(r, 2503)).Max();
     }
 
-    public int Part2(FileStream fileStream)
+    public long Part2(FileStream fileStream)
     {
         var lines = fileStream.ReadLines();
         var reindeer = ParseReindeer(lines);

@@ -5,7 +5,7 @@ namespace Solutions._2024;
 
 public class Day2 : IDay
 {
-    public int Part1(FileStream fileStream)
+    public long Part1(FileStream fileStream)
     {
         var lines = fileStream.ReadLines();
         var safeReports = 0;
@@ -22,7 +22,7 @@ public class Day2 : IDay
         return safeReports;
     }
 
-    public int Part2(FileStream fileStream)
+    public long Part2(FileStream fileStream)
     {
         var lines = fileStream.ReadLines();
         var safeReports = lines.Select(line => line.Split(" ").Select(int.Parse).ToList()).Count(levels => IsSafe(levels) || CanBeMadeSafeByRemovingOne(levels));

@@ -6,7 +6,7 @@ namespace Solutions._2015;
 
 public class Day4 : IDay
 {
-    public int Part1(FileStream fileStream)
+    public long Part1(FileStream fileStream)
     {
         var data = fileStream.ReadSingleLine();
         var hasher = new MD5Hasher();
@@ -23,7 +23,7 @@ public class Day4 : IDay
         return -1;
     }
 
-    public int Part2(FileStream fileStream)
+    public long Part2(FileStream fileStream)
     {
         var data = fileStream.ReadSingleLine();
         var hasher = new MD5Hasher();

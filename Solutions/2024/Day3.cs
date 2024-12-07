@@ -9,13 +9,13 @@ public class Day3 : IDay
     private static readonly Regex Part1Regex = new(@"mul\(\d+,\d+\)");
     private static readonly Regex Part2Regex = new(@"mul\(\d+,\d+\)|do\(\)|don't\(\)");
 
-    public int Part1(FileStream fileStream)
+    public long Part1(FileStream fileStream)
     {
         var result = ProcessLines(fileStream, Part1Regex, true);
         return result;
     }
 
-    public int Part2(FileStream fileStream)
+    public long Part2(FileStream fileStream)
     {
         var result = ProcessLines(fileStream, Part2Regex, false);
         return result;

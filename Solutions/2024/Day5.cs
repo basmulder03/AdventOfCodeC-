@@ -5,7 +5,7 @@ namespace Solutions._2024;
 
 public class Day5 : IDay
 {
-    public int Part1(FileStream fileStream)
+    public long Part1(FileStream fileStream)
     {
         var lines = fileStream.ReadLines();
         var (orderingRules, rulePages) = Parse(lines);        
@@ -19,7 +19,7 @@ public class Day5 : IDay
         return correctUpdatesCounter;
     }
 
-    public int Part2(FileStream fileStream)
+    public long Part2(FileStream fileStream)
     {
         var lines = fileStream.ReadLines();
         var (orderingRules, rulePages) = Parse(lines);

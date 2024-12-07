@@ -5,7 +5,7 @@ namespace Solutions._2024;
 
 public class Day1 : IDay
 {
-    public int Part1(FileStream fileStream)
+    public long Part1(FileStream fileStream)
     {
         var lines = fileStream.ReadLines();
         var listA = new List<int>();
@@ -25,7 +25,7 @@ public class Day1 : IDay
         return result;
     }
 
-    public int Part2(FileStream fileStream)
+    public long Part2(FileStream fileStream)
     {
         var lines = fileStream.ReadLines();
         var listA = new List<int>();

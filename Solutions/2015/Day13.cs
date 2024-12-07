@@ -6,13 +6,13 @@ namespace Solutions._2015;
 
 public class Day13 : IDay
 {
-    public int Part1(FileStream fileStream)
+    public long Part1(FileStream fileStream)
     {
         var happiness = ParseInput(fileStream);
         return CalculateMaxHappiness(happiness);
     }
 
-    public int Part2(FileStream fileStream)
+    public long Part2(FileStream fileStream)
     {
         var happiness = ParseInput(fileStream);
         AddSelfToHappiness(happiness);

@@ -10,13 +10,13 @@ namespace Solutions._2015;
 
 public class Day12 : IDay
 {
-    public int Part1(FileStream fileStream)
+    public long Part1(FileStream fileStream)
     {
         var json = fileStream.ReadSingleLine();
         return json.GetInts().Sum();
     }
 
-    public int Part2(FileStream fileStream)
+    public long Part2(FileStream fileStream)
     {
         var jsonString = fileStream.ReadSingleLine();
         var json = JToken.Parse(jsonString);

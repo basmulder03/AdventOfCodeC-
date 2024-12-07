@@ -5,7 +5,7 @@ namespace Solutions._2015;
 
 public class Day2 : IDay
 {
-    public int Part1(FileStream fileStream)
+    public long Part1(FileStream fileStream)
     {
         var lines = fileStream.ReadLines();
 
@@ -22,7 +22,7 @@ public class Day2 : IDay
             select 2 * lw + 2 * wh + 2 * hl + smallest).Sum();
     }
 
-    public int Part2(FileStream fileStream)
+    public long Part2(FileStream fileStream)
     {
         var lines = fileStream.ReadLines();
         var total = (from line in lines

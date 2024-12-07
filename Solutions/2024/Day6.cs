@@ -7,7 +7,7 @@ namespace Solutions._2024;
 
 public class Day6 : IDay
 {
-    public int Part1(FileStream fileStream)
+    public long Part1(FileStream fileStream)
     {
         var lines = fileStream.ReadLines();
         var grid = ParseInput(lines);
@@ -38,7 +38,7 @@ public class Day6 : IDay
         return grid.Rows.SelectMany(row => row).Count(node => node.Value!.IsVisited);
     }
 
-    public int Part2(FileStream fileStream)
+    public long Part2(FileStream fileStream)
     {
         var lines = fileStream.ReadLines();
         var grid = ParseInput(lines);

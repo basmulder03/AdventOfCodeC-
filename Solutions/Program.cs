@@ -2,7 +2,7 @@
 using Solutions._2024;
 
 // Run current day
-await new Year2024().RunDay(6);
+await new Year2024().RunDay(7);
 
 // 2015
 // new Year2015().RunAll();

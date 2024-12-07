@@ -5,14 +5,14 @@ namespace Solutions._2015;
 
 public class Day11 : IDay
 {
-    public int Part1(FileStream fileStream)
+    public long Part1(FileStream fileStream)
     {
         var currentPassword = fileStream.ReadSingleLine();
         Console.Write(GetNextValidPassword(currentPassword));
         return 0;
     }
 
-    public int Part2(FileStream fileStream)
+    public long Part2(FileStream fileStream)
     {
         var currentPassword = fileStream.ReadSingleLine();
         Console.Write(GetNextValidPassword(IncrementPassword(GetNextValidPassword(currentPassword))));

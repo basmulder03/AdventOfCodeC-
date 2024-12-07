@@ -7,7 +7,7 @@ namespace Solutions._2024;
 
 public class Day4 : IDay
 {
-    public int Part1(FileStream fileStream)
+    public long Part1(FileStream fileStream)
     {
         var grid = Parse(fileStream.ReadLines());
 
@@ -18,7 +18,7 @@ public class Day4 : IDay
             select FindXmas(column)).Sum();
     }
 
-    public int Part2(FileStream fileStream)
+    public long Part2(FileStream fileStream)
     {
         var grid = Parse(fileStream.ReadLines());
         return (from row in grid.Rows from cell in row where cell.HasValue && cell.Value == 'A' select FindXMas(cell)).Sum();
