@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Core.DataStructures;
 
-public class Grid<T> : ICloneable
+public class Grid<T> : ICloneable, IEqualityComparer
 {
     private readonly GridCell<T>[][] _grid;
 
@@ -130,4 +130,41 @@ public class Grid<T> : ICloneable
         }
         return new Grid<T>(data);
     }
+
+    public new bool Equals(object? a, object? b)
+    {
+        if (a == null || b == null)
+        {
+            return a == b;
+        }
+        
+        var grid1 = (Grid<T>)a;
+        var grid2 = (Grid<T>)b;
+        
+        if (grid1.Width != grid2.Width || grid1.Height != grid2.Height)
+        {
+            return false;
+        }
+        
+        for (var y = 0; y < Height; y++)
+        {
+            for (var x = 0; x < Width; x++)
+            {
+                if (!grid1.Get(x, y).Equals(grid2.Get(x, y)))
+                {
+                    return false;
+                }
+            }
+        }
+        
+        return true;
+    }
+
+    public int GetHashCode(object obj)
+    {
+        return obj.GetHashCode();
+    }
+    
+    public static bool operator ==(Grid<T> a, Grid<T> b) => a.Equals(b);
+    public static bool operator !=(Grid<T> a, Grid<T> b) => !a.Equals(b);
 }

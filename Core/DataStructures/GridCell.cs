@@ -79,4 +79,7 @@ public class GridCell<T>(Grid<T> parent, T? value, int x, int y) : ICloneable, I
     {
         return x >= 0 && x < parent.Width && y >= 0 && y < parent.Height;
     }
+    
+    public static bool operator ==(GridCell<T> a, GridCell<T> b) => a.Equals(b);
+    public static bool operator !=(GridCell<T> a, GridCell<T> b) => !a.Equals(b);
 }
