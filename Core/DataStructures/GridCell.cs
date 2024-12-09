@@ -14,22 +14,6 @@ public class GridCell<T>(Grid<T> parent, T? value, int x, int y) : ICloneable, I
     public bool HasValue => IsValidCoordinate(X, Y) && Value != null;
     public bool IsEmpty => !HasValue;
 
-    private GridCell<T> GetNeighbor(GridDirection direction)
-    {
-        var (dx, dy) = direction.GetDirection();
-        var newX = X + dx;
-        var newY = Y + dy;
-        return !IsValidCoordinate(newX, newY) ? new GridCell<T>(parent, default, X, Y) : parent[newX, newY];
-    }
-
-    public GridCell<T> Move(int xDiff, int yDiff)
-    {
-        var newX = X + xDiff;
-        var newY = Y + yDiff;
-
-        return !IsValidCoordinate(newX, newY) ? new GridCell<T>(parent, default, newX, newY) : parent[newX, newY];
-    }
-
     public GridCell<T> Up => GetNeighbor(GridDirection.Up);
     public GridCell<T> Down => GetNeighbor(GridDirection.Down);
     public GridCell<T> Left => GetNeighbor(GridDirection.Left);
@@ -56,12 +40,6 @@ public class GridCell<T>(Grid<T> parent, T? value, int x, int y) : ICloneable, I
         return Clone(parent);
     }
 
-    public object Clone(Grid<T> newParent)
-    {
-        var val = Value is ICloneable cloneable ? (T)cloneable.Clone() : Value;
-        return new GridCell<T>(newParent, Value != null ? val : default, X, Y);
-    }
-
     public new bool Equals(object? x, object? y)
     {
         return x is GridCell<T> cellX && y is GridCell<T> cellY && cellX.X == cellY.X && cellX.Y == cellY.Y
@@ -74,12 +52,46 @@ public class GridCell<T>(Grid<T> parent, T? value, int x, int y) : ICloneable, I
         var valueHashCode = cell.Value?.GetHashCode() ?? -1;
         return cell.X ^ cell.Y ^ valueHashCode;
     }
-    
+
+    private static GridCell<T> Empty(Grid<T> parent, int x, int y)
+    {
+        return new GridCell<T>(parent, default, x, y);
+    }
+
+    private GridCell<T> GetNeighbor(GridDirection direction)
+    {
+        var (dx, dy) = direction.GetDirection();
+        var newX = X + dx;
+        var newY = Y + dy;
+        return !IsValidCoordinate(newX, newY) ? Empty(parent, newX, newY) : parent[newX, newY];
+    }
+
+    public GridCell<T> Move(int xDiff, int yDiff)
+    {
+        var newX = X + xDiff;
+        var newY = Y + yDiff;
+
+        return !IsValidCoordinate(newX, newY) ? Empty(parent, newX, newY) : parent[newX, newY];
+    }
+
+    public object Clone(Grid<T> newParent)
+    {
+        var val = Value is ICloneable cloneable ? (T)cloneable.Clone() : Value;
+        return new GridCell<T>(newParent, Value != null ? val : default, X, Y);
+    }
+
     private bool IsValidCoordinate(int x, int y)
     {
         return x >= 0 && x < parent.Width && y >= 0 && y < parent.Height;
     }
-    
-    public static bool operator ==(GridCell<T> a, GridCell<T> b) => a.Equals(b);
-    public static bool operator !=(GridCell<T> a, GridCell<T> b) => !a.Equals(b);
+
+    public static bool operator ==(GridCell<T> a, GridCell<T> b)
+    {
+        return a.Equals(b);
+    }
+
+    public static bool operator !=(GridCell<T> a, GridCell<T> b)
+    {
+        return !a.Equals(b);
+    }
 }

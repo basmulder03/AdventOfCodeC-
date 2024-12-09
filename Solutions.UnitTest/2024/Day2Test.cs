@@ -15,7 +15,7 @@ public class Day2Test
         var result = day.Part1(data);
         result.ShouldBe(1);
     }
-    
+
     [TestMethod]
     public void Part1Test2()
     {
@@ -24,7 +24,7 @@ public class Day2Test
         var result = day.Part1(data);
         result.ShouldBe(0);
     }
-    
+
     [TestMethod]
     public void Part1Test3()
     {
@@ -33,7 +33,7 @@ public class Day2Test
         var result = day.Part1(data);
         result.ShouldBe(0);
     }
-    
+
     [TestMethod]
     public void Part1Test4()
     {
@@ -42,7 +42,7 @@ public class Day2Test
         var result = day.Part1(data);
         result.ShouldBe(0);
     }
-    
+
     [TestMethod]
     public void Part1Test5()
     {
@@ -51,7 +51,7 @@ public class Day2Test
         var result = day.Part1(data);
         result.ShouldBe(0);
     }
-    
+
     [TestMethod]
     public void Part1Test6()
     {
@@ -69,7 +69,7 @@ public class Day2Test
         var result = day.Part2(data);
         result.ShouldBe(1);
     }
-    
+
     [TestMethod]
     public void Part2Test2()
     {
@@ -78,7 +78,7 @@ public class Day2Test
         var result = day.Part2(data);
         result.ShouldBe(0);
     }
-    
+
     [TestMethod]
     public void Part2Test3()
     {
@@ -87,7 +87,7 @@ public class Day2Test
         var result = day.Part2(data);
         result.ShouldBe(0);
     }
-    
+
     [TestMethod]
     public void Part2Test4()
     {
@@ -96,7 +96,7 @@ public class Day2Test
         var result = day.Part2(data);
         result.ShouldBe(1);
     }
-    
+
     [TestMethod]
     public void Part2Test5()
     {
@@ -105,7 +105,7 @@ public class Day2Test
         var result = day.Part2(data);
         result.ShouldBe(1);
     }
-    
+
     [TestMethod]
     public void Part2Test6()
     {

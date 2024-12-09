@@ -10,13 +10,13 @@ public class Day1 : IDay
         var lines = fileStream.ReadLines();
         var listA = new List<int>();
         var listB = new List<int>();
-        
+
         foreach (var split in lines.Select(line => line.Split("   ")))
         {
             listA.Add(int.Parse(split[0]));
             listB.Add(int.Parse(split[1]));
         }
-        
+
         listA = listA.OrderBy(x => x).ToList();
         listB = listB.OrderBy(x => x).ToList();
 
@@ -30,26 +30,22 @@ public class Day1 : IDay
         var lines = fileStream.ReadLines();
         var listA = new List<int>();
         var listB = new List<int>();
-        
+
         foreach (var split in lines.Select(line => line.Split("   ")))
         {
             listA.Add(int.Parse(split[0]));
             listB.Add(int.Parse(split[1]));
         }
-        
+
         listA = listA.OrderBy(x => x).ToList();
-        
+
         var listBGroup = listB.GroupBy(x => x).ToDictionary(x => x.Key, x => x.Count());
 
         var result = 0;
         foreach (var t in listA)
         {
-            
-            if (!listBGroup.TryGetValue(t, out var group))
-            {
-                continue;
-            }
-            
+            if (!listBGroup.TryGetValue(t, out var group)) continue;
+
             result += t * group;
         }
 

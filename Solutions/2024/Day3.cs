@@ -27,10 +27,13 @@ public class Day3 : IDay
         var result = 0;
         var enabled = true;
 
-        foreach (var matchValue in from line in lines select regex.Matches(line) into matches from Match match in matches select match.Value)
+        foreach (var matchValue in from line in lines
+                 select regex.Matches(line)
+                 into matches
+                 from Match match in matches
+                 select match.Value)
         {
             if (!alwaysEnabled)
-            {
                 switch (matchValue)
                 {
                     case "do()":
@@ -40,7 +43,6 @@ public class Day3 : IDay
                         enabled = false;
                         continue;
                 }
-            }
 
             if (!enabled) continue;
             var numbers = matchValue[4..^1].Split(",");

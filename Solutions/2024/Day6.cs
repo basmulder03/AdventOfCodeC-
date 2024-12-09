@@ -11,7 +11,7 @@ public class Day6 : IDay
     {
         var lines = fileStream.ReadLines();
         var grid = ParseInput(lines);
-        var currentCell = grid.First(node => node.IsVisited);
+        var currentCell = grid.First(node => node.Value!.IsVisited);
 
         var currentDirection = GridDirection.Up;
         while (currentCell.HasValue)
@@ -24,10 +24,7 @@ public class Day6 : IDay
                 nextCell = currentCell[nextDirection];
             }
 
-            if (!nextCell.HasValue)
-            {
-                break;
-            }
+            if (!nextCell.HasValue) break;
 
             nextCell.Value!.IsVisited = true;
             nextCell.Value!.Directions.Add(nextDirection);
@@ -49,14 +46,11 @@ public class Day6 : IDay
         {
             var clonedGrid = (Grid<Node>)grid.Clone();
             var currentCellToBlock = clonedGrid[visitedCell.X, visitedCell.Y];
-            if (!currentCellToBlock.HasValue || currentCellToBlock.Value!.IsBlocked)
-            {
-                continue;
-            }
+            if (!currentCellToBlock.HasValue || currentCellToBlock.Value!.IsBlocked) continue;
 
             currentCellToBlock.Value!.IsBlocked = true;
 
-            var currentCell = clonedGrid.First(node => node.IsStartingNode);
+            var currentCell = clonedGrid.First(node => node.Value!.IsStartingNode);
             var currentDirection = GridDirection.Up;
             while (currentCell.HasValue)
             {
@@ -69,10 +63,7 @@ public class Day6 : IDay
                     nextCell = currentCell[nextDirection];
                 }
 
-                if (nextCell.IsEmpty)
-                {
-                    break;
-                }
+                if (nextCell.IsEmpty) break;
 
                 if (nextCell.HasValue && nextCell.Value!.IsVisited &&
                     nextCell.Value!.Directions.Contains(nextDirection))
@@ -104,10 +95,7 @@ public class Day6 : IDay
                     IsBlocked = charArray[i] == '#', IsVisited = charArray[i] == '^',
                     IsStartingNode = charArray[i] == '^'
                 };
-                if (nodes[i].IsStartingNode)
-                {
-                    nodes[i].Directions.Add(GridDirection.Up);
-                }
+                if (nodes[i].IsStartingNode) nodes[i].Directions.Add(GridDirection.Up);
             }
 
             return nodes;
@@ -116,7 +104,7 @@ public class Day6 : IDay
 
     private static IEnumerable<GridCell<Node>> GetNormalRoute(Grid<Node> grid)
     {
-        var currentCell = grid.First(node => node.IsVisited);
+        var currentCell = grid.First(node => node.Value!.IsVisited);
         var currentDirection = GridDirection.Up;
         while (currentCell.HasValue)
         {
@@ -128,10 +116,7 @@ public class Day6 : IDay
                 nextCell = currentCell[nextDirection];
             }
 
-            if (!nextCell.HasValue)
-            {
-                break;
-            }
+            if (!nextCell.HasValue) break;
 
             nextCell.Value!.IsVisited = true;
             nextCell.Value!.Directions.Add(nextDirection);
@@ -139,7 +124,7 @@ public class Day6 : IDay
             currentDirection = nextDirection;
         }
 
-        return grid.Where(node => node.IsVisited);
+        return grid.Where(node => node.Value!.IsVisited);
     }
 
     private class Node : ICloneable
@@ -153,10 +138,7 @@ public class Day6 : IDay
         {
             var clone = (Node)MemberwiseClone();
             clone.Directions = [];
-            if (clone.IsStartingNode)
-            {
-                clone.Directions.Add(GridDirection.Up);
-            }
+            if (clone.IsStartingNode) clone.Directions.Add(GridDirection.Up);
 
             return clone;
         }

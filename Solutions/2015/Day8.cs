@@ -18,10 +18,10 @@ public class Day8 : IDay
     {
         var lines = fileStream.ReadLines();
         return lines.Select(s => new
-        {
-            Original = s,
-            Escaped = "\"" + s.Replace("\\", "\\\\").Replace("\"", "\\\"") + "\""
-        })
-        .Sum(s => s.Escaped.Length - s.Original.Length);
+            {
+                Original = s,
+                Escaped = "\"" + s.Replace("\\", "\\\\").Replace("\"", "\\\"") + "\""
+            })
+            .Sum(s => s.Escaped.Length - s.Original.Length);
     }
 }

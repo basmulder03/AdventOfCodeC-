@@ -23,14 +23,10 @@ public class Day14 : IDay
             var distances = reindeer.ToDictionary(r => r.Key, r => CalculateDistance(r.Value, i));
             var maxDistance = distances.Values.Max();
             foreach (var (name, distance) in distances)
-            {
                 if (distance == maxDistance)
-                {
                     scores[name] = scores.GetValueOrDefault(name) + 1;
-                }
-            }
         }
-        
+
         return scores.Values.Max();
     }
 
@@ -66,23 +62,17 @@ public class Day14 : IDay
             var timeToFly = flyTime.ButNotGreaterThan(timeLeft);
             distance += speed * timeToFly;
             currentTime += timeToFly;
-            
+
             // Break if time is up
-            if (currentTime >= time)
-            {
-                break;
-            }
-            
+            if (currentTime >= time) break;
+
             // Rest
             timeLeft = time - currentTime;
             var timeToRest = restTime.ButNotGreaterThan(timeLeft);
             currentTime += timeToRest;
-            
+
             // Break if time is up
-            if (currentTime >= time)
-            {
-                break;
-            }
+            if (currentTime >= time) break;
         }
 
         return distance;

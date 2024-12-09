@@ -10,14 +10,11 @@ public class Day4 : IDay
     {
         var data = fileStream.ReadSingleLine();
         var hasher = new MD5Hasher();
-        
+
         for (var i = 0; i < int.MaxValue; i++)
         {
             var hash = hasher.Hash($"{data}{i}");
-            if (hash.StartsWith("00000"))
-            {
-                return i;
-            }
+            if (hash.StartsWith("00000")) return i;
         }
 
         return -1;
@@ -27,14 +24,11 @@ public class Day4 : IDay
     {
         var data = fileStream.ReadSingleLine();
         var hasher = new MD5Hasher();
-        
+
         for (var i = 0; i < int.MaxValue; i++)
         {
             var hash = hasher.Hash($"{data}{i}");
-            if (hash.StartsWith("000000"))
-            {
-                return i;
-            }
+            if (hash.StartsWith("000000")) return i;
         }
 
         return -1;

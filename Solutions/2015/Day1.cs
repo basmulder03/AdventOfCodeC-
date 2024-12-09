@@ -10,7 +10,6 @@ public class Day1 : IDay
         var chars = fileStream.ReadSingleLineAsChars();
         var floor = 0;
         foreach (var c in chars)
-        {
             switch (c)
             {
                 case '(':
@@ -20,7 +19,6 @@ public class Day1 : IDay
                     floor--;
                     break;
             }
-        }
 
         return floor;
     }
@@ -41,10 +39,7 @@ public class Day1 : IDay
                     break;
             }
 
-            if (floor == -1)
-            {
-                return i + 1;
-            }
+            if (floor == -1) return i + 1;
         }
 
         return -1;

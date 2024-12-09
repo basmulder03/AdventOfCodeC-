@@ -14,7 +14,7 @@
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0"/>
         <PackageReference Include="MSTest.TestAdapter" Version="3.1.1"/>
         <PackageReference Include="MSTest.TestFramework" Version="3.1.1"/>
-        <PackageReference Include="Shouldly" Version="4.2.1" />
+        <PackageReference Include="Shouldly" Version="4.2.1"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -22,9 +22,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Core.UnitTest\Core.UnitTest.csproj" />
-      <ProjectReference Include="..\Core\Core.csproj" />
-      <ProjectReference Include="..\Solutions\Solutions.csproj" />
+        <ProjectReference Include="..\Core.UnitTest\Core.UnitTest.csproj"/>
+        <ProjectReference Include="..\Core\Core.csproj"/>
+        <ProjectReference Include="..\Solutions\Solutions.csproj"/>
     </ItemGroup>
 
 </Project>

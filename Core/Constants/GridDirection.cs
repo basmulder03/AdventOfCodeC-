@@ -25,23 +25,23 @@ public static class GridDirectionsHelper
         GridDirection.DownLeft,
         GridDirection.DownRight
     ];
-    
-    public static GridDirection[] CardinalDirections = new GridDirection[]
+
+    public static GridDirection[] CardinalDirections = new[]
     {
         GridDirection.Up,
         GridDirection.Down,
         GridDirection.Left,
         GridDirection.Right
     };
-    
-    public static GridDirection[] DiagonalDirections = new GridDirection[]
+
+    public static GridDirection[] DiagonalDirections = new[]
     {
         GridDirection.UpLeft,
         GridDirection.UpRight,
         GridDirection.DownLeft,
         GridDirection.DownRight
     };
-    
+
     public static (int x, int y) GetDirection(this GridDirection direction)
     {
         return direction switch
@@ -73,7 +73,7 @@ public static class GridDirectionsHelper
             _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
         };
     }
-    
+
     public static GridDirection Rotate90DegreesClockwise(this GridDirection direction)
     {
         return direction switch
@@ -89,7 +89,7 @@ public static class GridDirectionsHelper
             _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
         };
     }
-    
+
     public static GridDirection Rotate90DegreesCounterClockwise(this GridDirection direction)
     {
         return direction switch
@@ -105,7 +105,7 @@ public static class GridDirectionsHelper
             _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
         };
     }
-    
+
     public static GridDirection Rotate45DegreesClockwise(this GridDirection direction)
     {
         return direction switch
@@ -121,7 +121,7 @@ public static class GridDirectionsHelper
             _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
         };
     }
-    
+
     public static GridDirection Rotate45DegreesCounterClockwise(this GridDirection direction)
     {
         return direction switch

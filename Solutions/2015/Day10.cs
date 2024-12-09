@@ -43,11 +43,11 @@ public class Day10 : IDay
                 lastChar = c;
                 count = 1;
             }
-        
+
             result.Append($"{count}{lastChar}");
             split = result.ToString().ToCharArray();
         }
-        
+
         return result.Length;
     }
 }

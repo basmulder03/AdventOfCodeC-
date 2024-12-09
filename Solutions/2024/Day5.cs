@@ -8,12 +8,12 @@ public class Day5 : IDay
     public long Part1(FileStream fileStream)
     {
         var lines = fileStream.ReadLines();
-        var (orderingRules, rulePages) = Parse(lines);        
+        var (orderingRules, rulePages) = Parse(lines);
 
-        var correctUpdatesCounter = 
-            (from rulePage in rulePages 
-                where IsValidOrdering(orderingRules, rulePage) 
-                let centerIndex = (int)Math.Ceiling(rulePage.Count / 2.0) - 1 
+        var correctUpdatesCounter =
+            (from rulePage in rulePages
+                where IsValidOrdering(orderingRules, rulePage)
+                let centerIndex = (int)Math.Ceiling(rulePage.Count / 2.0) - 1
                 select rulePage[centerIndex]).Sum();
 
         return correctUpdatesCounter;
@@ -25,13 +25,13 @@ public class Day5 : IDay
         var (orderingRules, rulePages) = Parse(lines);
 
         var resultCounter = (
-            from rulePage in rulePages 
-            select rulePage.ToList() 
+            from rulePage in rulePages
+            select rulePage.ToList()
             into page
-            where !IsValidOrdering(orderingRules, page) 
-            select CorrectOrder(orderingRules, page) 
-            into page 
-            let centerIndex = (int)Math.Ceiling(page.Count / 2.0) - 1 
+            where !IsValidOrdering(orderingRules, page)
+            select CorrectOrder(orderingRules, page)
+            into page
+            let centerIndex = (int)Math.Ceiling(page.Count / 2.0) - 1
             select page[centerIndex]).Sum();
 
         return resultCounter;
@@ -42,7 +42,7 @@ public class Day5 : IDay
         var orderingRules = new Dictionary<int, List<int>>();
         var rulePages = new List<List<int>>();
         var parsePages = false;
-        
+
         foreach (var line in lines)
         {
             if (string.IsNullOrEmpty(line))
@@ -69,20 +69,18 @@ public class Day5 : IDay
                 rulePages.Add(line.Split(',').Select(int.Parse).ToList());
             }
         }
-        
+
         return (orderingRules, rulePages);
     }
-    
+
     private static bool IsValidOrdering(Dictionary<int, List<int>> orderingRules, List<int> rulePage)
     {
         var visitedPages = new HashSet<int>();
         foreach (var update in rulePage)
         {
             visitedPages.Add(update);
-            if (orderingRules.TryGetValue(update, out var mustBeBefore) && mustBeBefore.Any(visitedPages.Contains))
-            {
-                return false;
-            }
+            if (orderingRules.TryGetValue(update, out var mustBeBefore) &&
+                mustBeBefore.Any(visitedPages.Contains)) return false;
         }
 
         return true;
@@ -105,6 +103,7 @@ public class Day5 : IDay
                 correctOrder.Add(update);
             }
         }
+
         return correctOrder;
     }
 }

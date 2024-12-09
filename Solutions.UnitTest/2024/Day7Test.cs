@@ -7,7 +7,6 @@ namespace Solutions.UnitTest._2024;
 [TestClass]
 public class Day7Test
 {
-    
     [TestMethod]
     public void Part1Test1()
     {
@@ -26,6 +25,7 @@ public class Day7Test
         var result = day.Part1(data);
         result.ShouldBe(3749);
     }
+
     [TestMethod]
     public void Part2Test1()
     {

@@ -5,7 +5,7 @@ namespace Core.InputDownloader;
 public static class DownloadInput
 {
     /// <summary>
-    /// Downloads the input for the specified year and day and writes it to the specified file.
+    ///     Downloads the input for the specified year and day and writes it to the specified file.
     /// </summary>
     /// <param name="year">The year to retrieve the data for.</param>
     /// <param name="day">The day to retrieve the data for.</param>
@@ -17,7 +17,7 @@ public static class DownloadInput
             Console.WriteLine("Input already exists.");
             return;
         }
-        
+
         var token = TokenHelper.GetToken();
         if (token == null)
         {
@@ -28,14 +28,15 @@ public static class DownloadInput
 
         var client = new HttpClient();
         client.DefaultRequestHeaders.Add("Cookie", $"session={token}");
-        client.DefaultRequestHeaders.Add("User-Agent", "AdventOfCode-PuzzleInputLoader/1.0 (https://github.com/basmulder03/AdventOfCodeC-; by basmulder03)");
+        client.DefaultRequestHeaders.Add("User-Agent",
+            "AdventOfCode-PuzzleInputLoader/1.0 (https://github.com/basmulder03/AdventOfCodeC-; by basmulder03)");
         var response = await client.GetAsync($"https://adventofcode.com/{year}/day/{day}/input");
         if (response.IsSuccessStatusCode)
         {
             WriteInputToFile(await response.Content.ReadAsStringAsync(), pathToWriteInputTo);
             return;
         }
-        
+
         // If the token is invalid, request a new one and try again
         if (response.StatusCode == HttpStatusCode.BadRequest)
         {
@@ -51,16 +52,16 @@ public static class DownloadInput
                 return;
             }
         }
-        
+
         Console.WriteLine("Failed to download input.");
         Console.WriteLine(response.StatusCode);
     }
-    
+
     private static void WriteInputToFile(string input, string pathToWriteInputTo)
     {
         File.WriteAllText(pathToWriteInputTo, input);
         Console.WriteLine("Input downloaded and written to file.");
-        
+
         // Show the input in the console
         Console.WriteLine(input);
     }

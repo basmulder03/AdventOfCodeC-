@@ -1,4 +1,6 @@
-﻿namespace Core.DataHelper;
+﻿using System.Reflection;
+
+namespace Core.DataHelper;
 
 public static class ReadFile
 {
@@ -6,20 +8,17 @@ public static class ReadFile
     {
         using var reader = new StreamReader(fileStream);
         var lines = new List<string>();
-        while (!reader.EndOfStream)
-        {
-            lines.Add(reader.ReadLine());
-        }
+        while (!reader.EndOfStream) lines.Add(reader.ReadLine());
 
         return lines;
     }
-    
+
     public static string ReadSingleLine(this FileStream fileStream)
     {
         using var reader = new StreamReader(fileStream);
         return reader.ReadLine() ?? string.Empty;
     }
-    
+
     public static List<char> ReadSingleLineAsChars(this FileStream fileStream)
     {
         var line = fileStream.ReadSingleLine();
@@ -40,7 +39,7 @@ public static class ReadFile
 
     public static FileStream GetFileStream(string path)
     {
-        var callerPath = Path.GetDirectoryName(System.Reflection.Assembly.GetCallingAssembly().Location);
+        var callerPath = Path.GetDirectoryName(Assembly.GetCallingAssembly().Location);
         var fullPath = Path.Combine(callerPath, path);
         return new FileStream(fullPath, FileMode.Open, FileAccess.Read);
     }

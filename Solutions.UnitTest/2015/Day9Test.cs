@@ -19,7 +19,7 @@ public class Day9Test
         var result = day.Part1(data);
         result.ShouldBe(605);
     }
-    
+
     [TestMethod]
     public void Part2Test1()
     {

@@ -1,9 +1,6 @@
-﻿using System.Text.Json;
-using System.Text.Json.Nodes;
-using Core;
+﻿using Core;
 using Core.DataHelper;
 using Core.StringHelpers;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Solutions._2015;
@@ -25,10 +22,9 @@ public class Day12 : IDay
 
     private static int GetSum(JToken json)
     {
-        if (json.Type == JTokenType.Object && !json.Children<JProperty>().Any(p => p.Value.Type == JTokenType.String && p.Value.ToString() == "red"))
-        {
+        if (json.Type == JTokenType.Object && !json.Children<JProperty>()
+                .Any(p => p.Value.Type == JTokenType.String && p.Value.ToString() == "red"))
             return json.Children<JProperty>().Sum(p => GetSum(p.Value));
-        }
 
         return json.Type switch
         {

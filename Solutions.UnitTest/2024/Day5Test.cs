@@ -44,7 +44,7 @@ public class Day5Test
         var result = day.Part1(data);
         result.ShouldBe(143);
     }
-    
+
     [TestMethod]
     public void Part2Test1()
     {

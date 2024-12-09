@@ -7,11 +7,11 @@ public class Day7 : IDay
 {
     private readonly Dictionary<string, Func<int, int, int>> _operations = new()
     {
-        {"AND", (a, b) => a & b},
-        {"OR", (a, b) => a | b},
-        {"LSHIFT", (a, b) => a << b},
-        {"RSHIFT", (a, b) => a >> b},
-        {"NOT", (a, _) => ~a}
+        { "AND", (a, b) => a & b },
+        { "OR", (a, b) => a | b },
+        { "LSHIFT", (a, b) => a << b },
+        { "RSHIFT", (a, b) => a >> b },
+        { "NOT", (a, _) => ~a }
     };
 
     public long Part1(FileStream fileStream)
@@ -33,31 +33,23 @@ public class Day7 : IDay
         return FindValue(wireToFind, wires, wiresDict);
     }
 
-    private static (Dictionary<string, string> wiresDict, Dictionary<string, int> wires) ParseInput(FileStream fileStream)
+    private static (Dictionary<string, string> wiresDict, Dictionary<string, int> wires) ParseInput(
+        FileStream fileStream)
     {
         var lines = fileStream.ReadLines().ToList();
         var wiresDict = new Dictionary<string, string>();
         var wires = new Dictionary<string, int>();
 
-        foreach (var parts in lines.Select(s => s.Split(" -> ")))
-        {
-            wiresDict[parts[1]] = parts[0];
-        }
+        foreach (var parts in lines.Select(s => s.Split(" -> "))) wiresDict[parts[1]] = parts[0];
 
         return (wiresDict, wires);
     }
 
     private int FindValue(string key, Dictionary<string, int> wires, Dictionary<string, string> wiresDict)
     {
-        if (int.TryParse(key, out var value))
-        {
-            return value;
-        }
+        if (int.TryParse(key, out var value)) return value;
 
-        if (wires.TryGetValue(key, out var findValue))
-        {
-            return findValue;
-        }
+        if (wires.TryGetValue(key, out var findValue)) return findValue;
 
         var statement = wiresDict[key];
         var parts = statement.Split(" ");

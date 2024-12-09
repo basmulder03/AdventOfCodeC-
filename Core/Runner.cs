@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using Core.DataHelper;
-using Core.InputDownloader;
 
 namespace Core;
 

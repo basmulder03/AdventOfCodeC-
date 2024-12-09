@@ -1,5 +1,4 @@
-﻿using Core.DataHelper;
-using Core.UnitTest;
+﻿using Core.UnitTest;
 using Shouldly;
 using Solutions._2015;
 
@@ -16,7 +15,7 @@ public class Day2Test
         var result = day.Part1(data);
         result.ShouldBe(58);
     }
-    
+
     [TestMethod]
     public void Part1Test2()
     {
@@ -25,7 +24,7 @@ public class Day2Test
         var result = day.Part1(data);
         result.ShouldBe(43);
     }
-    
+
     [TestMethod]
     public void Part2Test1()
     {
@@ -34,7 +33,7 @@ public class Day2Test
         var result = day.Part2(data);
         result.ShouldBe(34);
     }
-    
+
     [TestMethod]
     public void Part2Test2()
     {

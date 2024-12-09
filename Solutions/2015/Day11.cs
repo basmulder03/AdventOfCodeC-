@@ -23,7 +23,6 @@ public class Day11 : IDay
     {
         var passwordArray = password.ToCharArray();
         for (var i = passwordArray.Length - 1; i >= 0; i--)
-        {
             if (passwordArray[i] == 'z')
             {
                 passwordArray[i] = 'a';
@@ -33,7 +32,6 @@ public class Day11 : IDay
                 passwordArray[i]++;
                 break;
             }
-        }
 
         return new string(passwordArray);
     }
@@ -46,10 +44,8 @@ public class Day11 : IDay
             currentPassword = IncrementPassword(currentPassword);
 
             // Check for invalid characters
-            if (currentPassword.Contains('i') || currentPassword.Contains('o') || currentPassword.Contains('l'))
-            {
-                continue;
-            }
+            if (currentPassword.Contains('i') || currentPassword.Contains('o') ||
+                currentPassword.Contains('l')) continue;
 
             // Check for increasing straight of at least three letters
             var hasStraight = false;
@@ -66,10 +62,7 @@ public class Day11 : IDay
             var lastPairIndex = -1;
             for (var i = 0; i < currentPassword.Length - 1; i++)
             {
-                if (i == lastPairIndex)
-                {
-                    continue;
-                }
+                if (i == lastPairIndex) continue;
 
                 if (currentPassword[i] != currentPassword[i + 1]) continue;
                 pairCount++;
@@ -77,10 +70,7 @@ public class Day11 : IDay
                 lastPairIndex = i;
             }
 
-            if (hasStraight && pairCount >= 2)
-            {
-                return currentPassword;
-            }
+            if (hasStraight && pairCount >= 2) return currentPassword;
         }
     }
 }

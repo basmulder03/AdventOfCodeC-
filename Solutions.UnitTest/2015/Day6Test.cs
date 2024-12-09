@@ -15,7 +15,7 @@ public class Day6Test
         var result = day.Part1(data);
         result.ShouldBe(1000000);
     }
-    
+
     [TestMethod]
     public void Part1Test2()
     {
@@ -24,7 +24,7 @@ public class Day6Test
         var result = day.Part1(data);
         result.ShouldBe(1000);
     }
-    
+
     [TestMethod]
     public void Part1Test3()
     {
@@ -33,7 +33,7 @@ public class Day6Test
         var result = day.Part1(data);
         result.ShouldBe(0);
     }
-    
+
     [TestMethod]
     public void Part2Test1()
     {
@@ -42,7 +42,7 @@ public class Day6Test
         var result = day.Part2(data);
         result.ShouldBe(1);
     }
-    
+
     [TestMethod]
     public void Part2Test2()
     {

@@ -13,10 +13,7 @@ public class Day2 : IDay
         foreach (var line in lines)
         {
             var levels = line.Split(" ").Select(int.Parse).ToList();
-            if (IsSafe(levels))
-            {
-                safeReports++;
-            }
+            if (IsSafe(levels)) safeReports++;
         }
 
         return safeReports;
@@ -25,7 +22,8 @@ public class Day2 : IDay
     public long Part2(FileStream fileStream)
     {
         var lines = fileStream.ReadLines();
-        var safeReports = lines.Select(line => line.Split(" ").Select(int.Parse).ToList()).Count(levels => IsSafe(levels) || CanBeMadeSafeByRemovingOne(levels));
+        var safeReports = lines.Select(line => line.Split(" ").Select(int.Parse).ToList())
+            .Count(levels => IsSafe(levels) || CanBeMadeSafeByRemovingOne(levels));
 
         return safeReports;
     }
@@ -36,14 +34,10 @@ public class Day2 : IDay
         for (var i = 1; i < levels.Count; i++)
         {
             if ((isIncreasing && levels[i] < levels[i - 1]) || (!isIncreasing && levels[i] > levels[i - 1]))
-            {
                 return false;
-            }
-            if (Math.Abs(levels[i] - levels[i - 1]) > 3 || Math.Abs(levels[i] - levels[i - 1]) < 1)
-            {
-                return false;
-            }
+            if (Math.Abs(levels[i] - levels[i - 1]) > 3 || Math.Abs(levels[i] - levels[i - 1]) < 1) return false;
         }
+
         return true;
     }
 

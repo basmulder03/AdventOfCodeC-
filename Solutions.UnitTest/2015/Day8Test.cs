@@ -15,7 +15,7 @@ public class Day8Test
         var result = day.Part1(data);
         result.ShouldBe(2);
     }
-    
+
     [TestMethod]
     public void Part1Test2()
     {
@@ -24,7 +24,7 @@ public class Day8Test
         var result = day.Part1(data);
         result.ShouldBe(2);
     }
-    
+
     [TestMethod]
     public void Part1Test3()
     {
@@ -33,7 +33,7 @@ public class Day8Test
         var result = day.Part1(data);
         result.ShouldBe(3);
     }
-    
+
     [TestMethod]
     public void Part1Test4()
     {
@@ -42,7 +42,7 @@ public class Day8Test
         var result = day.Part1(data);
         result.ShouldBe(5);
     }
-    
+
     [TestMethod]
     public void Part2Test1()
     {
@@ -51,7 +51,7 @@ public class Day8Test
         var result = day.Part2(data);
         result.ShouldBe(4);
     }
-    
+
     [TestMethod]
     public void Part2Test2()
     {
@@ -60,7 +60,7 @@ public class Day8Test
         var result = day.Part2(data);
         result.ShouldBe(4);
     }
-    
+
     [TestMethod]
     public void Part2Test3()
     {
@@ -69,7 +69,7 @@ public class Day8Test
         var result = day.Part2(data);
         result.ShouldBe(6);
     }
-    
+
     [TestMethod]
     public void Part2Test4()
     {

@@ -1,5 +1,4 @@
-﻿using Core.DataHelper;
-using Core.UnitTest;
+﻿using Core.UnitTest;
 using Shouldly;
 using Solutions._2015;
 
@@ -16,7 +15,7 @@ public class Day1Test
         var result = day.Part1(data);
         result.ShouldBe(0);
     }
-    
+
     [TestMethod]
     public void Part1Test2()
     {
@@ -25,7 +24,7 @@ public class Day1Test
         var result = day.Part1(data);
         result.ShouldBe(0);
     }
-    
+
     [TestMethod]
     public void Part1Test3()
     {
@@ -34,7 +33,7 @@ public class Day1Test
         var result = day.Part1(data);
         result.ShouldBe(3);
     }
-    
+
     [TestMethod]
     public void Part1Test4()
     {
@@ -43,7 +42,7 @@ public class Day1Test
         var result = day.Part1(data);
         result.ShouldBe(3);
     }
-    
+
     [TestMethod]
     public void Part1Test5()
     {
@@ -52,7 +51,7 @@ public class Day1Test
         var result = day.Part1(data);
         result.ShouldBe(3);
     }
-    
+
     [TestMethod]
     public void Part1Test6()
     {
@@ -61,7 +60,7 @@ public class Day1Test
         var result = day.Part1(data);
         result.ShouldBe(-1);
     }
-    
+
     [TestMethod]
     public void Part1Test7()
     {
@@ -70,7 +69,7 @@ public class Day1Test
         var result = day.Part1(data);
         result.ShouldBe(-1);
     }
-    
+
     [TestMethod]
     public void Part1Test8()
     {
@@ -79,7 +78,7 @@ public class Day1Test
         var result = day.Part1(data);
         result.ShouldBe(-3);
     }
-    
+
     [TestMethod]
     public void Part1Test9()
     {
@@ -97,7 +96,7 @@ public class Day1Test
         var result = day.Part2(data);
         result.ShouldBe(1);
     }
-    
+
     [TestMethod]
     public void Part2Test2()
     {

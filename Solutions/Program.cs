@@ -1,5 +1,4 @@
-﻿using Solutions._2015;
-using Solutions._2024;
+﻿using Solutions._2024;
 
 // Run current day
 await new Year2024().RunDay(9);

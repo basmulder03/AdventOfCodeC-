@@ -27,13 +27,11 @@ public class Day7 : IDay
                     newTotals.Add(Mult(totalValue, num));
                     newTotals.Add(Sum(totalValue, num));
                 }
+
                 totals = newTotals;
             }
 
-            if (totals.Contains(sum))
-            {
-                total += sum;
-            }
+            if (totals.Contains(sum)) total += sum;
         }
 
         return total;
@@ -61,21 +59,28 @@ public class Day7 : IDay
                     newTotals.Add(Sum(totalValue, num));
                     newTotals.Add(Combine(totalValue, num));
                 }
+
                 totals = newTotals;
             }
 
-            if (totals.Contains(sum))
-            {
-                total += sum;
-            }
+            if (totals.Contains(sum)) total += sum;
         }
 
         return total;
     }
 
-    private static long Mult(long a, long b) => a * b;
+    private static long Mult(long a, long b)
+    {
+        return a * b;
+    }
 
-    private static long Sum(long a, long b) => a + b;
+    private static long Sum(long a, long b)
+    {
+        return a + b;
+    }
 
-    private static long Combine(long a, long b) => long.Parse($"{a}{b}");
+    private static long Combine(long a, long b)
+    {
+        return long.Parse($"{a}{b}");
+    }
 }
