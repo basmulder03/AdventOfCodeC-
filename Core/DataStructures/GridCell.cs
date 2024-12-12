@@ -94,4 +94,9 @@ public class GridCell<T>(Grid<T> parent, T? value, int x, int y) : ICloneable, I
     {
         return !a.Equals(b);
     }
+
+    public override string ToString()
+    {
+        return $"X: {X}, Y: {Y}, Value: {Value}";
+    }
 }

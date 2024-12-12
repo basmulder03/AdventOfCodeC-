@@ -29,6 +29,7 @@ public class Grid<T> : ICloneable, IEnumerable<GridCell<T>>, IEqualityComparer
         .ToArray();
 
     public GridCell<T> this[int x, int y] => Rows[y][x];
+    public GridCell<T> this[GridCell<T> cell] => Rows[cell.Y][cell.X];
 
     public static Grid<T> Empty => new([]);
 
