@@ -9,9 +9,17 @@ public static class DownloadInput
     /// </summary>
     /// <param name="year">The year to retrieve the data for.</param>
     /// <param name="day">The day to retrieve the data for.</param>
-    /// <param name="pathToWriteInputTo">The path to write the input to.</param>
-    public static async Task ForYear(int year, int day, string pathToWriteInputTo)
+    /// <param name="executionPath">The path the project files are located at.</param>
+    public static async Task ForYear(int year, int day, string executionPath)
     {
+        var pathWithYear = Path.Combine(executionPath, year.ToString(), "Data");
+        if (!Path.Exists(pathWithYear))
+        {
+            Directory.CreateDirectory(pathWithYear);
+        }
+
+        var pathToWriteInputTo = Path.Combine(pathWithYear, $"Day{day}");
+        
         if (Path.Exists(pathToWriteInputTo))
         {
             Console.WriteLine("Input already exists.");
@@ -23,7 +31,7 @@ public static class DownloadInput
         {
             Console.WriteLine("No token found. Please enter your token:");
             token = Console.ReadLine();
-            TokenHelper.SetToken(token);
+            TokenHelper.SetToken(token!);
         }
 
         var client = new HttpClient();
@@ -42,7 +50,7 @@ public static class DownloadInput
         {
             Console.WriteLine("Invalid token. Please enter your token:");
             token = Console.ReadLine();
-            TokenHelper.SetToken(token);
+            TokenHelper.SetToken(token!);
             client.DefaultRequestHeaders.Remove("Cookie");
             client.DefaultRequestHeaders.Add("Cookie", $"session={token}");
             response = await client.GetAsync($"https://adventofcode.com/{year}/day/{day}/input");
@@ -61,8 +69,5 @@ public static class DownloadInput
     {
         File.WriteAllText(pathToWriteInputTo, input);
         Console.WriteLine("Input downloaded and written to file.");
-
-        // Show the input in the console
-        Console.WriteLine(input);
     }
 }
