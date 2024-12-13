@@ -1,5 +1,5 @@
-﻿using Core;
-using Core.DataHelper;
+﻿using Core.DataHelper;
+using Core.Interfaces;
 
 namespace Solutions._2015;
 

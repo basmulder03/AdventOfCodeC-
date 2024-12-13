@@ -1,6 +1,6 @@
-﻿using Core;
-using Core.DataHelper;
+﻿using Core.DataHelper;
 using Core.Hashing;
+using Core.Interfaces;
 
 namespace Solutions._2015;
 

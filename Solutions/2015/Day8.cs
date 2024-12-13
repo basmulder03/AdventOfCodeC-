@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
-using Core;
 using Core.DataHelper;
+using Core.Interfaces;
 
 namespace Solutions._2015;
 
