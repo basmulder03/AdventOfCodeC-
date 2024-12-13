@@ -1,102 +1,203 @@
 ﻿using System.Collections;
 using Core.Constants;
+using Core.Entities;
 
 namespace Core.DataStructures;
 
-public class GridCell<T>(Grid<T> parent, T? value, int x, int y) : ICloneable, IEqualityComparer
+/// <summary>
+/// Represents a single cell in a grid, containing a value and its coordinates.
+/// </summary>
+/// <typeparam name="T"> The type of the value stored in the cell. </typeparam>
+public class GridCell<T> : ICloneable, IEqualityComparer
 {
-    public T? Value { get; set; } = value;
+    private readonly Grid<T> _parent;
+    private readonly Coordinate _coordinate;
 
-    public int X { get; } = x;
+    /// <summary>
+    /// Initializes a new instance of the GridCell class.
+    /// </summary>
+    /// <param name="parent"> The parent grid. </param>
+    /// <param name="value"> The value stored in the cell. </param>
+    /// <param name="x"> The x-coordinate of the cell. </param>
+    /// <param name="y"> The y-coordinate of the cell. </param>
+    public GridCell(Grid<T> parent, T value, int x, int y)
+    {
+        _parent = parent;
+        Value = value;
+        _coordinate = new Coordinate(x, y);
+    }
 
-    public int Y { get; } = y;
+    /// <summary>
+    /// Gets or sets the value of the cell.
+    /// </summary>
+    public T Value { get; set; }
 
-    public bool HasValue => IsValidCoordinate(X, Y) && Value != null;
-    public bool IsEmpty => !HasValue;
+    /// <summary>
+    /// Gets the x-coordinate of the cell.
+    /// </summary>
+    public int X => _coordinate.X;
 
-    public GridCell<T> Up => GetNeighbor(GridDirection.Up);
-    public GridCell<T> Down => GetNeighbor(GridDirection.Down);
-    public GridCell<T> Left => GetNeighbor(GridDirection.Left);
-    public GridCell<T> Right => GetNeighbor(GridDirection.Right);
-    public GridCell<T> UpLeft => GetNeighbor(GridDirection.UpLeft);
-    public GridCell<T> UpRight => GetNeighbor(GridDirection.UpRight);
-    public GridCell<T> DownLeft => GetNeighbor(GridDirection.DownLeft);
-    public GridCell<T> DownRight => GetNeighbor(GridDirection.DownRight);
+    /// <summary>
+    /// Gets the y-coordinate of the cell.
+    /// </summary>
+    public int Y => _coordinate.Y;
 
-    public GridCell<T> this[GridDirection direction] => GetNeighbor(direction);
+    /// <summary>
+    /// Gets the coordinate of the cell.
+    /// </summary>
+    public Coordinate Coordinate => _coordinate;
 
     public GridCell<T>[] AllNeighbors =>
-        new List<GridCell<T>> { Up, Down, Left, Right, UpLeft, UpRight, DownLeft, DownRight }
-            .Where(cell => cell.HasValue).ToArray();
+    [
+        ..CardinalNeighbors,
+        ..DiagonalNeighbors
+    ];
 
     public GridCell<T>[] CardinalNeighbors =>
-        new List<GridCell<T>> { Up, Down, Left, Right }.Where(cell => cell.HasValue).ToArray();
+        new[]
+        {
+            TryMove(GridDirection.Up, out var up) ? up : null,
+            TryMove(GridDirection.Down, out var down) ? down : null,
+            TryMove(GridDirection.Left, out var left) ? left : null,
+            TryMove(GridDirection.Right, out var right) ? right : null
+        }.Where(cell => cell != null).ToArray()!;
 
-    public GridCell<T>[] DiagonalNeighbors => new List<GridCell<T>> { UpLeft, UpRight, DownLeft, DownRight }
-        .Where(cell => cell.HasValue).ToArray();
+    public GridCell<T>[] DiagonalNeighbors =>
+        new[]
+        {
+            TryMove(GridDirection.UpLeft, out var upLeft) ? upLeft : null,
+            TryMove(GridDirection.UpRight, out var upRight) ? upRight : null,
+            TryMove(GridDirection.DownLeft, out var downLeft) ? downLeft : null,
+            TryMove(GridDirection.DownRight, out var downRight) ? downRight : null
+        }.Where(cell => cell != null).ToArray()!;
 
-    public object Clone()
+    /// <summary>
+    /// Gets the neighboring cell based on the specified x and y offsets.
+    /// </summary>
+    /// <param name="dx"> The x-offset. </param>
+    /// <param name="dy"> The y-offset. </param>
+    /// <returns> The neighboring cell. </returns>
+    public GridCell<T> this[int dx, int dy] => Move(dx, dy);
+
+    /// <summary>
+    /// Gets the neighboring cell based on the specified coordinate offset.
+    /// </summary>
+    /// <param name="offset"> The coordinate offset. </param>
+    /// <returns> The neighboring cell. </returns>
+    public GridCell<T> this[Coordinate offset] => Move(offset);
+
+    /// <summary>
+    /// Gets the neighboring cell based on the specified grid direction.
+    /// </summary>
+    /// <param name="direction"> The grid direction. </param>
+    /// <returns> The neighboring cell. </returns>
+    public GridCell<T> this[GridDirection direction] => Move(direction);
+
+    /// <summary>
+    /// Moves to a neighboring cell based on the specified offsets.
+    /// </summary>
+    /// <param name="dx"> The x-offset. </param>
+    /// <param name="dy"> The y-offset. </param>
+    /// <returns> The neighboring cell. </returns>
+    /// <exception cref="IndexOutOfRangeException"> Thrown if the target cell is out of bounds. </exception>
+    public GridCell<T> Move(int dx, int dy)
     {
-        return Clone(parent);
-    }
-
-    public new bool Equals(object? x, object? y)
-    {
-        return x is GridCell<T> cellX && y is GridCell<T> cellY && cellX.X == cellY.X && cellX.Y == cellY.Y
-               && (cellX.Value?.Equals(cellY.Value) ?? cellY.Value == null);
-    }
-
-    public int GetHashCode(object obj)
-    {
-        if (obj is not GridCell<T> cell) return 0;
-        var valueHashCode = cell.Value?.GetHashCode() ?? -1;
-        return cell.X ^ cell.Y ^ valueHashCode;
-    }
-
-    private static GridCell<T> Empty(Grid<T> parent, int x, int y)
-    {
-        return new GridCell<T>(parent, default, x, y);
-    }
-
-    private GridCell<T> GetNeighbor(GridDirection direction)
-    {
-        var (dx, dy) = direction.GetDirection();
         var newX = X + dx;
         var newY = Y + dy;
-        return !IsValidCoordinate(newX, newY) ? Empty(parent, newX, newY) : parent[newX, newY];
+        return _parent.IsValidCoordinate(newX, newY) ? _parent[newX, newY] : throw new IndexOutOfRangeException();
     }
 
-    public GridCell<T> Move(int xDiff, int yDiff)
+    /// <summary>
+    /// Moves to a neighboring cell based on the specified coordinate offset.
+    /// </summary>
+    /// <param name="offset"> The coordinate offset. </param>
+    /// <returns> The neighboring cell. </returns>
+    public GridCell<T> Move(Coordinate offset)
     {
-        var newX = X + xDiff;
-        var newY = Y + yDiff;
-
-        return !IsValidCoordinate(newX, newY) ? Empty(parent, newX, newY) : parent[newX, newY];
+        return Move(offset.X, offset.Y);
     }
 
-    public object Clone(Grid<T> newParent)
+    /// <summary>
+    /// Moves to a neighboring cell based on the specified grid direction.
+    /// </summary>
+    /// <param name="direction"> The grid direction. </param>
+    /// <returns> The neighboring cell. </returns>
+    public GridCell<T> Move(GridDirection direction)
     {
-        var val = Value is ICloneable cloneable ? (T)cloneable.Clone() : Value;
-        return new GridCell<T>(newParent, Value != null ? val : default, X, Y);
+        return Move(direction.GetDirectionOffset());
     }
 
-    private bool IsValidCoordinate(int x, int y)
+    /// <summary>
+    /// Attempts to move to a neighboring cell based on the specified offsets.
+    /// </summary>
+    /// <param name="dx"> The x-offset. </param>
+    /// <param name="dy"> The y-offset. </param>
+    /// <param name="neighbor"> The neighboring cell if the move is successful. </param>
+    /// <returns> True if the move is successful; otherwise, false. </returns>
+    public bool TryMove(int dx, int dy, out GridCell<T>? neighbor)
     {
-        return x >= 0 && x < parent.Width && y >= 0 && y < parent.Height;
+        var newX = X + dx;
+        var newY = Y + dy;
+        if (_parent.IsValidCoordinate(newX, newY))
+        {
+            neighbor = _parent[newX, newY];
+            return true;
+        }
+
+        neighbor = null;
+        return false;
     }
 
-    public static bool operator ==(GridCell<T> a, GridCell<T> b)
+    /// <summary>
+    /// Attempts to move to a neighboring cell based on the specified coordinate offset.
+    /// </summary>
+    /// <param name="offset"> The coordinate offset. </param>
+    /// <param name="neighbor"> The neighboring cell if the move is successful. </param>
+    /// <returns> True if the move is successful; otherwise, false. </returns>
+    public bool TryMove(Coordinate offset, out GridCell<T>? neighbor)
     {
-        return a.Equals(b);
+        return TryMove(offset.X, offset.Y, out neighbor);
     }
 
-    public static bool operator !=(GridCell<T> a, GridCell<T> b)
+    /// <summary>
+    /// Attempts to move to a neighboring cell based on the specified grid direction.
+    /// </summary>
+    /// <param name="direction"> The grid direction. </param>
+    /// <param name="neighbor"> The neighboring cell if the move is successful. </param>
+    /// <returns> True if the move is successful; otherwise, false. </returns>
+    public bool TryMove(GridDirection direction, out GridCell<T>? neighbor)
     {
-        return !a.Equals(b);
+        return TryMove(direction.GetDirectionOffset(), out neighbor);
     }
 
+    /// <summary>
+    /// Creates a shallow copy of the cell.
+    /// </summary>
+    /// <returns> A new GridCell instance with the same data. </returns>
+    public object Clone()
+    {
+        return new GridCell<T>(_parent, Value, X, Y);
+    }
+
+    /// <inheritdoc />
+    public new bool Equals(object? x, object? y)
+    {
+        if (x is not GridCell<T> cellX || y is not GridCell<T> cellY) return false;
+        return cellX.X == cellY.X && cellX.Y == cellY.Y && EqualityComparer<T>.Default.Equals(cellX.Value, cellY.Value);
+    }
+
+    /// <inheritdoc />
+    public int GetHashCode(object obj)
+    {
+        return obj is not GridCell<T> cell ? 0 : HashCode.Combine(cell.X, cell.Y, cell.Value);
+    }
+
+    /// <summary>
+    /// Returns a string representation of the cell.
+    /// </summary>
+    /// <returns> A string containing the cell's coordinates and value. </returns>
     public override string ToString()
     {
-        return $"X: {X}, Y: {Y}, Value: {Value}";
+        return $"(X:{X}, Y:{Y}) => {Value}";
     }
 }

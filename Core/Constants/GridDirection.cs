@@ -1,5 +1,10 @@
-﻿namespace Core.Constants;
+﻿using Core.Entities;
 
+namespace Core.Constants;
+
+/// <summary>
+/// Represents possible directions in a 2D grid.
+/// </summary>
 public enum GridDirection
 {
     Up,
@@ -12,52 +17,59 @@ public enum GridDirection
     DownRight
 }
 
+/// <summary>
+/// Provides helper methods and constants for grid directions.
+/// </summary>
 public static class GridDirectionsHelper
 {
-    public static GridDirection[] GridDirections =
+    private static readonly Dictionary<GridDirection, Coordinate> DirectionOffsets = new()
+    {
+        { GridDirection.Up, new Coordinate(0, -1) },
+        { GridDirection.Down, new Coordinate(0, 1) },
+        { GridDirection.Left, new Coordinate(-1, 0) },
+        { GridDirection.Right, new Coordinate(1, 0) },
+        { GridDirection.UpLeft, new Coordinate(-1, -1) },
+        { GridDirection.UpRight, new Coordinate(1, -1) },
+        { GridDirection.DownLeft, new Coordinate(-1, 1) },
+        { GridDirection.DownRight, new Coordinate(1, 1) }
+    };
+
+    /// <summary>
+    /// Gets all possible directions in the grid.
+    /// </summary>
+    public static readonly GridDirection[] AllDirections = Enum.GetValues<GridDirection>();
+
+    /// <summary>
+    /// Gets all cardinal directions in the grid.
+    /// </summary>
+    public static readonly GridDirection[] CardinalDirections =
     [
-        GridDirection.Up,
-        GridDirection.Down,
-        GridDirection.Left,
-        GridDirection.Right,
-        GridDirection.UpLeft,
-        GridDirection.UpRight,
-        GridDirection.DownLeft,
-        GridDirection.DownRight
+        GridDirection.Up, GridDirection.Down, GridDirection.Left, GridDirection.Right
     ];
 
-    public static GridDirection[] CardinalDirections = new[]
-    {
-        GridDirection.Up,
-        GridDirection.Down,
-        GridDirection.Left,
-        GridDirection.Right
-    };
+    /// <summary>
+    /// Gets all diagonal directions in the grid.
+    /// </summary>
+    public static readonly GridDirection[] DiagonalDirections =
+    [
+        GridDirection.UpLeft, GridDirection.UpRight, GridDirection.DownLeft, GridDirection.DownRight
+    ];
 
-    public static GridDirection[] DiagonalDirections = new[]
+    /// <summary>
+    /// Gets the coordinate offset corresponding to the specified direction.
+    /// </summary>
+    /// <param name="direction">The grid direction.</param>
+    /// <returns>A <see cref="Coordinate"/> representing the offset.</returns>
+    public static Coordinate GetDirectionOffset(this GridDirection direction)
     {
-        GridDirection.UpLeft,
-        GridDirection.UpRight,
-        GridDirection.DownLeft,
-        GridDirection.DownRight
-    };
-
-    public static (int x, int y) GetDirection(this GridDirection direction)
-    {
-        return direction switch
-        {
-            GridDirection.Up => (0, -1),
-            GridDirection.Down => (0, 1),
-            GridDirection.Left => (-1, 0),
-            GridDirection.Right => (1, 0),
-            GridDirection.UpLeft => (-1, -1),
-            GridDirection.UpRight => (1, -1),
-            GridDirection.DownLeft => (-1, 1),
-            GridDirection.DownRight => (1, 1),
-            _ => (0, 0)
-        };
+        return DirectionOffsets[direction];
     }
 
+    /// <summary>
+    /// Gets the opposite direction of the specified direction.
+    /// </summary>
+    /// <param name="direction">The grid direction.</param>
+    /// <returns>The opposite <see cref="GridDirection"/>.</returns>
     public static GridDirection GetOppositeDirection(this GridDirection direction)
     {
         return direction switch
@@ -74,6 +86,11 @@ public static class GridDirectionsHelper
         };
     }
 
+    /// <summary>
+    /// Rotates the direction 90 degrees clockwise.
+    /// </summary>
+    /// <param name="direction">The grid direction.</param>
+    /// <returns>The rotated <see cref="GridDirection"/>.</returns>
     public static GridDirection Rotate90DegreesClockwise(this GridDirection direction)
     {
         return direction switch
@@ -90,6 +107,11 @@ public static class GridDirectionsHelper
         };
     }
 
+    /// <summary>
+    /// Rotates the direction 90 degrees counterclockwise.
+    /// </summary>
+    /// <param name="direction">The grid direction.</param>
+    /// <returns>The rotated <see cref="GridDirection"/>.</returns>
     public static GridDirection Rotate90DegreesCounterClockwise(this GridDirection direction)
     {
         return direction switch
@@ -106,6 +128,11 @@ public static class GridDirectionsHelper
         };
     }
 
+    /// <summary>
+    /// Rotates the direction 45 degrees clockwise.
+    /// </summary>
+    /// <param name="direction">The grid direction.</param>
+    /// <returns>The rotated <see cref="GridDirection"/>.</returns>
     public static GridDirection Rotate45DegreesClockwise(this GridDirection direction)
     {
         return direction switch
@@ -122,6 +149,11 @@ public static class GridDirectionsHelper
         };
     }
 
+    /// <summary>
+    /// Rotates the direction 45 degrees counterclockwise.
+    /// </summary>
+    /// <param name="direction">The grid direction.</param>
+    /// <returns>The rotated <see cref="GridDirection"/>.</returns>
     public static GridDirection Rotate45DegreesCounterClockwise(this GridDirection direction)
     {
         return direction switch

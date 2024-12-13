@@ -9,21 +9,15 @@ public class Day12 : IDay
 {
     public long Part1(FileStream fileStream)
     {
-        var grid = Parse(fileStream);
-        var total = 0;
-
-        foreach (var cell in grid)
-        {
-            if (cell.Value!.Visited) continue;
-
-            var (perimeter, plots) = SizeOfPlot(cell);
-            total += perimeter * plots;
-        }
-
-        return total;
+        return CalculateTotal(fileStream, SizeOfPlot);
     }
 
     public long Part2(FileStream fileStream)
+    {
+        return CalculateTotal(fileStream, CalculatePerimeter);
+    }
+
+    private static long CalculateTotal(FileStream fileStream, Func<GridCell<Node>, (int, int)> calculationMethod)
     {
         var grid = Parse(fileStream);
         var total = 0;
@@ -32,7 +26,7 @@ public class Day12 : IDay
         {
             if (cell.Value!.Visited) continue;
 
-            var (perimeter, plots) = CalculatePerimeter(cell);
+            var (perimeter, plots) = calculationMethod(cell);
             total += perimeter * plots;
         }
 
@@ -41,8 +35,10 @@ public class Day12 : IDay
 
     private static Grid<Node> Parse(FileStream fileStream)
     {
-        return Grid<Node>.Parse(fileStream.ReadLines(),
-            str => str.ToCharArray().Select(c => new Node { Type = c, Visited = false }).ToArray());
+        var lines = fileStream.ReadLines();
+        var data = lines
+            .Select(line => line.ToCharArray().Select(c => new Node { Type = c, Visited = false }).ToArray()).ToArray();
+        return Grid<Node>.FromData(data);
     }
 
     private static (int, int) SizeOfPlot(GridCell<Node> startCell)
@@ -53,26 +49,7 @@ public class Day12 : IDay
 
         foreach (var direction in GridDirectionsHelper.CardinalDirections)
         {
-            var cardinal = startCell[direction];
-            if (cardinal.HasValue)
-            {
-                if (cardinal.Value!.Type == startCell.Value!.Type && cardinal.Value!.Visited) continue;
-
-                if (cardinal.Value!.Type == startCell.Value!.Type)
-                {
-                    var (perimeterSize, plots) = SizeOfPlot(cardinal);
-                    newPerimeter += perimeterSize;
-                    newPlots += plots;
-                }
-                else
-                {
-                    newPerimeter++;
-                }
-            }
-            else
-            {
-                newPerimeter++;
-            }
+            UpdatePerimeterAndPlots(startCell, direction, ref newPerimeter, ref newPlots, SizeOfPlot);
         }
 
         return (newPerimeter, newPlots);
@@ -97,24 +74,55 @@ public class Day12 : IDay
         return (corners, newPlotCount);
     }
 
+    private static void UpdatePerimeterAndPlots(GridCell<Node> startCell, GridDirection direction, ref int newPerimeter,
+        ref int newPlots, Func<GridCell<Node>, (int, int)> calculationMethod)
+    {
+        if (startCell.TryMove(direction, out var cardinal) && cardinal.Value != null)
+        {
+            if (cardinal.Value.Type == startCell.Value.Type && cardinal.Value.Visited) return;
+
+            if (cardinal.Value.Type == startCell.Value.Type)
+            {
+                var (perimeterSize, plots) = calculationMethod(cardinal);
+                newPerimeter += perimeterSize;
+                newPlots += plots;
+            }
+            else
+            {
+                newPerimeter++;
+            }
+        }
+        else
+        {
+            newPerimeter++;
+        }
+    }
+
     private static bool InnerCorner(GridCell<Node> cell, GridDirection direction)
     {
-        var neighbor = cell[direction];
-        if (!neighbor.HasValue || neighbor.Value!.Type == cell.Value!.Type) return false;
+        if (!cell.TryMove(direction, out var neighbor) || neighbor.Value == null ||
+            neighbor.Value.Type == cell.Value!.Type) return false;
 
-        var cardinal1 = cell[direction.Rotate45DegreesClockwise()];
-        var cardinal2 = cell[direction.Rotate45DegreesCounterClockwise()];
+        var clockwise = direction.Rotate45DegreesClockwise();
+        var counterClockwise = direction.Rotate45DegreesCounterClockwise();
 
-        return cell.Value!.Type == cardinal1.Value!.Type && cell.Value!.Type == cardinal2.Value!.Type;
+        var cardinal1 = cell.TryMove(clockwise, out var c1) && c1.Value != null && c1.Value.Type == cell.Value.Type;
+        var cardinal2 = cell.TryMove(counterClockwise, out var c2) && c2.Value != null &&
+                        c2.Value.Type == cell.Value.Type;
+
+        return cardinal1 && cardinal2;
     }
 
     private static bool OuterCorner(GridCell<Node> cell, GridDirection direction)
     {
-        var cardinal1 = cell[direction.Rotate45DegreesClockwise()];
-        var cardinal2 = cell[direction.Rotate45DegreesCounterClockwise()];
+        var clockwise = direction.Rotate45DegreesClockwise();
+        var counterClockwise = direction.Rotate45DegreesCounterClockwise();
 
-        return (!cardinal1.HasValue || cell.Value!.Type != cardinal1.Value!.Type) &&
-               (!cardinal2.HasValue || cell.Value!.Type != cardinal2.Value!.Type);
+        var cardinal1 = !(cell.TryMove(clockwise, out var c1) && c1.Value != null && c1.Value.Type == cell.Value.Type);
+        var cardinal2 = !(cell.TryMove(counterClockwise, out var c2) && c2.Value != null &&
+                          c2.Value.Type == cell.Value.Type);
+
+        return cardinal1 && cardinal2;
     }
 
     private class Node : ICloneable

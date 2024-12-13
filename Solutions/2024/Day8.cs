@@ -13,16 +13,18 @@ public class Day8 : IDay
         var antiNodes = new HashSet<GridCell<char>>();
 
         foreach (var antennaGroup in antennas)
-        foreach (var antennaA in antennaGroup)
-        foreach (var antennaB in antennaGroup)
         {
-            if (antennaA == antennaB) continue;
+            foreach (var antennaA in antennaGroup)
+            {
+                foreach (var antennaB in antennaGroup)
+                {
+                    if (antennaA == antennaB) continue;
 
-            var yDiff = antennaA.Y - antennaB.Y;
-            var xDiff = antennaA.X - antennaB.X;
+                    var diff = antennaA.Coordinate - antennaB.Coordinate;
 
-            var antiNode = antennaA.Move(xDiff, yDiff);
-            if (antiNode.HasValue) antiNodes.Add(antiNode);
+                    if (antennaA.TryMove(diff, out var antiNode)) antiNodes.Add(antiNode!);
+                }
+            }
         }
 
         return antiNodes.Count;
@@ -35,22 +37,22 @@ public class Day8 : IDay
         var antiNodes = new HashSet<GridCell<char>>();
 
         foreach (var antennaGroup in antennas)
-        foreach (var antennaA in antennaGroup)
         {
-            antiNodes.Add(antennaA);
-            foreach (var antennaB in antennaGroup)
+            foreach (var antennaA in antennaGroup)
             {
-                if (antennaA == antennaB) continue;
-
-                var yDiff = antennaA.Y - antennaB.Y;
-                var xDiff = antennaA.X - antennaB.X;
-
-                var antiNode = antennaA.Move(xDiff, yDiff);
-
-                while (antiNode.HasValue)
+                antiNodes.Add(antennaA);
+                foreach (var antennaB in antennaGroup)
                 {
-                    antiNodes.Add(antiNode);
-                    antiNode = antiNode.Move(xDiff, yDiff);
+                    if (antennaA == antennaB) continue;
+
+                    var diff = antennaA.Coordinate - antennaB.Coordinate;
+                    antennaA.TryMove(diff, out var antiNode);
+
+                    while (antiNode != null)
+                    {
+                        antiNodes.Add(antiNode);
+                        antiNode.TryMove(diff, out antiNode);
+                    }
                 }
             }
         }
@@ -61,6 +63,7 @@ public class Day8 : IDay
     private static Grid<char> Parse(FileStream fileStream)
     {
         var lines = fileStream.ReadLines();
-        return Grid<char>.Parse(lines, line => line.ToCharArray());
+        var data = lines.Select(line => line.ToCharArray()).ToArray();
+        return Grid<char>.FromData(data);
     }
 }

@@ -3,12 +3,21 @@ using System.Text;
 
 namespace Core.DataStructures;
 
+/// <summary>
+/// Represents a 2D grid structure containing elements of type T.
+/// Provides various utility methods for manipulating and accessing grid data.
+/// </summary>
+/// <typeparam name="T">The type of elements stored in the grid.</typeparam>
 public class Grid<T> : ICloneable, IEnumerable<GridCell<T>>, IEqualityComparer
 {
+    /// <summary>
+    /// Initializes a new instance of the Grid class with the given 2D data array.
+    /// </summary>
+    /// <param name="data">A 2D array of data to populate the grid.</param>
     private Grid(T[][] data)
     {
         Height = data.Length;
-        Width = data[0].Length;
+        Width = Height > 0 ? data[0].Length : 0;
         Rows = new GridCell<T>[Height][];
         for (var y = 0; y < Height; y++)
         {
@@ -17,22 +26,45 @@ public class Grid<T> : ICloneable, IEnumerable<GridCell<T>>, IEqualityComparer
         }
     }
 
+    /// <summary>
+    /// Gets the width of the grid.
+    /// </summary>
     public int Width { get; }
 
+    /// <summary>
+    /// Gets the height of the grid.
+    /// </summary>
     public int Height { get; }
 
+    /// <summary>
+    /// Gets the rows of the grid as a 2D array of GridCell objects.
+    /// </summary>
     public GridCell<T>[][] Rows { get; }
 
-    public GridCell<T>[][] Columns => Transpose().Rows;
+    /// <summary>
+    /// Gets the values of the grid as a 2D array of elements of type T.
+    /// </summary>
+    public T[][] Values => Rows.Select(row => row.Select(cell => cell.Value).ToArray()).ToArray();
 
-    public T[][] Values => Rows.Select(row => row.Where(cell => cell.HasValue).Select(cell => cell.Value!).ToArray())
-        .ToArray();
+    /// <summary>
+    /// Gets the GridCell at the specified coordinates.
+    /// </summary>
+    /// <param name="x">The x-coordinate.</param>
+    /// <param name="y">The y-coordinate.</param>
+    /// <returns>The GridCell at the specified coordinates.</returns>
+    /// <exception cref="IndexOutOfRangeException">Thrown if the coordinates are out of bounds.</exception>
+    public GridCell<T> this[int x, int y] =>
+        IsValidCoordinate(x, y) ? Rows[y][x] : throw new IndexOutOfRangeException();
 
-    public GridCell<T> this[int x, int y] => Rows[y][x];
-    public GridCell<T> this[GridCell<T> cell] => Rows[cell.Y][cell.X];
+    /// <summary>
+    /// Gets an empty grid instance.
+    /// </summary>
+    public static Grid<T> Empty => new(new T[0][]);
 
-    public static Grid<T> Empty => new([]);
-
+    /// <summary>
+    /// Creates a deep clone of the grid.
+    /// </summary>
+    /// <returns>A new grid instance with the same data.</returns>
     public object Clone()
     {
         var data = new T[Height][];
@@ -41,17 +73,23 @@ public class Grid<T> : ICloneable, IEnumerable<GridCell<T>>, IEqualityComparer
             data[y] = new T[Width];
             for (var x = 0; x < Width; x++)
             {
-                var val = Rows[y][x].Value is ICloneable cloneable ? (T)cloneable.Clone() : Rows[y][x].Value;
-                data[y][x] = val!;
+                var val = Rows[y][x].Value;
+                data[y][x] = val is ICloneable cloneable ? (T)cloneable.Clone() : val;
             }
         }
 
         return new Grid<T>(data);
     }
 
+    /// <summary>
+    /// Returns an enumerator that iterates through all cells in the grid.
+    /// </summary>
+    /// <returns>An enumerator for the grid cells.</returns>
     public IEnumerator<GridCell<T>> GetEnumerator()
     {
-        return (from row in Rows from cell in row select cell).GetEnumerator();
+        foreach (var row in Rows)
+        foreach (var cell in row)
+            yield return cell;
     }
 
     IEnumerator IEnumerable.GetEnumerator()
@@ -59,33 +97,39 @@ public class Grid<T> : ICloneable, IEnumerable<GridCell<T>>, IEqualityComparer
         return GetEnumerator();
     }
 
+    /// <summary>
+    /// Transposes the grid, swapping rows and columns.
+    /// </summary>
+    /// <returns>A new grid instance with transposed rows and columns.</returns>
     public Grid<T> Transpose()
     {
         var data = new T[Width][];
         for (var x = 0; x < Width; x++)
         {
             data[x] = new T[Height];
-            for (var y = 0; y < Height; y++) data[x][y] = Rows[y][x].Value!;
+            for (var y = 0; y < Height; y++) data[x][y] = Rows[y][x].Value;
         }
 
         return new Grid<T>(data);
     }
 
-    private void Set(int x, int y, T value)
-    {
-        Rows[y][x].Value = value;
-    }
-
-    private GridCell<T> Get(int x, int y)
-    {
-        return Rows[y][x];
-    }
-
+    /// <summary>
+    /// Creates a grid from the given 2D data array.
+    /// </summary>
+    /// <param name="data">The 2D data array.</param>
+    /// <returns>A new grid instance.</returns>
     public static Grid<T> FromData(T[][] data)
     {
         return new Grid<T>(data);
     }
 
+    /// <summary>
+    /// Creates a grid with the specified dimensions and fills it with a default value.
+    /// </summary>
+    /// <param name="width">The width of the grid.</param>
+    /// <param name="height">The height of the grid.</param>
+    /// <param name="defaultValue">The default value to fill the grid with.</param>
+    /// <returns>A new grid instance.</returns>
     public static Grid<T> FromData(int width, int height, T defaultValue)
     {
         var data = new T[height][];
@@ -98,66 +142,76 @@ public class Grid<T> : ICloneable, IEnumerable<GridCell<T>>, IEqualityComparer
         return new Grid<T>(data);
     }
 
-    public static Grid<T> Parse(IEnumerable<string> lines, Func<string, IEnumerable<T>> parser)
+    /// <summary>
+    /// Generates a grid with the specified dimensions using a custom initializer function.
+    /// </summary>
+    /// <param name="width">The width of the grid.</param>
+    /// <param name="height">The height of the grid.</param>
+    /// <param name="initializer">A function to generate values based on coordinates.</param>
+    /// <returns>A new grid instance.</returns>
+    public static Grid<T> Generate(int width, int height, Func<int, int, T> initializer)
     {
-        var data = new T[lines.Count()][];
-        for (var y = 0; y < lines.Count(); y++) data[y] = parser(lines.ElementAt(y)).ToArray();
+        var data = new T[height][];
+        for (var y = 0; y < height; y++)
+        {
+            data[y] = new T[width];
+            for (var x = 0; x < width; x++) data[y][x] = initializer(x, y);
+        }
+
         return new Grid<T>(data);
     }
 
+    /// <summary>
+    /// Converts the grid to a string representation using a custom formatter for the elements.
+    /// </summary>
+    /// <param name="formatter">A function to format each element.</param>
+    /// <returns>A string representation of the grid.</returns>
     public string ToString(Func<T, string> formatter)
     {
         var sb = new StringBuilder();
         for (var y = 0; y < Height; y++)
         {
-            for (var x = 0; x < Width; x++) sb.Append(formatter(Rows[y][x].Value!));
+            for (var x = 0; x < Width; x++) sb.Append(formatter(Rows[y][x].Value));
+
             sb.AppendLine();
         }
 
         return sb.ToString();
     }
 
-    public static bool operator ==(Grid<T> a, Grid<T> b)
-    {
-        return a.Equals(b);
-    }
-
-    public static bool operator !=(Grid<T> a, Grid<T> b)
-    {
-        return !a.Equals(b);
-    }
-    
-    
+    /// <inheritdoc />
     public new bool Equals(object? a, object? b)
     {
         return a is Grid<T> gridA && b is Grid<T> gridB && gridA.Equals(gridB);
     }
 
+    /// <inheritdoc />
     public int GetHashCode(object obj)
     {
-        return ((Grid<T>)obj).GetHashCode();
-    }
-    
-    protected bool Equals(Grid<T> other)
-    {
-        return Width == other.Width && Height == other.Height && Rows.Equals(other.Rows);
+        return obj is Grid<T> grid ? grid.GetHashCode() : 0;
     }
 
+    /// <inheritdoc />
     public override bool Equals(object? obj)
     {
-        if (obj is null) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        return obj.GetType() == GetType() && Equals((Grid<T>)obj);
+        if (obj is not Grid<T> other || Width != other.Width || Height != other.Height) return false;
+        return Rows.Zip(other.Rows, (rowA, rowB) => rowA.SequenceEqual(rowB)).All(result => result);
     }
 
+    /// <inheritdoc />
     public override int GetHashCode()
     {
-        unchecked
-        {
-            var hashCode = Width;
-            hashCode = (hashCode * 397) ^ Height;
-            hashCode = (hashCode * 397) ^ Rows.GetHashCode();
-            return hashCode;
-        }
+        return HashCode.Combine(Width, Height, Rows);
+    }
+
+    /// <summary>
+    /// Validates if the specified coordinates are within the grid bounds.
+    /// </summary>
+    /// <param name="x">The x-coordinate.</param>
+    /// <param name="y">The y-coordinate.</param>
+    /// <returns>True if the coordinates are valid; otherwise, false.</returns>
+    public bool IsValidCoordinate(int x, int y)
+    {
+        return x >= 0 && x < Width && y >= 0 && y < Height;
     }
 }

@@ -34,9 +34,12 @@ public static class Runner
             $"| Class Name{"".PadRight(day.GetType().FullName.Length)} | Part | Result{"".PadRight(partColumnWidth)} | Time (ms){"".PadRight(timeColumnWidth)} |");
         Console.WriteLine(
             $"|{"".PadRight(day.GetType().FullName.Length + 1, '-')}|------|{"".PadRight(partColumnWidth + 6, '-')}|{"".PadRight(timeColumnWidth + 10, '-')}|");
-        Console.WriteLine(
-            $"| {day.GetType().FullName} |  1   |  {part1Result.ToString().PadRight(partColumnWidth)} |   {part1Time.ToString("N0").PadRight(timeColumnWidth)} |");
-        Console.WriteLine(
-            $"| {day.GetType().FullName} |  2   |  {part2Result.ToString().PadRight(partColumnWidth)} |   {part2Time.ToString("N0").PadRight(timeColumnWidth)} |");
+        var part1TimeFormatted = part1Time >= 1000 ? $"{part1Time / 1000.0:F2} s" : $"{part1Time} ms";
+var part2TimeFormatted = part2Time >= 1000 ? $"{part2Time / 1000.0:F2} s" : $"{part2Time} ms";
+
+Console.WriteLine(
+    $"| {day.GetType().FullName} |  1   |  {part1Result.ToString().PadRight(partColumnWidth)} |   {part1TimeFormatted.PadRight(timeColumnWidth)} |");
+Console.WriteLine(
+    $"| {day.GetType().FullName} |  2   |  {part2Result.ToString().PadRight(partColumnWidth)} |   {part2TimeFormatted.PadRight(timeColumnWidth)} |");
     }
 }

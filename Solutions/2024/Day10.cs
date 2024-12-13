@@ -23,7 +23,8 @@ public class Day10 : IDay
     private static Grid<Node> Parse(FileStream fileStream)
     {
         var lines = fileStream.ReadLines();
-        return Grid<Node>.Parse(lines, s => s.ToCharArray().Select(c => new Node(c - '0', false)));
+        var data = lines.Select(line => line.ToCharArray().Select(c => new Node(c - '0', false)).ToArray()).ToArray();
+        return Grid<Node>.FromData(data);
     }
 
     private static int DFS(Grid<Node> grid, GridCell<Node> cell)
@@ -32,7 +33,8 @@ public class Day10 : IDay
         if (c.Value!.Visited || (c.Value.Visited && c.Value!.Height == 0)) return 0;
         c.Value!.Visited = true;
         if (c.Value!.Height == 9) return 1;
-        return c.CardinalNeighbors.Where(neighbor => !neighbor.Value!.Visited && neighbor.Value!.Height - c.Value!.Height == 1)
+        return c.CardinalNeighbors.Where(neighbor =>
+                neighbor.Value != null && !neighbor.Value!.Visited && neighbor.Value!.Height - c.Value!.Height == 1)
                                   .Sum(neighbor => DFS(grid, neighbor));
     }
 
@@ -41,18 +43,25 @@ public class Day10 : IDay
         var c = grid[cell.X, cell.Y];
         c.Value!.Visited = true;
         if (c.Value!.Height == 9) return 1;
-        return c.CardinalNeighbors.Where(neighbor => neighbor.Value!.Height - c.Value!.Height == 1)
+        return c.CardinalNeighbors
+            .Where(neighbor => neighbor.Value != null && neighbor.Value!.Height - c.Value!.Height == 1)
                                   .Sum(neighbor => DFS2(grid, neighbor));
     }
 
-    private class Node(int height, bool visited) : ICloneable
+    private class Node : ICloneable
     {
-        public int Height { get; init; } = height;
-        public bool Visited { get; set; } = visited;
+        public int Height { get; }
+        public bool Visited { get; set; }
+
+        public Node(int height, bool visited)
+        {
+            Height = height;
+            Visited = visited;
+        }
 
         public object Clone()
         {
-            return MemberwiseClone();
+            return new Node(Height, Visited);
         }
     }
 }

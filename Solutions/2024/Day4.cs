@@ -12,46 +12,54 @@ public class Day4 : IDay
         var grid = Parse(fileStream.ReadLines());
 
         return (
-            from row in grid.Rows
-            from column in row
-            where column.HasValue && column.Value == 'X'
-            select FindXmas(column)).Sum();
+            from cell in grid
+            where cell.Value == 'X'
+            select FindXmas(cell)).Sum();
     }
 
     public long Part2(FileStream fileStream)
     {
         var grid = Parse(fileStream.ReadLines());
-        return (from row in grid.Rows from cell in row where cell.HasValue && cell.Value == 'A' select FindXMas(cell))
-            .Sum();
+
+        return (
+            from cell in grid
+            where cell.Value == 'A'
+            select FindXMas(cell)).Sum();
     }
 
-    private static Grid<char> Parse(List<string> lines)
+    private static Grid<char> Parse(IEnumerable<string> lines)
     {
-        return Grid<char>.Parse(lines, str => str.ToCharArray());
+        var data = lines.Select(str => str.ToCharArray()).ToArray();
+        return Grid<char>.FromData(data);
     }
 
     private static int FindXmas(GridCell<char> cell)
     {
         var xmasCounter = 0;
-        const string word = "XMAS";
+        const string word = "MAS";
 
-        foreach (var direction in GridDirectionsHelper.GridDirections)
+        foreach (var direction in GridDirectionsHelper.AllDirections)
         {
-            var currentCell = (GridCell<char>)cell.Clone();
+            var currentCell = cell;
             var foundWord = true;
             foreach (var letter in word)
-                if (currentCell.HasValue && currentCell.Value == letter)
-                {
-                    currentCell = currentCell[direction];
-                }
-                else
+            {
+                if (!currentCell.TryMove(direction, out var nextCell))
                 {
                     foundWord = false;
                     break;
                 }
 
-            if (!foundWord) continue;
-            xmasCounter++;
+                if (letter != nextCell!.Value)
+                {
+                    foundWord = false;
+                    break;
+                }
+
+                currentCell = nextCell;
+            }
+
+            if (foundWord) xmasCounter++;
         }
 
         return xmasCounter;
@@ -59,9 +67,14 @@ public class Day4 : IDay
 
     private static int FindXMas(GridCell<char> cell)
     {
-        var xmasCounter = GridDirectionsHelper.DiagonalDirections.Count(direction =>
-            cell[direction].HasValue && cell[direction].Value == 'M' &&
-            cell[direction.GetOppositeDirection()].HasValue && cell[direction.GetOppositeDirection()].Value == 'S');
+        var xmasCounter = 0;
+        foreach (var direction in GridDirectionsHelper.DiagonalDirections)
+            if (cell.TryMove(direction, out var nextCell) &&
+                nextCell!.Value == 'M' &&
+                cell.TryMove(direction.GetOppositeDirection(), out var oppositeCell) &&
+                oppositeCell!.Value == 'S')
+                xmasCounter++;
+
         return xmasCounter > 1 ? 1 : 0;
     }
 }
