@@ -21,6 +21,15 @@ public static partial class Extensions
         for (var i = 0; i < matches.Count; i++) result[i] = long.Parse(matches[i].Value);
         return result;
     }
+    
+    public static double[] GetDoubles(this string str)
+    {
+        var regex = NumberGroupRegex();
+        var matches = regex.Matches(str);
+        var result = new double[matches.Count];
+        for (var i = 0; i < matches.Count; i++) result[i] = double.Parse(matches[i].Value);
+        return result;
+    }
 
     [GeneratedRegex(@"-?\d+")]
     private static partial Regex NumberGroupRegex();
