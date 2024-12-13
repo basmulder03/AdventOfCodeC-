@@ -5,7 +5,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Solutions._2015;
 
-public class Day12 : IDay
+public class Day12 : BaseDay
 {
     public long Part1(FileStream fileStream)
     {

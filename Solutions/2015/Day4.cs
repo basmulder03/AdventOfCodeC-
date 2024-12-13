@@ -4,7 +4,7 @@ using Core.Hashing;
 
 namespace Solutions._2015;
 
-public class Day4 : IDay
+public class Day4 : BaseDay
 {
     public long Part1(FileStream fileStream)
     {

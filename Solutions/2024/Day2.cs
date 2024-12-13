@@ -3,7 +3,7 @@ using Core.DataHelper;
 
 namespace Solutions._2024;
 
-public class Day2 : IDay
+public class Day2 : BaseDay
 {
     public long Part1(FileStream fileStream)
     {

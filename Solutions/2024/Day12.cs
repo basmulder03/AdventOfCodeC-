@@ -5,7 +5,7 @@ using Core.DataStructures;
 
 namespace Solutions._2024;
 
-public class Day12 : IDay
+public class Day12 : BaseDay
 {
     public long Part1(FileStream fileStream)
     {

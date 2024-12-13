@@ -4,7 +4,7 @@ using Core.StringHelpers;
 
 namespace Solutions._2024;
 
-public class Day11 : IDay
+public class Day11 : BaseDay
 {
     public long Part1(FileStream fileStream)
     {

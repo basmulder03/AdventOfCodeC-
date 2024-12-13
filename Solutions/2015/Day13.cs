@@ -4,7 +4,7 @@ using Core.Extensions;
 
 namespace Solutions._2015;
 
-public class Day13 : IDay
+public class Day13 : BaseDay
 {
     public long Part1(FileStream fileStream)
     {

@@ -19,7 +19,7 @@ public abstract class Year
             return;
         }
 
-        var instance = (IDay)Activator.CreateInstance(type)!;
+        var instance = (BaseDay)Activator.CreateInstance(type)!;
         await PuzzleInputForDayExist(assembly, year, day);
         instance.Run($"./{year}/Data/Day{day}");
     }
@@ -27,11 +27,11 @@ public abstract class Year
     protected static async Task RunAllInYear(Assembly assembly, int year)
     {
         var types = GetTypesInNamespace(assembly, $"Solutions._{year}")
-            .Where(t => t.GetInterfaces().Contains(typeof(IDay)))
+            .Where(t => t.GetInterfaces().Contains(typeof(BaseDay)))
             .OrderBy(t => t.Name);
         foreach (var type in types)
         {
-            var instance = (IDay)Activator.CreateInstance(type)!;
+            var instance = (BaseDay)Activator.CreateInstance(type)!;
             await PuzzleInputForDayExist(assembly, year, int.Parse(type.Name[3..]));
             instance.Run($"./{year}/Data/{type.Name}");
         }

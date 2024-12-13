@@ -3,7 +3,7 @@ using Core.DataHelper;
 
 namespace Solutions._2015;
 
-public class Day7 : IDay
+public class Day7 : BaseDay
 {
     private readonly Dictionary<string, Func<int, int, int>> _operations = new()
     {

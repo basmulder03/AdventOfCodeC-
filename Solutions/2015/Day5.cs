@@ -3,7 +3,7 @@ using Core.DataHelper;
 
 namespace Solutions._2015;
 
-public class Day5 : IDay
+public class Day5 : BaseDay
 {
     private const string Vowels = "aeiou";
     private const string BadStrings = "ab,cd,pq,xy";

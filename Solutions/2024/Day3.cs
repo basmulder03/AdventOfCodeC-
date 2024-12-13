@@ -4,7 +4,7 @@ using Core.DataHelper;
 
 namespace Solutions._2024;
 
-public class Day3 : IDay
+public class Day3 : BaseDay
 {
     private static readonly Regex Part1Regex = new(@"mul\(\d+,\d+\)");
     private static readonly Regex Part2Regex = new(@"mul\(\d+,\d+\)|do\(\)|don't\(\)");
