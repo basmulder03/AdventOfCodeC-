@@ -1,13 +1,13 @@
-﻿using Core.DataHelper;
+﻿using Core.InputHelpers;
 using Core.Interfaces;
 
 namespace Solutions._2015;
 
-public class Day2 : BaseDay
+public class Day2 : IBaseDay
 {
-    public long Part1(FileStream fileStream)
+    public long Part1(string input)
     {
-        var lines = fileStream.ReadLines();
+        var lines = input.ReadLines();
 
         return (from line in lines
             select line.Split('x')
@@ -22,9 +22,9 @@ public class Day2 : BaseDay
             select 2 * lw + 2 * wh + 2 * hl + smallest).Sum();
     }
 
-    public long Part2(FileStream fileStream)
+    public long Part2(string input)
     {
-        var lines = fileStream.ReadLines();
+        var lines = input.ReadLines();
         var total = (from line in lines
             select line.Split('x')
             into dimensions

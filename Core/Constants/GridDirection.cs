@@ -3,7 +3,7 @@
 namespace Core.Constants;
 
 /// <summary>
-/// Represents possible directions in a 2D grid.
+///     Represents possible directions in a 2D grid.
 /// </summary>
 public enum GridDirection
 {
@@ -18,7 +18,7 @@ public enum GridDirection
 }
 
 /// <summary>
-/// Provides helper methods and constants for grid directions.
+///     Provides helper methods and constants for grid directions.
 /// </summary>
 public static class GridDirectionsHelper
 {
@@ -35,12 +35,12 @@ public static class GridDirectionsHelper
     };
 
     /// <summary>
-    /// Gets all possible directions in the grid.
+    ///     Gets all possible directions in the grid.
     /// </summary>
     public static readonly GridDirection[] AllDirections = Enum.GetValues<GridDirection>();
 
     /// <summary>
-    /// Gets all cardinal directions in the grid.
+    ///     Gets all cardinal directions in the grid.
     /// </summary>
     public static readonly GridDirection[] CardinalDirections =
     [
@@ -48,7 +48,7 @@ public static class GridDirectionsHelper
     ];
 
     /// <summary>
-    /// Gets all diagonal directions in the grid.
+    ///     Gets all diagonal directions in the grid.
     /// </summary>
     public static readonly GridDirection[] DiagonalDirections =
     [
@@ -56,20 +56,20 @@ public static class GridDirectionsHelper
     ];
 
     /// <summary>
-    /// Gets the coordinate offset corresponding to the specified direction.
+    ///     Gets the coordinate offset corresponding to the specified direction.
     /// </summary>
     /// <param name="direction">The grid direction.</param>
-    /// <returns>A <see cref="Coordinate"/> representing the offset.</returns>
+    /// <returns>A <see cref="Coordinate" /> representing the offset.</returns>
     public static Coordinate GetDirectionOffset(this GridDirection direction)
     {
         return DirectionOffsets[direction];
     }
 
     /// <summary>
-    /// Gets the opposite direction of the specified direction.
+    ///     Gets the opposite direction of the specified direction.
     /// </summary>
     /// <param name="direction">The grid direction.</param>
-    /// <returns>The opposite <see cref="GridDirection"/>.</returns>
+    /// <returns>The opposite <see cref="GridDirection" />.</returns>
     public static GridDirection GetOppositeDirection(this GridDirection direction)
     {
         return direction switch
@@ -87,10 +87,10 @@ public static class GridDirectionsHelper
     }
 
     /// <summary>
-    /// Rotates the direction 90 degrees clockwise.
+    ///     Rotates the direction 90 degrees clockwise.
     /// </summary>
     /// <param name="direction">The grid direction.</param>
-    /// <returns>The rotated <see cref="GridDirection"/>.</returns>
+    /// <returns>The rotated <see cref="GridDirection" />.</returns>
     public static GridDirection Rotate90DegreesClockwise(this GridDirection direction)
     {
         return direction switch
@@ -108,10 +108,10 @@ public static class GridDirectionsHelper
     }
 
     /// <summary>
-    /// Rotates the direction 90 degrees counterclockwise.
+    ///     Rotates the direction 90 degrees counterclockwise.
     /// </summary>
     /// <param name="direction">The grid direction.</param>
-    /// <returns>The rotated <see cref="GridDirection"/>.</returns>
+    /// <returns>The rotated <see cref="GridDirection" />.</returns>
     public static GridDirection Rotate90DegreesCounterClockwise(this GridDirection direction)
     {
         return direction switch
@@ -129,10 +129,10 @@ public static class GridDirectionsHelper
     }
 
     /// <summary>
-    /// Rotates the direction 45 degrees clockwise.
+    ///     Rotates the direction 45 degrees clockwise.
     /// </summary>
     /// <param name="direction">The grid direction.</param>
-    /// <returns>The rotated <see cref="GridDirection"/>.</returns>
+    /// <returns>The rotated <see cref="GridDirection" />.</returns>
     public static GridDirection Rotate45DegreesClockwise(this GridDirection direction)
     {
         return direction switch
@@ -150,10 +150,10 @@ public static class GridDirectionsHelper
     }
 
     /// <summary>
-    /// Rotates the direction 45 degrees counterclockwise.
+    ///     Rotates the direction 45 degrees counterclockwise.
     /// </summary>
     /// <param name="direction">The grid direction.</param>
-    /// <returns>The rotated <see cref="GridDirection"/>.</returns>
+    /// <returns>The rotated <see cref="GridDirection" />.</returns>
     public static GridDirection Rotate45DegreesCounterClockwise(this GridDirection direction)
     {
         return direction switch

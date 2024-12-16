@@ -1,13 +1,12 @@
-﻿using Core.DataHelper;
-using Core.Interfaces;
+﻿using Core.Interfaces;
 
 namespace Solutions._2024;
 
-public class Day9 : BaseDay
+public class Day9 : IBaseDay
 {
-    public long Part1(FileStream fileStream)
+    public long Part1(string input)
     {
-        var diskMap = CreateDiskMap(fileStream);
+        var diskMap = CreateDiskMap(input);
 
         for (var i = diskMap.Count - 1; i >= 0; i--)
         {
@@ -21,9 +20,9 @@ public class Day9 : BaseDay
         return CalculateChecksum(diskMap);
     }
 
-    public long Part2(FileStream fileStream)
+    public long Part2(string input)
     {
-        var diskMap = CreateDiskMap(fileStream);
+        var diskMap = CreateDiskMap(input);
 
         var idGroup = diskMap
             .Select((val, i) => new { val, i })
@@ -61,9 +60,9 @@ public class Day9 : BaseDay
         return CalculateChecksum(diskMap);
     }
 
-    private static List<int> CreateDiskMap(FileStream stream)
+    private static List<int> CreateDiskMap(string orginalInput)
     {
-        var input = stream.ReadSingleLine().ToCharArray().Select(c => c - '0').ToList();
+        var input = orginalInput.ToCharArray().Select(c => c - '0').ToList();
         var diskMap = new List<int>();
         var currentId = 0;
         for (var i = 0; i < input.Count; i++)

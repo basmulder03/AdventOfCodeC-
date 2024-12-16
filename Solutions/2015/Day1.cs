@@ -1,13 +1,12 @@
-﻿using Core.DataHelper;
-using Core.Interfaces;
+﻿using Core.Interfaces;
 
 namespace Solutions._2015;
 
-public class Day1 : BaseDay
+public class Day1 : IBaseDay
 {
-    public long Part1(FileStream fileStream)
+    public long Part1(string input)
     {
-        var chars = fileStream.ReadSingleLineAsChars();
+        var chars = input.ToCharArray();
         var floor = 0;
         foreach (var c in chars)
             switch (c)
@@ -23,11 +22,11 @@ public class Day1 : BaseDay
         return floor;
     }
 
-    public long Part2(FileStream fileStream)
+    public long Part2(string input)
     {
-        var chars = fileStream.ReadSingleLineAsChars();
+        var chars = input.ToCharArray();
         var floor = 0;
-        for (var i = 0; i < chars.Count; i++)
+        for (var i = 0; i < chars.Length; i++)
         {
             switch (chars[i])
             {

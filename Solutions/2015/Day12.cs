@@ -1,22 +1,19 @@
-﻿using Core.DataHelper;
-using Core.Interfaces;
+﻿using Core.Interfaces;
 using Core.StringHelpers;
 using Newtonsoft.Json.Linq;
 
 namespace Solutions._2015;
 
-public class Day12 : BaseDay
+public class Day12 : IBaseDay
 {
-    public long Part1(FileStream fileStream)
+    public long Part1(string input)
     {
-        var json = fileStream.ReadSingleLine();
-        return json.GetInts().Sum();
+        return input.GetInts().Sum();
     }
 
-    public long Part2(FileStream fileStream)
+    public long Part2(string input)
     {
-        var jsonString = fileStream.ReadSingleLine();
-        var json = JToken.Parse(jsonString);
+        var json = JToken.Parse(input);
         return GetSum(json);
     }
 

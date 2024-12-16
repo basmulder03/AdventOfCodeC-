@@ -1,5 +1,4 @@
-﻿using Core.UnitTest;
-using Shouldly;
+﻿using Shouldly;
 using Solutions._2024;
 
 namespace Solutions.UnitTest._2024;
@@ -11,7 +10,7 @@ public class Day11Test
     public void Part1Test1()
     {
         var day = new Day11();
-        var data = FileStreamHelper.GetFileStream("125 17");
+        const string data = "125 17";
         var result = day.Part1(data);
         result.ShouldBe(55312);
     }

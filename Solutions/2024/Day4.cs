@@ -1,15 +1,15 @@
 ﻿using Core.Constants;
-using Core.DataHelper;
 using Core.DataStructures;
+using Core.InputHelpers;
 using Core.Interfaces;
 
 namespace Solutions._2024;
 
-public class Day4 : BaseDay
+public class Day4 : IBaseDay
 {
-    public long Part1(FileStream fileStream)
+    public long Part1(string input)
     {
-        var grid = Parse(fileStream.ReadLines());
+        var grid = Parse(input.ReadLines());
 
         return (
             from cell in grid
@@ -17,9 +17,9 @@ public class Day4 : BaseDay
             select FindXmas(cell)).Sum();
     }
 
-    public long Part2(FileStream fileStream)
+    public long Part2(string input)
     {
-        var grid = Parse(fileStream.ReadLines());
+        var grid = Parse(input.ReadLines());
 
         return (
             from cell in grid

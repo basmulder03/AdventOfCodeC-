@@ -1,5 +1,4 @@
-﻿using Core.UnitTest;
-using Shouldly;
+﻿using Shouldly;
 using Solutions._2015;
 
 namespace Solutions.UnitTest._2015;
@@ -11,11 +10,11 @@ public class Day9Test
     public void Part1Test1()
     {
         var day = new Day9();
-        var data = FileStreamHelper.GetFileStream("""
-                                                  London to Dublin = 464
-                                                  London to Belfast = 518
-                                                  Dublin to Belfast = 141
-                                                  """);
+        const string data = """
+                   London to Dublin = 464
+                   London to Belfast = 518
+                   Dublin to Belfast = 141
+                   """;
         var result = day.Part1(data);
         result.ShouldBe(605);
     }
@@ -24,11 +23,11 @@ public class Day9Test
     public void Part2Test1()
     {
         var day = new Day9();
-        var data = FileStreamHelper.GetFileStream("""
-                                                  London to Dublin = 464
-                                                  London to Belfast = 518
-                                                  Dublin to Belfast = 141
-                                                  """);
+        const string data = """
+                   London to Dublin = 464
+                   London to Belfast = 518
+                   Dublin to Belfast = 141
+                   """;
         var result = day.Part2(data);
         result.ShouldBe(982);
     }

@@ -1,20 +1,20 @@
-﻿using Core.DataHelper;
+﻿using Core.InputHelpers;
 using Core.Interfaces;
 
 namespace Solutions._2015;
 
-public class Day6 : BaseDay
+public class Day6 : IBaseDay
 {
-    public long Part1(FileStream fileStream)
+    public long Part1(string input)
     {
-        var strings = fileStream.ReadLines();
+        var strings = input.ReadLines();
         var grid = new bool[1000, 1000];
 
         foreach (var str in strings)
         {
             var parts = str.Split(' ');
-            var start = parts[parts.Length - 3].Split(',');
-            var end = parts[parts.Length - 1].Split(',');
+            var start = parts[^3].Split(',');
+            var end = parts[^1].Split(',');
             var action = parts[0];
             var x1 = int.Parse(start[0]);
             var y1 = int.Parse(start[1]);
@@ -47,16 +47,16 @@ public class Day6 : BaseDay
         return count;
     }
 
-    public long Part2(FileStream fileStream)
+    public long Part2(string input)
     {
-        var strings = fileStream.ReadLines();
+        var strings = input.ReadLines();
         var grid = new int[1000, 1000];
 
         foreach (var str in strings)
         {
             var parts = str.Split(' ');
-            var start = parts[parts.Length - 3].Split(',');
-            var end = parts[parts.Length - 1].Split(',');
+            var start = parts[^3].Split(',');
+            var end = parts[^1].Split(',');
             var action = parts[0];
             var x1 = int.Parse(start[0]);
             var y1 = int.Parse(start[1]);

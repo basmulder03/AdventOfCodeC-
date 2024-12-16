@@ -1,15 +1,15 @@
 ﻿using Core.Constants;
-using Core.DataHelper;
 using Core.DataStructures;
+using Core.InputHelpers;
 using Core.Interfaces;
 
 namespace Solutions._2024;
 
-public class Day6 : BaseDay
+public class Day6 : IBaseDay
 {
-    public long Part1(FileStream fileStream)
+    public long Part1(string input)
     {
-        var lines = fileStream.ReadLines();
+        var lines = input.ReadLines();
         var grid = ParseInput(lines);
         var currentCell = grid.First(node => node.Value.IsVisited);
 
@@ -36,9 +36,9 @@ public class Day6 : BaseDay
         return grid.Rows.SelectMany(row => row).Count(node => node.Value!.IsVisited);
     }
 
-    public long Part2(FileStream fileStream)
+    public long Part2(string input)
     {
-        var lines = fileStream.ReadLines();
+        var lines = input.ReadLines();
         var grid = ParseInput(lines);
         var loopingCount = 0;
         var visitedCells = GetNormalRoute((Grid<Node>)grid.Clone());

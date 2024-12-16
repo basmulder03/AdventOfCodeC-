@@ -1,21 +1,18 @@
-﻿using Core.DataHelper;
-using Core.Interfaces;
+﻿using Core.Interfaces;
 
 namespace Solutions._2015;
 
-public class Day11 : BaseDay
+public class Day11 : IBaseDay
 {
-    public long Part1(FileStream fileStream)
+    public long Part1(string input)
     {
-        var currentPassword = fileStream.ReadSingleLine();
-        Console.Write(GetNextValidPassword(currentPassword));
+        Console.Write(GetNextValidPassword(input));
         return 0;
     }
 
-    public long Part2(FileStream fileStream)
+    public long Part2(string input)
     {
-        var currentPassword = fileStream.ReadSingleLine();
-        Console.Write(GetNextValidPassword(IncrementPassword(GetNextValidPassword(currentPassword))));
+        Console.Write(GetNextValidPassword(IncrementPassword(GetNextValidPassword(input))));
         return 0;
     }
 

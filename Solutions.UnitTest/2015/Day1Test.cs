@@ -1,5 +1,4 @@
-﻿using Core.UnitTest;
-using Shouldly;
+﻿using Shouldly;
 using Solutions._2015;
 
 namespace Solutions.UnitTest._2015;
@@ -11,7 +10,7 @@ public class Day1Test
     public void Part1Test1()
     {
         var day = new Day1();
-        var data = FileStreamHelper.GetFileStream("(())");
+        const string data = "(())";
         var result = day.Part1(data);
         result.ShouldBe(0);
     }
@@ -20,7 +19,7 @@ public class Day1Test
     public void Part1Test2()
     {
         var day = new Day1();
-        var data = FileStreamHelper.GetFileStream("()()");
+        const string data = "()()";
         var result = day.Part1(data);
         result.ShouldBe(0);
     }
@@ -29,7 +28,7 @@ public class Day1Test
     public void Part1Test3()
     {
         var day = new Day1();
-        var data = FileStreamHelper.GetFileStream("(((");
+        const string data = "(((";
         var result = day.Part1(data);
         result.ShouldBe(3);
     }
@@ -38,7 +37,7 @@ public class Day1Test
     public void Part1Test4()
     {
         var day = new Day1();
-        var data = FileStreamHelper.GetFileStream("(()(()(");
+        const string data = "(()(()(";
         var result = day.Part1(data);
         result.ShouldBe(3);
     }
@@ -47,7 +46,7 @@ public class Day1Test
     public void Part1Test5()
     {
         var day = new Day1();
-        var data = FileStreamHelper.GetFileStream("))(((((");
+        const string data = "))(((((";
         var result = day.Part1(data);
         result.ShouldBe(3);
     }
@@ -56,7 +55,7 @@ public class Day1Test
     public void Part1Test6()
     {
         var day = new Day1();
-        var data = FileStreamHelper.GetFileStream("())");
+        const string data = "())";
         var result = day.Part1(data);
         result.ShouldBe(-1);
     }
@@ -65,7 +64,7 @@ public class Day1Test
     public void Part1Test7()
     {
         var day = new Day1();
-        var data = FileStreamHelper.GetFileStream("))(");
+        const string data = "))(";
         var result = day.Part1(data);
         result.ShouldBe(-1);
     }
@@ -74,7 +73,7 @@ public class Day1Test
     public void Part1Test8()
     {
         var day = new Day1();
-        var data = FileStreamHelper.GetFileStream(")))");
+        const string data = ")))";
         var result = day.Part1(data);
         result.ShouldBe(-3);
     }
@@ -83,7 +82,7 @@ public class Day1Test
     public void Part1Test9()
     {
         var day = new Day1();
-        var data = FileStreamHelper.GetFileStream(")())())");
+        const string data = ")())())";
         var result = day.Part1(data);
         result.ShouldBe(-3);
     }
@@ -92,7 +91,7 @@ public class Day1Test
     public void Part2Test1()
     {
         var day = new Day1();
-        var data = FileStreamHelper.GetFileStream(")");
+        const string data = ")";
         var result = day.Part2(data);
         result.ShouldBe(1);
     }
@@ -101,7 +100,7 @@ public class Day1Test
     public void Part2Test2()
     {
         var day = new Day1();
-        var data = FileStreamHelper.GetFileStream("()())");
+        const string data = "()())";
         var result = day.Part2(data);
         result.ShouldBe(5);
     }

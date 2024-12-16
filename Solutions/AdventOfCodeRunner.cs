@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Reflection;
-using Core.DataHelper;
+using System.Text;
 using Core.InputDownloader;
 using Core.Interfaces;
 
@@ -12,7 +12,7 @@ public static class AdventOfCodeRunner
         LocalAssembly = Assembly.GetExecutingAssembly(); // Reference to the executing assembly.
 
     /// <summary>
-    /// Runs the latest available day of the latest year.
+    ///     Runs the latest available day of the latest year.
     /// </summary>
     public static async Task RunLatest()
     {
@@ -21,7 +21,7 @@ public static class AdventOfCodeRunner
     }
 
     /// <summary>
-    /// Runs the latest available day of the specified year.
+    ///     Runs the latest available day of the specified year.
     /// </summary>
     /// <param name="year">The year to run the latest day for.</param>
     public static async Task RunLatest(int year)
@@ -37,7 +37,7 @@ public static class AdventOfCodeRunner
     }
 
     /// <summary>
-    /// Runs a specific day of a given year.
+    ///     Runs a specific day of a given year.
     /// </summary>
     /// <param name="year">The year of the day to run.</param>
     /// <param name="day">The day to run.</param>
@@ -46,7 +46,7 @@ public static class AdventOfCodeRunner
         var types = GetTypesInNamespace(LocalAssembly,
             $"Solutions._{year}"); // Get all types in the namespace for the year.
         var type = types.FirstOrDefault(t =>
-            t.Name == $"Day{day}" && typeof(BaseDay).IsAssignableFrom(t)); // Find the matching day class.
+            t.Name == $"Day{day}" && typeof(IBaseDay).IsAssignableFrom(t)); // Find the matching day class.
 
         if (type == null)
         {
@@ -54,19 +54,23 @@ public static class AdventOfCodeRunner
             return;
         }
 
-        var instance = (BaseDay)Activator.CreateInstance(type)!; // Create an instance of the day class.
-        await PuzzleInputForDayExist(LocalAssembly, year, day); // Ensure the input for the day exists.
+        var instance = (IBaseDay)Activator.CreateInstance(type)!; // Create an instance of the day class.
+        var filePath = await PuzzleInputForDayExist(LocalAssembly, year, day); // Ensure the input for the day exists.
 
         var results =
             new List<(int Year, int Day, int Part, string Result, string Runtime)>(); // Initialize the results table.
 
+        // Get the input data
+        using var reader = new StreamReader(filePath, Encoding.UTF8);
+        var input = await reader.ReadToEndAsync();
+
         // Open a console window with the input
         var windowIdentifier = ConsoleWindowHelper.CreateIdentifier(year, day);
-        ConsoleWindowHelper.ShowInGuiWindow(windowIdentifier, ReadFile.GetFileStream($"./{year}/Data/Day{day}"));
+        ConsoleWindowHelper.ShowInGuiWindow(windowIdentifier, input);
 
         // Part 1
         var watch = Stopwatch.StartNew(); // Start timing for Part 1.
-        var part1Result = instance.Part1(ReadFile.GetFileStream($"./{year}/Data/Day{day}"));
+        var part1Result = instance.Part1(input);
         watch.Stop();
         var part1Time = watch.ElapsedTicks;
         results.Add((year, day, 1, part1Result.ToString(), FormatTime(part1Time))); // Add Part 1 results to the table.
@@ -79,7 +83,7 @@ public static class AdventOfCodeRunner
         try
         {
             watch.Restart(); // Restart timing for Part 2.
-            part2Result = instance.Part2(ReadFile.GetFileStream($"./{year}/Data/Day{day}")).ToString(); // Run Part 2.
+            part2Result = instance.Part2(input).ToString(); // Run Part 2.
             watch.Stop();
             part2Time = watch.ElapsedTicks; // Record runtime.
         }
@@ -93,7 +97,7 @@ public static class AdventOfCodeRunner
     }
 
     /// <summary>
-    /// Renders the results table in the console.
+    ///     Renders the results table in the console.
     /// </summary>
     /// <param name="results">The results to display.</param>
     /// <param name="totalTimeTicks">The total runtime for all parts.</param>
@@ -102,17 +106,17 @@ public static class AdventOfCodeRunner
     {
         Console.Clear(); // Clear the console to redraw the table.
 
-        var valueTuples = results as (int Year, int Day, int Part, string Result, string Runtime)[] ?? results.ToArray();
+        var valueTuples = results as (int Year, int Day, int Part, string Result, string Runtime)[] ??
+                          results.ToArray();
         var resultColumnWidth =
-            Math.Max(valueTuples.Length != 0 ? valueTuples.Max(r => r.Result.Length) : 6, 6); // Ensure minimum column width.
+            Math.Max(valueTuples.Length != 0 ? valueTuples.Max(r => r.Result.Length) : 6,
+                6); // Ensure minimum column width.
         Console.WriteLine($"| Year  | Day | Part | Result{new string(' ', resultColumnWidth - 6)} | Runtime         |");
         Console.WriteLine($"|-------|-----|------|-{new string('-', resultColumnWidth)}-|-----------------|");
 
         foreach (var (year, day, part, result, runtime) in valueTuples)
-        {
             Console.WriteLine(
                 $"| {year,4}  | {day,3} | {part,4} | {result.PadRight(resultColumnWidth)} | {runtime,15} |");
-        }
 
         // Add a total row
         var totalRuntime = FormatTime(totalTimeTicks);
@@ -121,7 +125,7 @@ public static class AdventOfCodeRunner
     }
 
     /// <summary>
-    /// Gets the latest year available in the solution.
+    ///     Gets the latest year available in the solution.
     /// </summary>
     private static int GetLatestYear()
     {
@@ -129,7 +133,7 @@ public static class AdventOfCodeRunner
     }
 
     /// <summary>
-    /// Retrieves all available years based on namespaces.
+    ///     Retrieves all available years based on namespaces.
     /// </summary>
     private static IEnumerable<int> GetAvailableYears()
     {
@@ -141,20 +145,20 @@ public static class AdventOfCodeRunner
     }
 
     /// <summary>
-    /// Gets the last available day for a given year.
+    ///     Gets the last available day for a given year.
     /// </summary>
     /// <param name="year">The year to check.</param>
     private static int GetLastDayForYear(int year)
     {
         var types = GetTypesInNamespace(LocalAssembly, $"Solutions._{year}"); // Get all types for the year.
-        return types.Where(t => typeof(BaseDay).IsAssignableFrom(t)) // Filter types that implement BaseDay.
+        return types.Where(t => typeof(IBaseDay).IsAssignableFrom(t)) // Filter types that implement BaseDay.
             .Select(t => int.Parse(t.Name[3..])) // Extract the day number from the type name.
             .DefaultIfEmpty(0) // Default to 0 if no days are found.
             .Max(); // Get the highest day number.
     }
 
     /// <summary>
-    /// Retrieves all types in a specified namespace that implement BaseDay.
+    ///     Retrieves all types in a specified namespace that implement BaseDay.
     /// </summary>
     /// <param name="assembly">The assembly to search.</param>
     /// <param name="nameSpace">The namespace to search within.</param>
@@ -162,24 +166,24 @@ public static class AdventOfCodeRunner
     {
         return assembly.GetTypes()
             .Where(t => string.Equals(t.Namespace, nameSpace, StringComparison.Ordinal) &&
-                        typeof(BaseDay).IsAssignableFrom(t))
+                        typeof(IBaseDay).IsAssignableFrom(t))
             .ToArray();
     }
 
     /// <summary>
-    /// Ensures that the input data for a specific day exists.
+    ///     Ensures that the input data for a specific day exists.
     /// </summary>
     /// <param name="assembly">The assembly to base the path on.</param>
     /// <param name="year">The year of the day.</param>
     /// <param name="day">The day to check.</param>
-    private static Task PuzzleInputForDayExist(Assembly assembly, int year, int day)
+    private static Task<string> PuzzleInputForDayExist(Assembly assembly, int year, int day)
     {
         var path = Path.Combine(Path.GetDirectoryName(assembly.Location)!);
         return DownloadInput.ForYear(year, day, path); // Download input if not already present.
     }
 
     /// <summary>
-    /// Formats elapsed time in an appropriate unit (nanoseconds, microseconds, milliseconds, seconds).
+    ///     Formats elapsed time in an appropriate unit (nanoseconds, microseconds, milliseconds, seconds).
     /// </summary>
     /// <param name="ticks">The elapsed time in ticks.</param>
     private static string FormatTime(long ticks)

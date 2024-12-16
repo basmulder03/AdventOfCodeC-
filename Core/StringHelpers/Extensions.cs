@@ -21,7 +21,7 @@ public static partial class Extensions
         for (var i = 0; i < matches.Count; i++) result[i] = long.Parse(matches[i].Value);
         return result;
     }
-    
+
     public static double[] GetDoubles(this string str)
     {
         var regex = NumberGroupRegex();

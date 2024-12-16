@@ -1,9 +1,9 @@
-﻿using Core.DataHelper;
+﻿using Core.InputHelpers;
 using Core.Interfaces;
 
 namespace Solutions._2015;
 
-public class Day7 : BaseDay
+public class Day7 : IBaseDay
 {
     private readonly Dictionary<string, Func<int, int, int>> _operations = new()
     {
@@ -14,16 +14,16 @@ public class Day7 : BaseDay
         { "NOT", (a, _) => ~a }
     };
 
-    public long Part1(FileStream fileStream)
+    public long Part1(string input)
     {
-        var (wiresDict, wires) = ParseInput(fileStream);
+        var (wiresDict, wires) = ParseInput(input);
         const string wireToFind = "a";
         return FindValue(wireToFind, wires, wiresDict);
     }
 
-    public long Part2(FileStream fileStream)
+    public long Part2(string input)
     {
-        var (wiresDict, wires) = ParseInput(fileStream);
+        var (wiresDict, wires) = ParseInput(input);
         const string wireToFind = "a";
         var part1Result = FindValue(wireToFind, wires, wiresDict);
 
@@ -34,9 +34,9 @@ public class Day7 : BaseDay
     }
 
     private static (Dictionary<string, string> wiresDict, Dictionary<string, int> wires) ParseInput(
-        FileStream fileStream)
+        string input)
     {
-        var lines = fileStream.ReadLines().ToList();
+        var lines = input.ReadLines();
         var wiresDict = new Dictionary<string, string>();
         var wires = new Dictionary<string, int>();
 

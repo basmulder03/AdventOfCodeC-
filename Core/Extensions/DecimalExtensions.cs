@@ -2,6 +2,13 @@
 
 public static class DecimalExtensions
 {
-    public static int ToInt(this decimal value) => (int) value;
-    public static long ToLong(this decimal value) => (long) value;
+    public static int ToInt(this decimal value)
+    {
+        return (int)value;
+    }
+
+    public static long ToLong(this decimal value)
+    {
+        return (long)value;
+    }
 }

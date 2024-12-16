@@ -1,38 +1,36 @@
-﻿using Core.DataHelper;
-using Core.Interfaces;
+﻿using Core.Interfaces;
 using Core.StringHelpers;
 
 namespace Solutions._2024;
 
-public class Day11 : BaseDay
+public class Day11 : IBaseDay
 {
-    public long Part1(FileStream fileStream)
+    public long Part1(string input)
     {
-        var input = Parse(fileStream);
-        return ApplyRules(input, 25);
+        var parsedInput = Parse(input);
+        return ApplyRules(parsedInput, 25);
     }
 
-    public long Part2(FileStream fileStream)
+    public long Part2(string input)
     {
-        var input = Parse(fileStream);
-        return ApplyRules(input, 75);
+        var parsedInput = Parse(input);
+        return ApplyRules(parsedInput, 75);
     }
 
-    private static List<long> Parse(FileStream fileStream)
+    private static List<long> Parse(string input)
     {
-        return fileStream.ReadSingleLine().GetLongs().ToList();
+        return input.GetLongs().ToList();
     }
 
     private static long ApplyRules(List<long> stones, int amount)
     {
         var cache = stones.GroupBy(stone => stone)
-                          .ToDictionary(group => group.Key, group => (long)group.Count());
+            .ToDictionary(group => group.Key, group => (long)group.Count());
 
         for (var i = 0; i < amount; i++)
         {
             var newStones = new Dictionary<long, long>();
             foreach (var (key, value) in cache)
-            {
                 if (key == 0)
                 {
                     newStones[1] = newStones.GetValueOrDefault(1, 0) + value;
@@ -50,7 +48,7 @@ public class Day11 : BaseDay
                 {
                     newStones[key * 2024] = newStones.GetValueOrDefault(key * 2024, 0) + value;
                 }
-            }
+
             cache = newStones;
         }
 

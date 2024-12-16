@@ -1,26 +1,23 @@
 ﻿using System.Text;
-using Core.DataHelper;
 using Core.Interfaces;
 
 namespace Solutions._2015;
 
-public class Day10 : BaseDay
+public class Day10 : IBaseDay
 {
-    public long Part1(FileStream fileStream)
+    public long Part1(string input)
     {
-        var line = fileStream.ReadSingleLine();
-        var result = Solve(line, 40);
+        var result = Solve(input, 40);
         return result;
     }
 
-    public long Part2(FileStream fileStream)
+    public long Part2(string input)
     {
-        var line = fileStream.ReadSingleLine();
-        var result = Solve(line, 50);
+        var result = Solve(input, 50);
         return result;
     }
 
-    private int Solve(string line, int times)
+    private static int Solve(string line, int times)
     {
         var split = line.ToCharArray();
         var result = new StringBuilder();

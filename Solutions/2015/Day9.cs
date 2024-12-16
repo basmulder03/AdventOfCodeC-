@@ -1,14 +1,14 @@
-﻿using Core.DataHelper;
-using Core.Extensions;
+﻿using Core.Extensions;
+using Core.InputHelpers;
 using Core.Interfaces;
 
 namespace Solutions._2015;
 
-public class Day9 : BaseDay
+public class Day9 : IBaseDay
 {
-    public long Part1(FileStream fileStream)
+    public long Part1(string input)
     {
-        var lines = fileStream.ReadLines();
+        var lines = input.ReadLines();
         var distances = new Dictionary<(string, string), int>();
         var cities = new HashSet<string>();
         foreach (var line in lines)
@@ -37,9 +37,9 @@ public class Day9 : BaseDay
         return minDistance;
     }
 
-    public long Part2(FileStream fileStream)
+    public long Part2(string input)
     {
-        var lines = fileStream.ReadLines();
+        var lines = input.ReadLines();
         var distances = new Dictionary<(string, string), int>();
         var cities = new HashSet<string>();
         foreach (var line in lines)

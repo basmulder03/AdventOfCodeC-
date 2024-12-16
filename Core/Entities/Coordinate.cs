@@ -1,12 +1,12 @@
 ﻿namespace Core.Entities;
 
 /// <summary>
-/// Represents a 2D coordinate with X and Y components, accessible both by property and tuple deconstruction.
+///     Represents a 2D coordinate with X and Y components, accessible both by property and tuple deconstruction.
 /// </summary>
 public readonly record struct Coordinate(int X, int Y)
 {
     /// <summary>
-    /// Deconstructs the coordinate into its X and Y components.
+    ///     Deconstructs the coordinate into its X and Y components.
     /// </summary>
     /// <param name="x">The X component.</param>
     /// <param name="y">The Y component.</param>
@@ -37,7 +37,7 @@ public readonly record struct Coordinate(int X, int Y)
     }
 
     /// <summary>
-    /// Returns a string representation of the coordinate.
+    ///     Returns a string representation of the coordinate.
     /// </summary>
     /// <returns>A string in the format (X, Y).</returns>
     public override string ToString()

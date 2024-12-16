@@ -1,13 +1,13 @@
-﻿using Core.DataHelper;
+﻿using Core.InputHelpers;
 using Core.Interfaces;
 
 namespace Solutions._2024;
 
-public class Day1 : BaseDay
+public class Day1 : IBaseDay
 {
-    public long Part1(FileStream fileStream)
+    public long Part1(string input)
     {
-        var lines = fileStream.ReadLines();
+        var lines = input.ReadLines();
         var listA = new List<int>();
         var listB = new List<int>();
 
@@ -25,9 +25,9 @@ public class Day1 : BaseDay
         return result;
     }
 
-    public long Part2(FileStream fileStream)
+    public long Part2(string input)
     {
-        var lines = fileStream.ReadLines();
+        var lines = input.ReadLines();
         var listA = new List<int>();
         var listB = new List<int>();
 

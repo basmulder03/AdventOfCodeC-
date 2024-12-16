@@ -1,13 +1,12 @@
-﻿using Core.DataHelper;
-using Core.Interfaces;
+﻿using Core.Interfaces;
 
 namespace Solutions._2015;
 
-public class Day3 : BaseDay
+public class Day3 : IBaseDay
 {
-    public long Part1(FileStream fileStream)
+    public long Part1(string input)
     {
-        var chars = fileStream.ReadSingleLineAsChars();
+        var chars = input.ToCharArray();
 
         var visited = new HashSet<(int, int)>();
         var x = 0;
@@ -38,9 +37,9 @@ public class Day3 : BaseDay
         return visited.Count;
     }
 
-    public long Part2(FileStream fileStream)
+    public long Part2(string input)
     {
-        var chars = fileStream.ReadSingleLineAsChars();
+        var chars = input.ToCharArray();
 
         var visited = new HashSet<(int, int)>();
         var santaX = 0;
@@ -49,7 +48,7 @@ public class Day3 : BaseDay
         var roboY = 0;
         visited.Add((santaX, santaY));
 
-        for (var i = 0; i < chars.Count; i++)
+        for (var i = 0; i < chars.Length; i++)
         {
             var c = chars[i];
             var x = i % 2 == 0 ? santaX : roboX;

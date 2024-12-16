@@ -1,7 +1,7 @@
 ﻿namespace Core.Interfaces;
 
-public interface BaseDay
+public interface IBaseDay
 {
-    public long Part1(FileStream fileStream);
-    public long Part2(FileStream fileStream);
+    public long Part1(string input);
+    public long Part2(string input);
 }

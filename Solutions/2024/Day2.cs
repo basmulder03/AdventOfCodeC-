@@ -1,13 +1,13 @@
-﻿using Core.DataHelper;
+﻿using Core.InputHelpers;
 using Core.Interfaces;
 
 namespace Solutions._2024;
 
-public class Day2 : BaseDay
+public class Day2 : IBaseDay
 {
-    public long Part1(FileStream fileStream)
+    public long Part1(string input)
     {
-        var lines = fileStream.ReadLines();
+        var lines = input.ReadLines();
         var safeReports = 0;
 
         foreach (var line in lines)
@@ -19,9 +19,9 @@ public class Day2 : BaseDay
         return safeReports;
     }
 
-    public long Part2(FileStream fileStream)
+    public long Part2(string input)
     {
-        var lines = fileStream.ReadLines();
+        var lines = input.ReadLines();
         var safeReports = lines.Select(line => line.Split(" ").Select(int.Parse).ToList())
             .Count(levels => IsSafe(levels) || CanBeMadeSafeByRemovingOne(levels));
 

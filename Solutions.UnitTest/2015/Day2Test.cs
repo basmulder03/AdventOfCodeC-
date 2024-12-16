@@ -1,5 +1,4 @@
-﻿using Core.UnitTest;
-using Shouldly;
+﻿using Shouldly;
 using Solutions._2015;
 
 namespace Solutions.UnitTest._2015;
@@ -11,7 +10,7 @@ public class Day2Test
     public void Part1Test1()
     {
         var day = new Day2();
-        var data = FileStreamHelper.GetFileStream("2x3x4");
+        const string data = "2x3x4";
         var result = day.Part1(data);
         result.ShouldBe(58);
     }
@@ -20,7 +19,7 @@ public class Day2Test
     public void Part1Test2()
     {
         var day = new Day2();
-        var data = FileStreamHelper.GetFileStream("1x1x10");
+        const string data = "1x1x10";
         var result = day.Part1(data);
         result.ShouldBe(43);
     }
@@ -29,7 +28,7 @@ public class Day2Test
     public void Part2Test1()
     {
         var day = new Day2();
-        var data = FileStreamHelper.GetFileStream("2x3x4");
+        const string data = "2x3x4";
         var result = day.Part2(data);
         result.ShouldBe(34);
     }
@@ -38,7 +37,7 @@ public class Day2Test
     public void Part2Test2()
     {
         var day = new Day2();
-        var data = FileStreamHelper.GetFileStream("1x1x10");
+        const string data = "1x1x10";
         var result = day.Part2(data);
         result.ShouldBe(14);
     }

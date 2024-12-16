@@ -1,5 +1,4 @@
-﻿using Core.UnitTest;
-using Shouldly;
+﻿using Shouldly;
 using Solutions._2015;
 
 namespace Solutions.UnitTest._2015;
@@ -11,7 +10,7 @@ public class Day8Test
     public void Part1Test1()
     {
         var day = new Day8();
-        var data = FileStreamHelper.GetFileStream("\"\"");
+        const string data = "\"\"";
         var result = day.Part1(data);
         result.ShouldBe(2);
     }
@@ -20,7 +19,7 @@ public class Day8Test
     public void Part1Test2()
     {
         var day = new Day8();
-        var data = FileStreamHelper.GetFileStream("\"abc\"");
+        const string data = "\"abc\"";
         var result = day.Part1(data);
         result.ShouldBe(2);
     }
@@ -29,7 +28,7 @@ public class Day8Test
     public void Part1Test3()
     {
         var day = new Day8();
-        var data = FileStreamHelper.GetFileStream("\"aaa\\\"aaa\"");
+        const string data = "\"aaa\\\"aaa\"";
         var result = day.Part1(data);
         result.ShouldBe(3);
     }
@@ -38,7 +37,7 @@ public class Day8Test
     public void Part1Test4()
     {
         var day = new Day8();
-        var data = FileStreamHelper.GetFileStream("\"\\x27\"");
+        const string data = "\"\\x27\"";
         var result = day.Part1(data);
         result.ShouldBe(5);
     }
@@ -47,7 +46,7 @@ public class Day8Test
     public void Part2Test1()
     {
         var day = new Day8();
-        var data = FileStreamHelper.GetFileStream("\"\"");
+        const string data = "\"\"";
         var result = day.Part2(data);
         result.ShouldBe(4);
     }
@@ -56,7 +55,7 @@ public class Day8Test
     public void Part2Test2()
     {
         var day = new Day8();
-        var data = FileStreamHelper.GetFileStream("\"abc\"");
+        const string data = "\"abc\"";
         var result = day.Part2(data);
         result.ShouldBe(4);
     }
@@ -65,7 +64,7 @@ public class Day8Test
     public void Part2Test3()
     {
         var day = new Day8();
-        var data = FileStreamHelper.GetFileStream("\"aaa\\\"aaa\"");
+        const string data = "\"aaa\\\"aaa\"";
         var result = day.Part2(data);
         result.ShouldBe(6);
     }
@@ -74,7 +73,7 @@ public class Day8Test
     public void Part2Test4()
     {
         var day = new Day8();
-        var data = FileStreamHelper.GetFileStream("\"\\x27\"");
+        const string data = "\"\\x27\"";
         var result = day.Part2(data);
         result.ShouldBe(5);
     }

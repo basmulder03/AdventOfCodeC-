@@ -10,20 +10,17 @@ public static class DownloadInput
     /// <param name="year">The year to retrieve the data for.</param>
     /// <param name="day">The day to retrieve the data for.</param>
     /// <param name="executionPath">The path the project files are located at.</param>
-    public static async Task ForYear(int year, int day, string executionPath)
+    public static async Task<string> ForYear(int year, int day, string executionPath)
     {
         var pathWithYear = Path.Combine(executionPath, year.ToString(), "Data");
-        if (!Path.Exists(pathWithYear))
-        {
-            Directory.CreateDirectory(pathWithYear);
-        }
+        if (!Path.Exists(pathWithYear)) Directory.CreateDirectory(pathWithYear);
 
         var pathToWriteInputTo = Path.Combine(pathWithYear, $"Day{day}");
-        
+
         if (Path.Exists(pathToWriteInputTo))
         {
             Console.WriteLine("Input already exists.");
-            return;
+            return pathToWriteInputTo;
         }
 
         var token = TokenHelper.GetToken();
@@ -42,7 +39,7 @@ public static class DownloadInput
         if (response.IsSuccessStatusCode)
         {
             WriteInputToFile(await response.Content.ReadAsStringAsync(), pathToWriteInputTo);
-            return;
+            return pathToWriteInputTo;
         }
 
         // If the token is invalid, request a new one and try again
@@ -57,12 +54,13 @@ public static class DownloadInput
             if (response.IsSuccessStatusCode)
             {
                 WriteInputToFile(await response.Content.ReadAsStringAsync(), pathToWriteInputTo);
-                return;
+                return pathToWriteInputTo;
             }
         }
 
         Console.WriteLine("Failed to download input.");
         Console.WriteLine(response.StatusCode);
+        throw new Exception("Failed to download input.");
     }
 
     private static void WriteInputToFile(string input, string pathToWriteInputTo)

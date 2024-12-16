@@ -1,13 +1,13 @@
-﻿using Core.DataHelper;
+﻿using Core.InputHelpers;
 using Core.Interfaces;
 
 namespace Solutions._2024;
 
-public class Day5 : BaseDay
+public class Day5 : IBaseDay
 {
-    public long Part1(FileStream fileStream)
+    public long Part1(string input)
     {
-        var lines = fileStream.ReadLines();
+        var lines = input.ReadLines();
         var (orderingRules, rulePages) = Parse(lines);
 
         var correctUpdatesCounter =
@@ -19,9 +19,9 @@ public class Day5 : BaseDay
         return correctUpdatesCounter;
     }
 
-    public long Part2(FileStream fileStream)
+    public long Part2(string input)
     {
-        var lines = fileStream.ReadLines();
+        var lines = input.ReadLines();
         var (orderingRules, rulePages) = Parse(lines);
 
         var resultCounter = (

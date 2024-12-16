@@ -1,27 +1,27 @@
-﻿using Core.DataHelper;
-using Core.Extensions;
+﻿using Core.Extensions;
+using Core.InputHelpers;
 using Core.Interfaces;
 
 namespace Solutions._2015;
 
-public class Day13 : BaseDay
+public class Day13 : IBaseDay
 {
-    public long Part1(FileStream fileStream)
+    public long Part1(string input)
     {
-        var happiness = ParseInput(fileStream);
+        var happiness = ParseInput(input);
         return CalculateMaxHappiness(happiness);
     }
 
-    public long Part2(FileStream fileStream)
+    public long Part2(string input)
     {
-        var happiness = ParseInput(fileStream);
+        var happiness = ParseInput(input);
         AddSelfToHappiness(happiness);
         return CalculateMaxHappiness(happiness);
     }
 
-    private static Dictionary<string, Dictionary<string, int>> ParseInput(FileStream fileStream)
+    private static Dictionary<string, Dictionary<string, int>> ParseInput(string input)
     {
-        var lines = fileStream.ReadLines();
+        var lines = input.ReadLines();
         var happiness = new Dictionary<string, Dictionary<string, int>>();
         foreach (var line in lines)
         {

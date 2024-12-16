@@ -1,25 +1,25 @@
 ﻿using Core.Constants;
-using Core.DataHelper;
 using Core.DataStructures;
+using Core.InputHelpers;
 using Core.Interfaces;
 
 namespace Solutions._2024;
 
-public class Day12 : BaseDay
+public class Day12 : IBaseDay
 {
-    public long Part1(FileStream fileStream)
+    public long Part1(string input)
     {
-        return CalculateTotal(fileStream, SizeOfPlot);
+        return CalculateTotal(input, SizeOfPlot);
     }
 
-    public long Part2(FileStream fileStream)
+    public long Part2(string input)
     {
-        return CalculateTotal(fileStream, CalculatePerimeter);
+        return CalculateTotal(input, CalculatePerimeter);
     }
 
-    private static long CalculateTotal(FileStream fileStream, Func<GridCell<Node>, (int, int)> calculationMethod)
+    private static long CalculateTotal(string input, Func<GridCell<Node>, (int, int)> calculationMethod)
     {
-        var grid = Parse(fileStream);
+        var grid = Parse(input);
         var total = 0;
 
         foreach (var cell in grid)
@@ -33,9 +33,9 @@ public class Day12 : BaseDay
         return total;
     }
 
-    private static Grid<Node> Parse(FileStream fileStream)
+    private static Grid<Node> Parse(string input)
     {
-        var lines = fileStream.ReadLines();
+        var lines = input.ReadLines();
         var data = lines
             .Select(line => line.ToCharArray().Select(c => new Node { Type = c, Visited = false }).ToArray()).ToArray();
         return Grid<Node>.FromData(data);
@@ -48,9 +48,7 @@ public class Day12 : BaseDay
         var newPlots = 1;
 
         foreach (var direction in GridDirectionsHelper.CardinalDirections)
-        {
             UpdatePerimeterAndPlots(startCell, direction, ref newPerimeter, ref newPlots, SizeOfPlot);
-        }
 
         return (newPerimeter, newPlots);
     }

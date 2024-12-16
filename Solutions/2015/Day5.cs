@@ -1,16 +1,16 @@
-﻿using Core.DataHelper;
+﻿using Core.InputHelpers;
 using Core.Interfaces;
 
 namespace Solutions._2015;
 
-public class Day5 : BaseDay
+public class Day5 : IBaseDay
 {
     private const string Vowels = "aeiou";
     private const string BadStrings = "ab,cd,pq,xy";
 
-    public long Part1(FileStream fileStream)
+    public long Part1(string input)
     {
-        var strings = fileStream.ReadLines();
+        var strings = input.ReadLines();
         var niceStrings = 0;
 
         foreach (var str in strings)
@@ -34,9 +34,9 @@ public class Day5 : BaseDay
         return niceStrings;
     }
 
-    public long Part2(FileStream fileStream)
+    public long Part2(string input)
     {
-        var strings = fileStream.ReadLines();
+        var strings = input.ReadLines();
         var niceStrings = 0;
 
         foreach (var str in strings)

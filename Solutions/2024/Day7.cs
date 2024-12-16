@@ -1,14 +1,14 @@
-﻿using Core.DataHelper;
+﻿using Core.InputHelpers;
 using Core.Interfaces;
 using Core.StringHelpers;
 
 namespace Solutions._2024;
 
-public class Day7 : BaseDay
+public class Day7 : IBaseDay
 {
-    public long Part1(FileStream fileStream)
+    public long Part1(string input)
     {
-        var lines = fileStream.ReadLines();
+        var lines = input.ReadLines();
         var total = 0L;
 
         foreach (var line in lines)
@@ -37,9 +37,9 @@ public class Day7 : BaseDay
         return total;
     }
 
-    public long Part2(FileStream fileStream)
+    public long Part2(string input)
     {
-        var lines = fileStream.ReadLines();
+        var lines = input.ReadLines();
         var total = 0L;
 
         foreach (var line in lines)

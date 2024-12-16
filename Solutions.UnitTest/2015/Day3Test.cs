@@ -1,5 +1,4 @@
-﻿using Core.UnitTest;
-using Shouldly;
+﻿using Shouldly;
 using Solutions._2015;
 
 namespace Solutions.UnitTest._2015;
@@ -11,7 +10,7 @@ public class Day3Test
     public void Part1Test1()
     {
         var day = new Day3();
-        var data = FileStreamHelper.GetFileStream(">");
+        const string data = ">";
         var result = day.Part1(data);
         result.ShouldBe(2);
     }
@@ -20,7 +19,7 @@ public class Day3Test
     public void Part1Test2()
     {
         var day = new Day3();
-        var data = FileStreamHelper.GetFileStream("^>v<");
+        const string data = "^>v<";
         var result = day.Part1(data);
         result.ShouldBe(4);
     }
@@ -29,7 +28,7 @@ public class Day3Test
     public void Part1Test3()
     {
         var day = new Day3();
-        var data = FileStreamHelper.GetFileStream("^v^v^v^v^v");
+        const string data = "^v^v^v^v^v";
         var result = day.Part1(data);
         result.ShouldBe(2);
     }
@@ -38,7 +37,7 @@ public class Day3Test
     public void Part2Test1()
     {
         var day = new Day3();
-        var data = FileStreamHelper.GetFileStream("^v");
+        const string data = "^v";
         var result = day.Part2(data);
         result.ShouldBe(3);
     }
@@ -47,7 +46,7 @@ public class Day3Test
     public void Part2Test2()
     {
         var day = new Day3();
-        var data = FileStreamHelper.GetFileStream("^>v<");
+        const string data = "^>v<";
         var result = day.Part2(data);
         result.ShouldBe(3);
     }
@@ -56,7 +55,7 @@ public class Day3Test
     public void Part2Test3()
     {
         var day = new Day3();
-        var data = FileStreamHelper.GetFileStream("^v^v^v^v^v");
+        const string data = "^v^v^v^v^v";
         var result = day.Part2(data);
         result.ShouldBe(11);
     }

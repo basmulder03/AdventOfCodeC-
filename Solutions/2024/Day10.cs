@@ -1,28 +1,28 @@
-﻿using Core.DataHelper;
-using Core.DataStructures;
+﻿using Core.DataStructures;
+using Core.InputHelpers;
 using Core.Interfaces;
 
 namespace Solutions._2024;
 
-public class Day10 : BaseDay
+public class Day10 : IBaseDay
 {
-    public long Part1(FileStream fileStream)
+    public long Part1(string input)
     {
-        var grid = Parse(fileStream);
+        var grid = Parse(input);
         var startingCells = grid.Where(cell => cell.Value!.Height == 0).ToList();
         return startingCells.Sum(cell => DFS((Grid<Node>)grid.Clone(), cell));
     }
 
-    public long Part2(FileStream fileStream)
+    public long Part2(string input)
     {
-        var grid = Parse(fileStream);
+        var grid = Parse(input);
         var startingCells = grid.Where(cell => cell.Value!.Height == 0).ToList();
         return startingCells.Sum(cell => DFS2((Grid<Node>)grid.Clone(), cell));
     }
-    
-    private static Grid<Node> Parse(FileStream fileStream)
+
+    private static Grid<Node> Parse(string input)
     {
-        var lines = fileStream.ReadLines();
+        var lines = input.ReadLines();
         var data = lines.Select(line => line.ToCharArray().Select(c => new Node(c - '0', false)).ToArray()).ToArray();
         return Grid<Node>.FromData(data);
     }
@@ -35,7 +35,7 @@ public class Day10 : BaseDay
         if (c.Value!.Height == 9) return 1;
         return c.CardinalNeighbors.Where(neighbor =>
                 neighbor.Value != null && !neighbor.Value!.Visited && neighbor.Value!.Height - c.Value!.Height == 1)
-                                  .Sum(neighbor => DFS(grid, neighbor));
+            .Sum(neighbor => DFS(grid, neighbor));
     }
 
     private static int DFS2(Grid<Node> grid, GridCell<Node> cell)
@@ -45,19 +45,19 @@ public class Day10 : BaseDay
         if (c.Value!.Height == 9) return 1;
         return c.CardinalNeighbors
             .Where(neighbor => neighbor.Value != null && neighbor.Value!.Height - c.Value!.Height == 1)
-                                  .Sum(neighbor => DFS2(grid, neighbor));
+            .Sum(neighbor => DFS2(grid, neighbor));
     }
 
     private class Node : ICloneable
     {
-        public int Height { get; }
-        public bool Visited { get; set; }
-
         public Node(int height, bool visited)
         {
             Height = height;
             Visited = visited;
         }
+
+        public int Height { get; }
+        public bool Visited { get; set; }
 
         public object Clone()
         {

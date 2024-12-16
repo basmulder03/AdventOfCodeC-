@@ -1,29 +1,29 @@
 ﻿using System.Text.RegularExpressions;
-using Core.DataHelper;
+using Core.InputHelpers;
 using Core.Interfaces;
 
 namespace Solutions._2024;
 
-public class Day3 : BaseDay
+public class Day3 : IBaseDay
 {
     private static readonly Regex Part1Regex = new(@"mul\(\d+,\d+\)");
     private static readonly Regex Part2Regex = new(@"mul\(\d+,\d+\)|do\(\)|don't\(\)");
 
-    public long Part1(FileStream fileStream)
+    public long Part1(string input)
     {
-        var result = ProcessLines(fileStream, Part1Regex, true);
+        var result = ProcessLines(input, Part1Regex, true);
         return result;
     }
 
-    public long Part2(FileStream fileStream)
+    public long Part2(string input)
     {
-        var result = ProcessLines(fileStream, Part2Regex, false);
+        var result = ProcessLines(input, Part2Regex, false);
         return result;
     }
 
-    private static int ProcessLines(FileStream fileStream, Regex regex, bool alwaysEnabled)
+    private static int ProcessLines(string input, Regex regex, bool alwaysEnabled)
     {
-        var lines = fileStream.ReadLines();
+        var lines = input.ReadLines();
         var result = 0;
         var enabled = true;
 
