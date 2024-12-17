@@ -1,5 +1,5 @@
-﻿using Core.Interfaces;
-using Core.StringHelpers;
+﻿using Core.Extensions;
+using Core.Interfaces;
 using Newtonsoft.Json.Linq;
 
 namespace Solutions._2015;

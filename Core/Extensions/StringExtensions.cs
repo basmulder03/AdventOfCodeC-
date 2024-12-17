@@ -1,8 +1,8 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Core.StringHelpers;
+namespace Core.Extensions;
 
-public static partial class Extensions
+public static partial class StringExtensions
 {
     public static int[] GetInts(this string str)
     {

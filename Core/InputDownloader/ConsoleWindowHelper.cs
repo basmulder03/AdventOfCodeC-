@@ -69,8 +69,10 @@ public static class ConsoleWindowHelper
         var process = new Process();
 
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            process.StartInfo = new ProcessStartInfo(path)
+            process.StartInfo = new ProcessStartInfo
             {
+                FileName = "notepad.exe",
+                Arguments = path,
                 UseShellExecute = true
             };
         else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
@@ -100,7 +102,7 @@ public static class ConsoleWindowHelper
     /// </summary>
     private static void SaveState()
     {
-        var activeWindows = OpenWindows.Where(kv => kv.Value != null && !kv.Value!.HasExited).Select(kv => kv.Key);
+        var activeWindows = OpenWindows.Where(kv => kv.Value != null).Select(kv => kv.Key);
         File.WriteAllLines(StateFilePath, activeWindows);
     }
 
