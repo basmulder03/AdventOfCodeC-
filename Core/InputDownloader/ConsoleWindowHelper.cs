@@ -13,8 +13,8 @@ public static class ConsoleWindowHelper
     ///     Ensures that only one window per unique identifier (e.g., year and day) is open at a time.
     /// </summary>
     /// <param name="identifier">A unique identifier for the data, such as "Year2024Day1".</param>
-    /// <param name="input">The input data of the puzzle.</param>
-    public static void ShowInGuiWindow(string identifier, string input)
+    /// <param name="path">The path of the input</param>
+    public static void ShowInGuiWindow(string identifier, string path)
     {
         if (OpenWindows.TryGetValue(identifier, out var existingProcess))
         {
@@ -45,7 +45,7 @@ public static class ConsoleWindowHelper
         }
 
         // Display the content using a GUI-based viewer.
-        StartGuiViewer(identifier, input);
+        StartGuiViewer(identifier, path);
     }
 
     /// <summary>
@@ -63,33 +63,28 @@ public static class ConsoleWindowHelper
     ///     Starts a cross-platform GUI viewer to display the content.
     /// </summary>
     /// <param name="identifier">The identifier for the content.</param>
-    /// <param name="content">The text content to display.</param>
-    private static void StartGuiViewer(string identifier, string content)
+    /// <param name="path">The text content to display.</param>
+    private static void StartGuiViewer(string identifier, string path)
     {
-        var tempFile = Path.Combine(Path.GetTempPath(), $"{identifier}.txt");
-        File.WriteAllText(tempFile, content);
-
         var process = new Process();
 
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            process.StartInfo = new ProcessStartInfo
+            process.StartInfo = new ProcessStartInfo(path)
             {
-                FileName = "notepad.exe",
-                Arguments = tempFile,
                 UseShellExecute = true
             };
         else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             process.StartInfo = new ProcessStartInfo
             {
                 FileName = "xterm",
-                Arguments = $"-hold -e 'cat {tempFile}'",
+                Arguments = $"-hold -e 'cat {path}'",
                 UseShellExecute = true
             };
         else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             process.StartInfo = new ProcessStartInfo
             {
                 FileName = "open",
-                Arguments = $"-a TextEdit {tempFile}",
+                Arguments = $"-a TextEdit {path}",
                 UseShellExecute = true
             };
         else
