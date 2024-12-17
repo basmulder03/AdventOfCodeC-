@@ -66,7 +66,7 @@ public static class AdventOfCodeRunner
 
         // Open a console window with the input
         var windowIdentifier = ConsoleWindowHelper.CreateIdentifier(year, day);
-        ConsoleWindowHelper.ShowInGuiWindow(windowIdentifier, input);
+        ConsoleWindowHelper.ShowInGuiWindow(windowIdentifier, filePath);
 
         // Part 1
         var watch = Stopwatch.StartNew(); // Start timing for Part 1.

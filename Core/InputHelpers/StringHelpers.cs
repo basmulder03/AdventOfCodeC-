@@ -4,7 +4,7 @@ public static class StringHelpers
 {
     public static List<string> ReadLines(this string input)
     {
-        return input.Split(Environment.NewLine).ToList();
+        return input.Split(["\r\n", "\r", "\n"], StringSplitOptions.None).ToList();
     }
 
     public static List<int> ReadLinesAsInt(this string input)

@@ -59,7 +59,7 @@ public class Grid<T> : ICloneable, IEnumerable<GridCell<T>>, IEqualityComparer
     /// <summary>
     ///     Gets an empty grid instance.
     /// </summary>
-    public static Grid<T> Empty => new(new T[0][]);
+    public static Grid<T> Empty => new([]);
 
     /// <summary>
     ///     Creates a deep clone of the grid.
@@ -87,9 +87,7 @@ public class Grid<T> : ICloneable, IEnumerable<GridCell<T>>, IEqualityComparer
     /// <returns>An enumerator for the grid cells.</returns>
     public IEnumerator<GridCell<T>> GetEnumerator()
     {
-        foreach (var row in Rows)
-        foreach (var cell in row)
-            yield return cell;
+        return Rows.SelectMany(row => row).GetEnumerator();
     }
 
     IEnumerator IEnumerable.GetEnumerator()
@@ -174,11 +172,20 @@ public class Grid<T> : ICloneable, IEnumerable<GridCell<T>>, IEqualityComparer
     }
 
     /// <summary>
+    /// Converts the grid to a string representation.
+    /// </summary>
+    /// <returns>The string representation</returns>
+    public override string ToString()
+    {
+        return ToString(T => T!.ToString());
+    }
+
+    /// <summary>
     ///     Converts the grid to a string representation using a custom formatter for the elements.
     /// </summary>
     /// <param name="formatter">A function to format each element.</param>
     /// <returns>A string representation of the grid.</returns>
-    public string ToString(Func<T, string> formatter)
+    public string ToString(Func<T, string?> formatter)
     {
         var sb = new StringBuilder();
         for (var y = 0; y < Height; y++)
@@ -195,7 +202,7 @@ public class Grid<T> : ICloneable, IEnumerable<GridCell<T>>, IEqualityComparer
     public override bool Equals(object? obj)
     {
         if (obj is not Grid<T> other || Width != other.Width || Height != other.Height) return false;
-        return Rows.Zip(other.Rows, (rowA, rowB) => rowA.SequenceEqual(rowB)).All(result => result);
+        return this.SequenceEqual(other);
     }
 
     /// <inheritdoc />

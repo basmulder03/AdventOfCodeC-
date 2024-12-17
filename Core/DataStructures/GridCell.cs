@@ -109,6 +109,16 @@ public class GridCell<T> : ICloneable, IEqualityComparer
         return cellX.X == cellY.X && cellX.Y == cellY.Y && EqualityComparer<T>.Default.Equals(cellX.Value, cellY.Value);
     }
 
+    public override bool Equals(object? other)
+    {
+        return Equals(this, other);
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(_coordinate, Value);
+    }
+
     /// <inheritdoc />
     public int GetHashCode(object obj)
     {
