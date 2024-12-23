@@ -3,7 +3,7 @@
 /// <summary>
 ///     Represents a 2D coordinate with X and Y components, accessible both by property and tuple deconstruction.
 /// </summary>
-public readonly record struct Coordinate(int X, int Y)
+public readonly record struct Coordinate(int X, int Y) : IComparable<Coordinate>
 {
     /// <summary>
     ///     Deconstructs the coordinate into its X and Y components.
@@ -34,6 +34,11 @@ public readonly record struct Coordinate(int X, int Y)
     public static Coordinate operator /(Coordinate a, int scalar)
     {
         return new Coordinate(a.X / scalar, a.Y / scalar);
+    }
+
+    public int CompareTo(Coordinate other)
+    {
+        return X == other.X ? Y.CompareTo(other.Y) : X.CompareTo(other.X);
     }
 
     /// <summary>
