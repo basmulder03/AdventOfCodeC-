@@ -4,16 +4,16 @@ using Core.Interfaces;
 
 namespace Solutions._2015;
 
-public class Day14 : IBaseDay
+public class Day14 : BaseDay
 {
-    public long Part1(string input)
+    public override long Part1(string input)
     {
         var lines = input.ReadLines();
         var reindeer = ParseReindeer(lines);
         return reindeer.Values.Select(r => CalculateDistance(r, 2503)).Max();
     }
 
-    public long Part2(string input)
+    public override long Part2(string input)
     {
         var lines = input.ReadLines();
         var reindeer = ParseReindeer(lines);

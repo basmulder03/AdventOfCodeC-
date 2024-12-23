@@ -4,9 +4,9 @@ using Core.Interfaces;
 
 namespace Solutions._2015;
 
-public class Day8 : IBaseDay
+public class Day8 : BaseDay
 {
-    public long Part1(string input)
+    public override long Part1(string input)
     {
         var lines = input.ReadLines();
         var total = lines.Sum(line => line.Length);
@@ -14,7 +14,7 @@ public class Day8 : IBaseDay
         return total - memory;
     }
 
-    public long Part2(string input)
+    public override long Part2(string input)
     {
         var lines = input.ReadLines();
         return lines.Select(s => new

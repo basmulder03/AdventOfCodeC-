@@ -46,7 +46,7 @@ public static class AdventOfCodeRunner
         var types = GetTypesInNamespace(LocalAssembly,
             $"Solutions._{year}"); // Get all types in the namespace for the year.
         var type = types.FirstOrDefault(t =>
-            t.Name == $"Day{day}" && typeof(IBaseDay).IsAssignableFrom(t)); // Find the matching day class.
+            t.Name == $"Day{day}" && typeof(BaseDay).IsAssignableFrom(t)); // Find the matching day class.
 
         if (type == null)
         {
@@ -54,7 +54,7 @@ public static class AdventOfCodeRunner
             return;
         }
 
-        var instance = (IBaseDay)Activator.CreateInstance(type)!; // Create an instance of the day class.
+        var instance = (BaseDay)Activator.CreateInstance(type)!; // Create an instance of the day class.
         var filePath = await PuzzleInputForDayExist(LocalAssembly, year, day); // Ensure the input for the day exists.
 
         var results =
@@ -68,12 +68,24 @@ public static class AdventOfCodeRunner
         var windowIdentifier = ConsoleWindowHelper.CreateIdentifier(year, day);
         ConsoleWindowHelper.ShowInGuiWindow(windowIdentifier, filePath);
 
+        var watch = new Stopwatch(); // Initialize a stopwatch for timing.
+        
         // Part 1
-        var watch = Stopwatch.StartNew(); // Start timing for Part 1.
-        var part1Result = instance.Part1(input);
-        watch.Stop();
-        var part1Time = watch.ElapsedTicks;
-        results.Add((year, day, 1, part1Result.ToString(), FormatTime(part1Time))); // Add Part 1 results to the table.
+        long part1Time = 0;
+        string part1Result;
+        try
+        {
+            watch.Restart(); // Start timing for Part 1.
+            part1Result = instance.Part1String(input);
+            watch.Stop();
+            part1Time = watch.ElapsedTicks;
+        }
+        catch (NotImplementedException)
+        {
+            part1Result = "N/A"; // Handle cases where Part 1 is not implemented.
+        }
+
+        results.Add((year, day, 1, part1Result, FormatTime(part1Time))); // Add Part 1 results to the table.
 
         RenderTable(results, part1Time); // Render the table with Part 1 results.
 
@@ -83,7 +95,7 @@ public static class AdventOfCodeRunner
         try
         {
             watch.Restart(); // Restart timing for Part 2.
-            part2Result = instance.Part2(input).ToString(); // Run Part 2.
+            part2Result = instance.Part2String(input); // Run Part 2.
             watch.Stop();
             part2Time = watch.ElapsedTicks; // Record runtime.
         }
@@ -151,7 +163,7 @@ public static class AdventOfCodeRunner
     private static int GetLastDayForYear(int year)
     {
         var types = GetTypesInNamespace(LocalAssembly, $"Solutions._{year}"); // Get all types for the year.
-        return types.Where(t => typeof(IBaseDay).IsAssignableFrom(t)) // Filter types that implement BaseDay.
+        return types.Where(t => typeof(BaseDay).IsAssignableFrom(t)) // Filter types that implement BaseDay.
             .Select(t => int.Parse(t.Name[3..])) // Extract the day number from the type name.
             .DefaultIfEmpty(0) // Default to 0 if no days are found.
             .Max(); // Get the highest day number.
@@ -166,7 +178,7 @@ public static class AdventOfCodeRunner
     {
         return assembly.GetTypes()
             .Where(t => string.Equals(t.Namespace, nameSpace, StringComparison.Ordinal) &&
-                        typeof(IBaseDay).IsAssignableFrom(t))
+                        typeof(BaseDay).IsAssignableFrom(t))
             .ToArray();
     }
 

@@ -5,9 +5,9 @@ using Core.Interfaces;
 
 namespace Solutions._2024;
 
-public class Day4 : IBaseDay
+public class Day4 : BaseDay
 {
-    public long Part1(string input)
+    public override long Part1(string input)
     {
         var grid = Parse(input.ReadLines());
 
@@ -17,7 +17,7 @@ public class Day4 : IBaseDay
             select FindXmas(cell)).Sum();
     }
 
-    public long Part2(string input)
+    public override long Part2(string input)
     {
         var grid = Parse(input.ReadLines());
 

@@ -4,9 +4,9 @@ using Core.Interfaces;
 
 namespace Solutions._2015;
 
-public class Day9 : IBaseDay
+public class Day9 : BaseDay
 {
-    public long Part1(string input)
+    public override long Part1(string input)
     {
         var lines = input.ReadLines();
         var distances = new Dictionary<(string, string), int>();
@@ -37,7 +37,7 @@ public class Day9 : IBaseDay
         return minDistance;
     }
 
-    public long Part2(string input)
+    public override long Part2(string input)
     {
         var lines = input.ReadLines();
         var distances = new Dictionary<(string, string), int>();

@@ -3,15 +3,15 @@ using Core.Interfaces;
 
 namespace Solutions._2024;
 
-public class Day11 : IBaseDay
+public class Day11 : BaseDay
 {
-    public long Part1(string input)
+    public override long Part1(string input)
     {
         var parsedInput = Parse(input);
         return ApplyRules(parsedInput, 25);
     }
 
-    public long Part2(string input)
+    public override long Part2(string input)
     {
         var parsedInput = Parse(input);
         return ApplyRules(parsedInput, 75);

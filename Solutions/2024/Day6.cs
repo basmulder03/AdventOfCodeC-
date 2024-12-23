@@ -5,9 +5,9 @@ using Core.Interfaces;
 
 namespace Solutions._2024;
 
-public class Day6 : IBaseDay
+public class Day6 : BaseDay
 {
-    public long Part1(string input)
+    public override long Part1(string input)
     {
         var lines = input.ReadLines();
         var grid = ParseInput(lines);
@@ -36,7 +36,7 @@ public class Day6 : IBaseDay
         return grid.Rows.SelectMany(row => row).Count(node => node.Value!.IsVisited);
     }
 
-    public long Part2(string input)
+    public override long Part2(string input)
     {
         var lines = input.ReadLines();
         var grid = ParseInput(lines);

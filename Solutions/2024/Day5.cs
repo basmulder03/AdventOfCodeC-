@@ -3,9 +3,9 @@ using Core.Interfaces;
 
 namespace Solutions._2024;
 
-public class Day5 : IBaseDay
+public class Day5 : BaseDay
 {
-    public long Part1(string input)
+    public override long Part1(string input)
     {
         var lines = input.ReadLines();
         var (orderingRules, rulePages) = Parse(lines);
@@ -19,7 +19,7 @@ public class Day5 : IBaseDay
         return correctUpdatesCounter;
     }
 
-    public long Part2(string input)
+    public override long Part2(string input)
     {
         var lines = input.ReadLines();
         var (orderingRules, rulePages) = Parse(lines);

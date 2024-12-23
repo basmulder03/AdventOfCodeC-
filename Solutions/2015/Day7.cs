@@ -3,7 +3,7 @@ using Core.Interfaces;
 
 namespace Solutions._2015;
 
-public class Day7 : IBaseDay
+public class Day7 : BaseDay
 {
     private readonly Dictionary<string, Func<int, int, int>> _operations = new()
     {
@@ -14,14 +14,14 @@ public class Day7 : IBaseDay
         { "NOT", (a, _) => ~a }
     };
 
-    public long Part1(string input)
+    public override long Part1(string input)
     {
         var (wiresDict, wires) = ParseInput(input);
         const string wireToFind = "a";
         return FindValue(wireToFind, wires, wiresDict);
     }
 
-    public long Part2(string input)
+    public override long Part2(string input)
     {
         var (wiresDict, wires) = ParseInput(input);
         const string wireToFind = "a";

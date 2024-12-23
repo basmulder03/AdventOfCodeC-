@@ -2,9 +2,9 @@
 
 namespace Solutions._2015;
 
-public class Day1 : IBaseDay
+public class Day1 : BaseDay
 {
-    public long Part1(string input)
+    public override long Part1(string input)
     {
         var chars = input.ToCharArray();
         var floor = 0;
@@ -22,7 +22,7 @@ public class Day1 : IBaseDay
         return floor;
     }
 
-    public long Part2(string input)
+    public override long Part2(string input)
     {
         var chars = input.ToCharArray();
         var floor = 0;

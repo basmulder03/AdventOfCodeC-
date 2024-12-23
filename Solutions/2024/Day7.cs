@@ -4,9 +4,9 @@ using Core.Interfaces;
 
 namespace Solutions._2024;
 
-public class Day7 : IBaseDay
+public class Day7 : BaseDay
 {
-    public long Part1(string input)
+    public override long Part1(string input)
     {
         var lines = input.ReadLines();
         var total = 0L;
@@ -37,7 +37,7 @@ public class Day7 : IBaseDay
         return total;
     }
 
-    public long Part2(string input)
+    public override long Part2(string input)
     {
         var lines = input.ReadLines();
         var total = 0L;

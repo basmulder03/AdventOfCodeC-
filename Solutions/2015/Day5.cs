@@ -3,12 +3,12 @@ using Core.Interfaces;
 
 namespace Solutions._2015;
 
-public class Day5 : IBaseDay
+public class Day5 : BaseDay
 {
     private const string Vowels = "aeiou";
     private const string BadStrings = "ab,cd,pq,xy";
 
-    public long Part1(string input)
+    public override long Part1(string input)
     {
         var strings = input.ReadLines();
         var niceStrings = 0;
@@ -34,7 +34,7 @@ public class Day5 : IBaseDay
         return niceStrings;
     }
 
-    public long Part2(string input)
+    public override long Part2(string input)
     {
         var strings = input.ReadLines();
         var niceStrings = 0;

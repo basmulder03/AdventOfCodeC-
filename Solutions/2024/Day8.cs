@@ -4,9 +4,9 @@ using Core.Interfaces;
 
 namespace Solutions._2024;
 
-public class Day8 : IBaseDay
+public class Day8 : BaseDay
 {
-    public long Part1(string input)
+    public override long Part1(string input)
     {
         var grid = Parse(input);
         var antennas = grid.Where(node => node.Value != '.').GroupBy(node => node.Value);
@@ -26,7 +26,7 @@ public class Day8 : IBaseDay
         return antiNodes.Count;
     }
 
-    public long Part2(string input)
+    public override long Part2(string input)
     {
         var grid = Parse(input);
         var antennas = grid.Where(node => node.Value != '.').GroupBy(node => node.Value);

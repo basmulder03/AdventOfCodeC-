@@ -4,15 +4,15 @@ using Core.Interfaces;
 
 namespace Solutions._2015;
 
-public class Day13 : IBaseDay
+public class Day13 : BaseDay
 {
-    public long Part1(string input)
+    public override long Part1(string input)
     {
         var happiness = ParseInput(input);
         return CalculateMaxHappiness(happiness);
     }
 
-    public long Part2(string input)
+    public override long Part2(string input)
     {
         var happiness = ParseInput(input);
         AddSelfToHappiness(happiness);

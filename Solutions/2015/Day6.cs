@@ -3,9 +3,9 @@ using Core.Interfaces;
 
 namespace Solutions._2015;
 
-public class Day6 : IBaseDay
+public class Day6 : BaseDay
 {
-    public long Part1(string input)
+    public override long Part1(string input)
     {
         var strings = input.ReadLines();
         var grid = new bool[1000, 1000];
@@ -47,7 +47,7 @@ public class Day6 : IBaseDay
         return count;
     }
 
-    public long Part2(string input)
+    public override long Part2(string input)
     {
         var strings = input.ReadLines();
         var grid = new int[1000, 1000];

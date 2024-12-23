@@ -4,16 +4,16 @@ using Core.Interfaces;
 
 namespace Solutions._2024;
 
-public class Day10 : IBaseDay
+public class Day10 : BaseDay
 {
-    public long Part1(string input)
+    public override long Part1(string input)
     {
         var grid = Parse(input);
         var startingCells = grid.Where(cell => cell.Value!.Height == 0).ToList();
         return startingCells.Sum(cell => DFS((Grid<Node>)grid.Clone(), cell));
     }
 
-    public long Part2(string input)
+    public override long Part2(string input)
     {
         var grid = Parse(input);
         var startingCells = grid.Where(cell => cell.Value!.Height == 0).ToList();

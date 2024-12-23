@@ -3,9 +3,9 @@ using Core.Interfaces;
 
 namespace Solutions._2024;
 
-public class Day2 : IBaseDay
+public class Day2 : BaseDay
 {
-    public long Part1(string input)
+    public override long Part1(string input)
     {
         var lines = input.ReadLines();
         var safeReports = 0;
@@ -19,7 +19,7 @@ public class Day2 : IBaseDay
         return safeReports;
     }
 
-    public long Part2(string input)
+    public override long Part2(string input)
     {
         var lines = input.ReadLines();
         var safeReports = lines.Select(line => line.Split(" ").Select(int.Parse).ToList())

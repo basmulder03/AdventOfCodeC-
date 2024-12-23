@@ -5,14 +5,14 @@ using Core.Interfaces;
 
 namespace Solutions._2024;
 
-public class Day12 : IBaseDay
+public class Day12 : BaseDay
 {
-    public long Part1(string input)
+    public override long Part1(string input)
     {
         return CalculateTotal(input, SizeOfPlot);
     }
 
-    public long Part2(string input)
+    public override long Part2(string input)
     {
         return CalculateTotal(input, CalculatePerimeter);
     }

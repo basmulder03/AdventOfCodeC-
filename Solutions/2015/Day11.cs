@@ -2,15 +2,15 @@
 
 namespace Solutions._2015;
 
-public class Day11 : IBaseDay
+public class Day11 : BaseDay
 {
-    public long Part1(string input)
+    public override long Part1(string input)
     {
         Console.Write(GetNextValidPassword(input));
         return 0;
     }
 
-    public long Part2(string input)
+    public override long Part2(string input)
     {
         Console.Write(GetNextValidPassword(IncrementPassword(GetNextValidPassword(input))));
         return 0;

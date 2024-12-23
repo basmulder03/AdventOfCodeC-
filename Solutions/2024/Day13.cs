@@ -4,14 +4,14 @@ using Core.Interfaces;
 
 namespace Solutions._2024;
 
-public class Day13 : IBaseDay
+public class Day13 : BaseDay
 {
-    public long Part1(string input)
+    public override long Part1(string input)
     {
         return Solve(input, 0);
     }
 
-    public long Part2(string input)
+    public override long Part2(string input)
     {
         return Solve(input, 10_000_000_000_000);
     }

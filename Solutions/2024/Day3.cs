@@ -4,18 +4,18 @@ using Core.Interfaces;
 
 namespace Solutions._2024;
 
-public class Day3 : IBaseDay
+public class Day3 : BaseDay
 {
     private static readonly Regex Part1Regex = new(@"mul\(\d+,\d+\)");
     private static readonly Regex Part2Regex = new(@"mul\(\d+,\d+\)|do\(\)|don't\(\)");
 
-    public long Part1(string input)
+    public override long Part1(string input)
     {
         var result = ProcessLines(input, Part1Regex, true);
         return result;
     }
 
-    public long Part2(string input)
+    public override long Part2(string input)
     {
         var result = ProcessLines(input, Part2Regex, false);
         return result;

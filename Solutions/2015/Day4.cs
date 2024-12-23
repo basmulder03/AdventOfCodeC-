@@ -3,9 +3,9 @@ using Core.Interfaces;
 
 namespace Solutions._2015;
 
-public class Day4 : IBaseDay
+public class Day4 : BaseDay
 {
-    public long Part1(string input)
+    public override long Part1(string input)
     {
         var hasher = new MD5Hasher();
 
@@ -18,7 +18,7 @@ public class Day4 : IBaseDay
         return -1;
     }
 
-    public long Part2(string input)
+    public override long Part2(string input)
     {
         var hasher = new MD5Hasher();
 
