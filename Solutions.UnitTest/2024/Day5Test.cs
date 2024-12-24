@@ -79,6 +79,6 @@ public class Day5Test
                    97,13,75,29,47
                    """;
         var result = day.Part2(data);
-        true.ShouldBeTrue();
+        result.ShouldBe(123);
     }
 }

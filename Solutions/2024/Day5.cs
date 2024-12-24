@@ -7,7 +7,7 @@ public class Day5 : BaseDay
 {
     public override long Part1(string input)
     {
-        var lines = input.ReadLines();
+        var lines = input.ReadGroups();
         var (orderingRules, rulePages) = Parse(lines);
 
         var correctUpdatesCounter =
@@ -21,7 +21,7 @@ public class Day5 : BaseDay
 
     public override long Part2(string input)
     {
-        var lines = input.ReadLines();
+        var lines = input.ReadGroups();
         var (orderingRules, rulePages) = Parse(lines);
 
         var resultCounter = (
@@ -37,22 +37,13 @@ public class Day5 : BaseDay
         return resultCounter;
     }
 
-    private static (Dictionary<int, List<int>>, List<List<int>>) Parse(List<string> lines)
+    private static (Dictionary<int, List<int>>, List<List<int>>) Parse(List<List<string>> lines)
     {
         var orderingRules = new Dictionary<int, List<int>>();
         var rulePages = new List<List<int>>();
-        var parsePages = false;
 
-        foreach (var line in lines)
+        foreach (var line in lines[0])
         {
-            if (string.IsNullOrEmpty(line))
-            {
-                parsePages = true;
-                continue;
-            }
-
-            if (!parsePages)
-            {
                 var parts = line.Split('|');
                 var first = int.Parse(parts[0]);
                 var second = int.Parse(parts[1]);
@@ -63,11 +54,11 @@ public class Day5 : BaseDay
                 }
 
                 value.Add(second);
-            }
-            else
-            {
-                rulePages.Add(line.Split(',').Select(int.Parse).ToList());
-            }
+        }
+
+        foreach (var line in lines[1])
+        {
+            rulePages.Add(line.Split(',').Select(int.Parse).ToList());
         }
 
         return (orderingRules, rulePages);

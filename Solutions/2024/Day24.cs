@@ -15,14 +15,13 @@ public class Day24 : BaseDay
             .Select(x => x.Split(" -> "))
             .ToDictionary(x => x[1], x => x[0]);
 
-        foreach (var key in unknownValues.Keys)
+        foreach (var key in unknownValues.Keys.Where(key => !knownValues.ContainsKey(key)))
         {
-            if (!knownValues.ContainsKey(key))
-                knownValues[key] = EvaluateResult(key, knownValues, unknownValues);
+            knownValues[key] = EvaluateResult(key, knownValues, unknownValues);
         }
 
         var orderedKeysThatStartWithZ = knownValues
-            .Where(x => x.Key.StartsWith("z"))
+            .Where(x => x.Key.StartsWith('z'))
             .OrderByDescending(x => x.Key)
             .Select(x => x.Value);
 
@@ -32,9 +31,6 @@ public class Day24 : BaseDay
     public override string Part2String(string input)
     {
         var splitInput = input.ReadGroups();
-        var knownValues = splitInput[0]
-            .Select(x => x.Split(": "))
-            .ToDictionary(x => x[0], x => x[1] == "1");
         var configurations = splitInput[1].ToList();
 
         var swaps = CheckParallelAdders(configurations);
@@ -92,12 +88,12 @@ public class Day24 : BaseDay
                 var abXorGate = FindGate(xWire, yWire, "XOR", configurations);
                 var abAndGate = FindGate(xWire, yWire, "AND", configurations);
 
-                var cinAbXorGate = FindGate(abXorGate, currentCarryWire, "XOR", configurations);
+                var cinAbXorGate = FindGate(abXorGate!, currentCarryWire!, "XOR", configurations);
                 if (cinAbXorGate == null)
                 {
-                    swaps.Add(abXorGate);
-                    swaps.Add(abAndGate);
-                    configurations = SwapOutputWires(abXorGate, abAndGate, configurations);
+                    swaps.Add(abXorGate!);
+                    swaps.Add(abAndGate!);
+                    configurations = SwapOutputWires(abXorGate!, abAndGate!, configurations);
                     bit = 0;
                     continue;
                 }
@@ -111,8 +107,8 @@ public class Day24 : BaseDay
                     continue;
                 }
 
-                var cinAbAndGate = FindGate(abXorGate, currentCarryWire, "AND", configurations);
-                currentCarryWire = FindGate(abAndGate, cinAbAndGate, "OR", configurations);
+                var cinAbAndGate = FindGate(abXorGate!, currentCarryWire!, "AND", configurations);
+                currentCarryWire = FindGate(abAndGate!, cinAbAndGate!, "OR", configurations);
             }
 
             bit++;
