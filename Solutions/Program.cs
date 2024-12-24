@@ -1,3 +1,3 @@
 ﻿using Solutions;
 
-await AdventOfCodeRunner.RunLatest();
+await AdventOfCodeRunner.Run();

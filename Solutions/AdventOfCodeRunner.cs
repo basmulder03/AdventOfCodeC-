@@ -14,17 +14,17 @@ public static class AdventOfCodeRunner
     /// <summary>
     /// Runs the latest available day of the latest year.
     /// </summary>
-    public static async Task RunLatest()
+    public static async Task Run()
     {
         var latestYear = GetLatestYear(); // Get the most recent year.
-        await RunLatest(latestYear); // Run the latest day of that year.
+        await Run(latestYear); // Run the latest day of that year.
     }
 
     /// <summary>
     /// Runs the latest available day of the specified year.
     /// </summary>
     /// <param name="year">The year to run the latest day for.</param>
-    public static async Task RunLatest(int year)
+    public static async Task Run(int year)
     {
         var lastDay = GetLastDayForYear(year); // Find the last day for the specified year.
         if (lastDay == 0)
@@ -33,7 +33,7 @@ public static class AdventOfCodeRunner
             return;
         }
 
-        await RunDay(year, lastDay); // Run the last available day.
+        await Run(year, lastDay); // Run the last available day.
     }
 
     /// <summary>
@@ -41,7 +41,7 @@ public static class AdventOfCodeRunner
     /// </summary>
     /// <param name="year">The year of the day to run.</param>
     /// <param name="day">The day to run.</param>
-    public static async Task RunDay(int year, int day)
+    public static async Task Run(int year, int day)
     {
         var types = GetTypesInNamespace(LocalAssembly,
             $"Solutions._{year}"); // Get all types in the namespace for the year.
