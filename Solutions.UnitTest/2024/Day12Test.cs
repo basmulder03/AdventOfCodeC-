@@ -11,17 +11,17 @@ public class Day12Test
     {
         var day = new Day12();
         const string data = """
-                   RRRRIICCFF
-                   RRRRIICCCF
-                   VVRRRCCFFF
-                   VVRCCCJFFF
-                   VVVVCJJCFE
-                   VVIVCCJJEE
-                   VVIIICJJEE
-                   MIIIIIJJEE
-                   MIIISIJEEE
-                   MMMISSJEEE
-                   """;
+                            RRRRIICCFF
+                            RRRRIICCCF
+                            VVRRRCCFFF
+                            VVRCCCJFFF
+                            VVVVCJJCFE
+                            VVIVCCJJEE
+                            VVIIICJJEE
+                            MIIIIIJJEE
+                            MIIISIJEEE
+                            MMMISSJEEE
+                            """;
         var result = day.Part1(data);
         result.ShouldBe(1930);
     }
@@ -31,17 +31,17 @@ public class Day12Test
     {
         var day = new Day12();
         const string data = """
-                   RRRRIICCFF
-                   RRRRIICCCF
-                   VVRRRCCFFF
-                   VVRCCCJFFF
-                   VVVVCJJCFE
-                   VVIVCCJJEE
-                   VVIIICJJEE
-                   MIIIIIJJEE
-                   MIIISIJEEE
-                   MMMISSJEEE
-                   """;
+                            RRRRIICCFF
+                            RRRRIICCCF
+                            VVRRRCCFFF
+                            VVRCCCJFFF
+                            VVVVCJJCFE
+                            VVIVCCJJEE
+                            VVIIICJJEE
+                            MIIIIIJJEE
+                            MIIISIJEEE
+                            MMMISSJEEE
+                            """;
         var result = day.Part2(data);
         result.ShouldBe(1206);
     }
@@ -51,11 +51,11 @@ public class Day12Test
     {
         var day = new Day12();
         const string data = """
-                   AAAA
-                   BBCD
-                   BBCC
-                   EEEC
-                   """;
+                            AAAA
+                            BBCD
+                            BBCC
+                            EEEC
+                            """;
         var result = day.Part2(data);
         result.ShouldBe(80);
     }
@@ -65,12 +65,12 @@ public class Day12Test
     {
         var day = new Day12();
         const string data = """
-                   OOOOO
-                   OXOXO
-                   OOOOO
-                   OXOXO
-                   OOOOO
-                   """;
+                            OOOOO
+                            OXOXO
+                            OOOOO
+                            OXOXO
+                            OOOOO
+                            """;
         var result = day.Part2(data);
         result.ShouldBe(436);
     }
@@ -80,13 +80,13 @@ public class Day12Test
     {
         var day = new Day12();
         const string data = """
-                   AAAAAA
-                   AAABBA
-                   AAABBA
-                   ABBAAA
-                   ABBAAA
-                   AAAAAA
-                   """;
+                            AAAAAA
+                            AAABBA
+                            AAABBA
+                            ABBAAA
+                            ABBAAA
+                            AAAAAA
+                            """;
         var result = day.Part2(data);
         result.ShouldBe(368);
     }

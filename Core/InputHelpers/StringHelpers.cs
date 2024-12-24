@@ -2,7 +2,7 @@
 
 public static class StringHelpers
 {
-    private static readonly string[] PossibleNewLines = [ "\r\n", "\r", "\n" ];
+    private static readonly string[] PossibleNewLines = ["\r\n", "\r", "\n"];
 
     public static List<string> ReadLines(this string input)
     {

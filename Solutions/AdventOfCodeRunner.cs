@@ -12,7 +12,7 @@ public static class AdventOfCodeRunner
         LocalAssembly = Assembly.GetExecutingAssembly(); // Reference to the executing assembly.
 
     /// <summary>
-    ///     Runs the latest available day of the latest year.
+    /// Runs the latest available day of the latest year.
     /// </summary>
     public static async Task RunLatest()
     {
@@ -21,7 +21,7 @@ public static class AdventOfCodeRunner
     }
 
     /// <summary>
-    ///     Runs the latest available day of the specified year.
+    /// Runs the latest available day of the specified year.
     /// </summary>
     /// <param name="year">The year to run the latest day for.</param>
     public static async Task RunLatest(int year)
@@ -37,7 +37,7 @@ public static class AdventOfCodeRunner
     }
 
     /// <summary>
-    ///     Runs a specific day of a given year.
+    /// Runs a specific day of a given year.
     /// </summary>
     /// <param name="year">The year of the day to run.</param>
     /// <param name="day">The day to run.</param>
@@ -69,7 +69,7 @@ public static class AdventOfCodeRunner
         ConsoleWindowHelper.ShowInGuiWindow(windowIdentifier, filePath);
 
         var watch = new Stopwatch(); // Initialize a stopwatch for timing.
-        
+
         // Part 1
         long part1Time = 0;
         string part1Result;
@@ -109,7 +109,7 @@ public static class AdventOfCodeRunner
     }
 
     /// <summary>
-    ///     Renders the results table in the console.
+    /// Renders the results table in the console.
     /// </summary>
     /// <param name="results">The results to display.</param>
     /// <param name="totalTimeTicks">The total runtime for all parts.</param>
@@ -137,7 +137,7 @@ public static class AdventOfCodeRunner
     }
 
     /// <summary>
-    ///     Gets the latest year available in the solution.
+    /// Gets the latest year available in the solution.
     /// </summary>
     private static int GetLatestYear()
     {
@@ -145,7 +145,7 @@ public static class AdventOfCodeRunner
     }
 
     /// <summary>
-    ///     Retrieves all available years based on namespaces.
+    /// Retrieves all available years based on namespaces.
     /// </summary>
     private static IEnumerable<int> GetAvailableYears()
     {
@@ -157,7 +157,7 @@ public static class AdventOfCodeRunner
     }
 
     /// <summary>
-    ///     Gets the last available day for a given year.
+    /// Gets the last available day for a given year.
     /// </summary>
     /// <param name="year">The year to check.</param>
     private static int GetLastDayForYear(int year)
@@ -170,7 +170,7 @@ public static class AdventOfCodeRunner
     }
 
     /// <summary>
-    ///     Retrieves all types in a specified namespace that implement BaseDay.
+    /// Retrieves all types in a specified namespace that implement BaseDay.
     /// </summary>
     /// <param name="assembly">The assembly to search.</param>
     /// <param name="nameSpace">The namespace to search within.</param>
@@ -183,7 +183,7 @@ public static class AdventOfCodeRunner
     }
 
     /// <summary>
-    ///     Ensures that the input data for a specific day exists.
+    /// Ensures that the input data for a specific day exists.
     /// </summary>
     /// <param name="assembly">The assembly to base the path on.</param>
     /// <param name="year">The year of the day.</param>
@@ -195,7 +195,7 @@ public static class AdventOfCodeRunner
     }
 
     /// <summary>
-    ///     Formats elapsed time in an appropriate unit (nanoseconds, microseconds, milliseconds, seconds).
+    /// Formats elapsed time in an appropriate unit (nanoseconds, microseconds, milliseconds, seconds).
     /// </summary>
     /// <param name="ticks">The elapsed time in ticks.</param>
     private static string FormatTime(long ticks)

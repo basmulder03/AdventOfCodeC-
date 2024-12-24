@@ -12,7 +12,7 @@ public class Day14Test
         Day14.GridWidth = 11;
         Day14.GridHeight = 7;
     }
-    
+
     [TestMethod]
     public void Part1Test1()
     {

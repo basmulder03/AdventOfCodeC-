@@ -25,7 +25,7 @@ public class Day24Test
         var result = day.Part1(input);
         result.ShouldBe(4);
     }
-    
+
     [TestMethod]
     public void Part1Test2()
     {
@@ -41,7 +41,7 @@ public class Day24Test
                     y02: 1
                     y03: 1
                     y04: 1
-                    
+
                     ntg XOR fgs -> mjb
                     y02 OR x01 -> tnw
                     kwq OR kpj -> z05

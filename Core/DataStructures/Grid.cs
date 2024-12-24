@@ -4,14 +4,14 @@ using System.Text;
 namespace Core.DataStructures;
 
 /// <summary>
-///     Represents a 2D grid structure containing elements of type T.
-///     Provides various utility methods for manipulating and accessing grid data.
+/// Represents a 2D grid structure containing elements of type T.
+/// Provides various utility methods for manipulating and accessing grid data.
 /// </summary>
 /// <typeparam name="T">The type of elements stored in the grid.</typeparam>
 public class Grid<T> : ICloneable, IEnumerable<GridCell<T>>, IEqualityComparer
 {
     /// <summary>
-    ///     Initializes a new instance of the Grid class with the given 2D data array.
+    /// Initializes a new instance of the Grid class with the given 2D data array.
     /// </summary>
     /// <param name="data">A 2D array of data to populate the grid.</param>
     private Grid(T[][] data)
@@ -27,27 +27,27 @@ public class Grid<T> : ICloneable, IEnumerable<GridCell<T>>, IEqualityComparer
     }
 
     /// <summary>
-    ///     Gets the width of the grid.
+    /// Gets the width of the grid.
     /// </summary>
     public int Width { get; }
 
     /// <summary>
-    ///     Gets the height of the grid.
+    /// Gets the height of the grid.
     /// </summary>
     public int Height { get; }
 
     /// <summary>
-    ///     Gets the rows of the grid as a 2D array of GridCell objects.
+    /// Gets the rows of the grid as a 2D array of GridCell objects.
     /// </summary>
     public GridCell<T>[][] Rows { get; }
 
     /// <summary>
-    ///     Gets the values of the grid as a 2D array of elements of type T.
+    /// Gets the values of the grid as a 2D array of elements of type T.
     /// </summary>
     public T[][] Values => Rows.Select(row => row.Select(cell => cell.Value).ToArray()).ToArray();
 
     /// <summary>
-    ///     Gets the GridCell at the specified coordinates.
+    /// Gets the GridCell at the specified coordinates.
     /// </summary>
     /// <param name="x">The x-coordinate.</param>
     /// <param name="y">The y-coordinate.</param>
@@ -57,12 +57,12 @@ public class Grid<T> : ICloneable, IEnumerable<GridCell<T>>, IEqualityComparer
         IsValidCoordinate(x, y) ? Rows[y][x] : throw new IndexOutOfRangeException();
 
     /// <summary>
-    ///     Gets an empty grid instance.
+    /// Gets an empty grid instance.
     /// </summary>
     public static Grid<T> Empty => new([]);
 
     /// <summary>
-    ///     Creates a deep clone of the grid.
+    /// Creates a deep clone of the grid.
     /// </summary>
     /// <returns>A new grid instance with the same data.</returns>
     public object Clone()
@@ -82,7 +82,7 @@ public class Grid<T> : ICloneable, IEnumerable<GridCell<T>>, IEqualityComparer
     }
 
     /// <summary>
-    ///     Returns an enumerator that iterates through all cells in the grid.
+    /// Returns an enumerator that iterates through all cells in the grid.
     /// </summary>
     /// <returns>An enumerator for the grid cells.</returns>
     public IEnumerator<GridCell<T>> GetEnumerator()
@@ -108,7 +108,7 @@ public class Grid<T> : ICloneable, IEnumerable<GridCell<T>>, IEqualityComparer
     }
 
     /// <summary>
-    ///     Transposes the grid, swapping rows and columns.
+    /// Transposes the grid, swapping rows and columns.
     /// </summary>
     /// <returns>A new grid instance with transposed rows and columns.</returns>
     public Grid<T> Transpose()
@@ -124,7 +124,7 @@ public class Grid<T> : ICloneable, IEnumerable<GridCell<T>>, IEqualityComparer
     }
 
     /// <summary>
-    ///     Creates a grid from the given 2D data array.
+    /// Creates a grid from the given 2D data array.
     /// </summary>
     /// <param name="data">The 2D data array.</param>
     /// <returns>A new grid instance.</returns>
@@ -134,7 +134,7 @@ public class Grid<T> : ICloneable, IEnumerable<GridCell<T>>, IEqualityComparer
     }
 
     /// <summary>
-    ///     Creates a grid with the specified dimensions and fills it with a default value.
+    /// Creates a grid with the specified dimensions and fills it with a default value.
     /// </summary>
     /// <param name="width">The width of the grid.</param>
     /// <param name="height">The height of the grid.</param>
@@ -153,7 +153,7 @@ public class Grid<T> : ICloneable, IEnumerable<GridCell<T>>, IEqualityComparer
     }
 
     /// <summary>
-    ///     Generates a grid with the specified dimensions using a custom initializer function.
+    /// Generates a grid with the specified dimensions using a custom initializer function.
     /// </summary>
     /// <param name="width">The width of the grid.</param>
     /// <param name="height">The height of the grid.</param>
@@ -181,7 +181,7 @@ public class Grid<T> : ICloneable, IEnumerable<GridCell<T>>, IEqualityComparer
     }
 
     /// <summary>
-    ///     Converts the grid to a string representation using a custom formatter for the elements.
+    /// Converts the grid to a string representation using a custom formatter for the elements.
     /// </summary>
     /// <param name="formatter">A function to format each element.</param>
     /// <returns>A string representation of the grid.</returns>
@@ -212,7 +212,7 @@ public class Grid<T> : ICloneable, IEnumerable<GridCell<T>>, IEqualityComparer
     }
 
     /// <summary>
-    ///     Validates if the specified coordinates are within the grid bounds.
+    /// Validates if the specified coordinates are within the grid bounds.
     /// </summary>
     /// <param name="x">The x-coordinate.</param>
     /// <param name="y">The y-coordinate.</param>

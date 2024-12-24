@@ -11,17 +11,17 @@ public class Day4Test
     {
         var day = new Day4();
         const string data = """
-                   ....XXMAS.
-                   .SAMXMS...
-                   ...S..A...
-                   ..A.A.MS.X
-                   XMASAMX.MM
-                   X.....XA.A
-                   S.S.S.S.SS
-                   .A.A.A.A.A
-                   ..M.M.M.MM
-                   .X.X.XMASX
-                   """;
+                            ....XXMAS.
+                            .SAMXMS...
+                            ...S..A...
+                            ..A.A.MS.X
+                            XMASAMX.MM
+                            X.....XA.A
+                            S.S.S.S.SS
+                            .A.A.A.A.A
+                            ..M.M.M.MM
+                            .X.X.XMASX
+                            """;
         var result = day.Part1(data);
         result.ShouldBe(18);
     }
@@ -31,17 +31,17 @@ public class Day4Test
     {
         var day = new Day4();
         const string data = """
-                   .M.S......
-                   ..A..MSMS.
-                   .M.S.MAA..
-                   ..A.ASMSM.
-                   .M.S.M....
-                   ..........
-                   S.S.S.S.S.
-                   .A.A.A.A..
-                   M.M.M.M.M.
-                   ..........
-                   """;
+                            .M.S......
+                            ..A..MSMS.
+                            .M.S.MAA..
+                            ..A.ASMSM.
+                            .M.S.M....
+                            ..........
+                            S.S.S.S.S.
+                            .A.A.A.A..
+                            M.M.M.M.M.
+                            ..........
+                            """;
         var result = day.Part2(data);
         result.ShouldBe(9);
     }

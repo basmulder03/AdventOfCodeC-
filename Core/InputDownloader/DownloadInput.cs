@@ -5,7 +5,7 @@ namespace Core.InputDownloader;
 public static class DownloadInput
 {
     /// <summary>
-    ///     Downloads the input for the specified year and day and writes it to the specified file.
+    /// Downloads the input for the specified year and day and writes it to the specified file.
     /// </summary>
     /// <param name="year">The year to retrieve the data for.</param>
     /// <param name="day">The day to retrieve the data for.</param>

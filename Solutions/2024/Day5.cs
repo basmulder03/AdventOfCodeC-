@@ -44,16 +44,16 @@ public class Day5 : BaseDay
 
         foreach (var line in lines[0])
         {
-                var parts = line.Split('|');
-                var first = int.Parse(parts[0]);
-                var second = int.Parse(parts[1]);
-                if (!orderingRules.TryGetValue(first, out var value))
-                {
-                    value = [];
-                    orderingRules[first] = value;
-                }
+            var parts = line.Split('|');
+            var first = int.Parse(parts[0]);
+            var second = int.Parse(parts[1]);
+            if (!orderingRules.TryGetValue(first, out var value))
+            {
+                value = [];
+                orderingRules[first] = value;
+            }
 
-                value.Add(second);
+            value.Add(second);
         }
 
         foreach (var line in lines[1])

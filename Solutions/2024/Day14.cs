@@ -29,8 +29,10 @@ public class Day14 : BaseDay
 
         return quadrant1Count * quadrant2Count * quadrant3Count * quadrant4Count;
 
-        int CountRobotsInQuadrant(Func<Coordinate, bool> predicate) =>
-            groupedRobots.Where(group => predicate(group.Key)).Sum(group => group.Value);
+        int CountRobotsInQuadrant(Func<Coordinate, bool> predicate)
+        {
+            return groupedRobots.Where(group => predicate(group.Key)).Sum(group => group.Value);
+        }
     }
 
     public override long Part2(string input)
@@ -41,8 +43,8 @@ public class Day14 : BaseDay
 
         List<ChineseRemainderTheoremTerm> crtParameters =
         [
-            new (xCycleStep, GridWidth),
-            new (yCycleStep, GridHeight)
+            new(xCycleStep, GridWidth),
+            new(yCycleStep, GridHeight)
         ];
 
         var alignmentStep = ChineseRemainderTheorem.Solve(crtParameters);
@@ -67,7 +69,8 @@ public class Day14 : BaseDay
         return new Coordinate(newPosition.X.Modulo(GridWidth), newPosition.Y.Modulo(GridHeight));
     }
 
-    private static int FindMaxDensityStep(List<(Coordinate, Coordinate)> robots, int cycleLength, Func<Coordinate, int> coordinateSelector)
+    private static int FindMaxDensityStep(List<(Coordinate, Coordinate)> robots, int cycleLength,
+        Func<Coordinate, int> coordinateSelector)
     {
         var maxDensity = 0;
         var maxDensityStep = 0;

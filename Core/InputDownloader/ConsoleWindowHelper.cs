@@ -9,8 +9,8 @@ public static class ConsoleWindowHelper
     private static readonly Dictionary<string, Process?> OpenWindows = LoadState();
 
     /// <summary>
-    ///     Opens a new GUI window displaying the content of the provided file stream.
-    ///     Ensures that only one window per unique identifier (e.g., year and day) is open at a time.
+    /// Opens a new GUI window displaying the content of the provided file stream.
+    /// Ensures that only one window per unique identifier (e.g., year and day) is open at a time.
     /// </summary>
     /// <param name="identifier">A unique identifier for the data, such as "Year2024Day1".</param>
     /// <param name="path">The path of the input</param>
@@ -49,7 +49,7 @@ public static class ConsoleWindowHelper
     }
 
     /// <summary>
-    ///     Generates a unique identifier for the data, such as "Year2024Day1".
+    /// Generates a unique identifier for the data, such as "Year2024Day1".
     /// </summary>
     /// <param name="year">The year of the data.</param>
     /// <param name="day">The day of the data.</param>
@@ -60,7 +60,7 @@ public static class ConsoleWindowHelper
     }
 
     /// <summary>
-    ///     Starts a cross-platform GUI viewer to display the content.
+    /// Starts a cross-platform GUI viewer to display the content.
     /// </summary>
     /// <param name="identifier">The identifier for the content.</param>
     /// <param name="path">The text content to display.</param>
@@ -98,7 +98,7 @@ public static class ConsoleWindowHelper
     }
 
     /// <summary>
-    ///     Saves the current state of open windows to a file for persistence.
+    /// Saves the current state of open windows to a file for persistence.
     /// </summary>
     private static void SaveState()
     {
@@ -107,7 +107,7 @@ public static class ConsoleWindowHelper
     }
 
     /// <summary>
-    ///     Loads the state of open windows from a file.
+    /// Loads the state of open windows from a file.
     /// </summary>
     /// <returns>A dictionary of open windows with dummy processes for initialization.</returns>
     private static Dictionary<string, Process?> LoadState()

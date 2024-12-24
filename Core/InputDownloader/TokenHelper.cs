@@ -3,7 +3,7 @@
 public class TokenHelper
 {
     /// <summary>
-    ///     Gets the token from the .aoc file in the Users home directory
+    /// Gets the token from the .aoc file in the Users home directory
     /// </summary>
     /// <returns>The token if the token exists.</returns>
     public static string? GetToken()
@@ -24,8 +24,8 @@ public class TokenHelper
     }
 
     /// <summary>
-    ///     Saves the token to the .aoc file in the Users home directory
-    ///     Replaces the file contents if the file already exists.
+    /// Saves the token to the .aoc file in the Users home directory
+    /// Replaces the file contents if the file already exists.
     /// </summary>
     /// <param name="token"></param>
     public static void SetToken(string token)

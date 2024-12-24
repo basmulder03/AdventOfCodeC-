@@ -5,7 +5,7 @@ using Core.Entities;
 namespace Core.DataStructures;
 
 /// <summary>
-///     Represents a single cell in a grid, containing a value and its coordinates.
+/// Represents a single cell in a grid, containing a value and its coordinates.
 /// </summary>
 /// <typeparam name="T"> The type of the value stored in the cell. </typeparam>
 public class GridCell<T> : ICloneable, IEqualityComparer
@@ -14,7 +14,7 @@ public class GridCell<T> : ICloneable, IEqualityComparer
     private readonly Grid<T> _parent;
 
     /// <summary>
-    ///     Initializes a new instance of the GridCell class.
+    /// Initializes a new instance of the GridCell class.
     /// </summary>
     /// <param name="parent"> The parent grid. </param>
     /// <param name="value"> The value stored in the cell. </param>
@@ -28,22 +28,22 @@ public class GridCell<T> : ICloneable, IEqualityComparer
     }
 
     /// <summary>
-    ///     Gets or sets the value of the cell.
+    /// Gets or sets the value of the cell.
     /// </summary>
     public T Value { get; set; }
 
     /// <summary>
-    ///     Gets the x-coordinate of the cell.
+    /// Gets the x-coordinate of the cell.
     /// </summary>
     public int X => _coordinate.X;
 
     /// <summary>
-    ///     Gets the y-coordinate of the cell.
+    /// Gets the y-coordinate of the cell.
     /// </summary>
     public int Y => _coordinate.Y;
 
     /// <summary>
-    ///     Gets the coordinate of the cell.
+    /// Gets the coordinate of the cell.
     /// </summary>
     public Coordinate Coordinate => _coordinate;
 
@@ -72,7 +72,7 @@ public class GridCell<T> : ICloneable, IEqualityComparer
         }.Where(cell => cell != null).ToArray()!;
 
     /// <summary>
-    ///     Gets the neighboring cell based on the specified x and y offsets.
+    /// Gets the neighboring cell based on the specified x and y offsets.
     /// </summary>
     /// <param name="dx"> The x-offset. </param>
     /// <param name="dy"> The y-offset. </param>
@@ -80,21 +80,21 @@ public class GridCell<T> : ICloneable, IEqualityComparer
     public GridCell<T> this[int dx, int dy] => Move(dx, dy);
 
     /// <summary>
-    ///     Gets the neighboring cell based on the specified coordinate offset.
+    /// Gets the neighboring cell based on the specified coordinate offset.
     /// </summary>
     /// <param name="offset"> The coordinate offset. </param>
     /// <returns> The neighboring cell. </returns>
     public GridCell<T> this[Coordinate offset] => Move(offset);
 
     /// <summary>
-    ///     Gets the neighboring cell based on the specified grid direction.
+    /// Gets the neighboring cell based on the specified grid direction.
     /// </summary>
     /// <param name="direction"> The grid direction. </param>
     /// <returns> The neighboring cell. </returns>
     public GridCell<T> this[GridDirection direction] => Move(direction);
 
     /// <summary>
-    ///     Creates a shallow copy of the cell.
+    /// Creates a shallow copy of the cell.
     /// </summary>
     /// <returns> A new GridCell instance with the same data. </returns>
     public object Clone()
@@ -109,6 +109,12 @@ public class GridCell<T> : ICloneable, IEqualityComparer
         return cellX.X == cellY.X && cellX.Y == cellY.Y && EqualityComparer<T>.Default.Equals(cellX.Value, cellY.Value);
     }
 
+    /// <inheritdoc />
+    public int GetHashCode(object obj)
+    {
+        return obj is not GridCell<T> cell ? 0 : HashCode.Combine(cell.X, cell.Y, cell.Value);
+    }
+
     public override bool Equals(object? other)
     {
         return Equals(this, other);
@@ -119,14 +125,8 @@ public class GridCell<T> : ICloneable, IEqualityComparer
         return HashCode.Combine(_coordinate, Value);
     }
 
-    /// <inheritdoc />
-    public int GetHashCode(object obj)
-    {
-        return obj is not GridCell<T> cell ? 0 : HashCode.Combine(cell.X, cell.Y, cell.Value);
-    }
-
     /// <summary>
-    ///     Moves to a neighboring cell based on the specified offsets.
+    /// Moves to a neighboring cell based on the specified offsets.
     /// </summary>
     /// <param name="dx"> The x-offset. </param>
     /// <param name="dy"> The y-offset. </param>
@@ -140,7 +140,7 @@ public class GridCell<T> : ICloneable, IEqualityComparer
     }
 
     /// <summary>
-    ///     Moves to a neighboring cell based on the specified coordinate offset.
+    /// Moves to a neighboring cell based on the specified coordinate offset.
     /// </summary>
     /// <param name="offset"> The coordinate offset. </param>
     /// <returns> The neighboring cell. </returns>
@@ -150,7 +150,7 @@ public class GridCell<T> : ICloneable, IEqualityComparer
     }
 
     /// <summary>
-    ///     Moves to a neighboring cell based on the specified grid direction.
+    /// Moves to a neighboring cell based on the specified grid direction.
     /// </summary>
     /// <param name="direction"> The grid direction. </param>
     /// <returns> The neighboring cell. </returns>
@@ -160,7 +160,7 @@ public class GridCell<T> : ICloneable, IEqualityComparer
     }
 
     /// <summary>
-    ///     Attempts to move to a neighboring cell based on the specified offsets.
+    /// Attempts to move to a neighboring cell based on the specified offsets.
     /// </summary>
     /// <param name="dx"> The x-offset. </param>
     /// <param name="dy"> The y-offset. </param>
@@ -181,7 +181,7 @@ public class GridCell<T> : ICloneable, IEqualityComparer
     }
 
     /// <summary>
-    ///     Attempts to move to a neighboring cell based on the specified coordinate offset.
+    /// Attempts to move to a neighboring cell based on the specified coordinate offset.
     /// </summary>
     /// <param name="offset"> The coordinate offset. </param>
     /// <param name="neighbor"> The neighboring cell if the move is successful. </param>
@@ -192,7 +192,7 @@ public class GridCell<T> : ICloneable, IEqualityComparer
     }
 
     /// <summary>
-    ///     Attempts to move to a neighboring cell based on the specified grid direction.
+    /// Attempts to move to a neighboring cell based on the specified grid direction.
     /// </summary>
     /// <param name="direction"> The grid direction. </param>
     /// <param name="neighbor"> The neighboring cell if the move is successful. </param>
@@ -203,7 +203,7 @@ public class GridCell<T> : ICloneable, IEqualityComparer
     }
 
     /// <summary>
-    ///     Returns a string representation of the cell.
+    /// Returns a string representation of the cell.
     /// </summary>
     /// <returns> A string containing the cell's coordinates and value. </returns>
     public override string ToString()

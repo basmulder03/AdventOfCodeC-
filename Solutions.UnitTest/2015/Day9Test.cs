@@ -11,10 +11,10 @@ public class Day9Test
     {
         var day = new Day9();
         const string data = """
-                   London to Dublin = 464
-                   London to Belfast = 518
-                   Dublin to Belfast = 141
-                   """;
+                            London to Dublin = 464
+                            London to Belfast = 518
+                            Dublin to Belfast = 141
+                            """;
         var result = day.Part1(data);
         result.ShouldBe(605);
     }
@@ -24,10 +24,10 @@ public class Day9Test
     {
         var day = new Day9();
         const string data = """
-                   London to Dublin = 464
-                   London to Belfast = 518
-                   Dublin to Belfast = 141
-                   """;
+                            London to Dublin = 464
+                            London to Belfast = 518
+                            Dublin to Belfast = 141
+                            """;
         var result = day.Part2(data);
         result.ShouldBe(982);
     }
