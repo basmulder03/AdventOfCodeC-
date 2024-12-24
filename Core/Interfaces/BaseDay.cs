@@ -49,7 +49,7 @@ public class BaseDay
     /// </summary>
     /// <param name="input">A string containing the input of that day.</param>
     /// <returns>The result of the first part of the day.</returns>
-    public string Part1String(string input)
+    public virtual string Part1String(string input)
     {
         return Part1(input).ToString();
     }
@@ -60,7 +60,7 @@ public class BaseDay
     /// </summary>
     /// <param name="input">A string containing the input of that day.</param>
     /// <returns>The result of the second part of the day.</returns>
-    public string Part2String(string input)
+    public virtual string Part2String(string input)
     {
         return Part2(input).ToString();
     }

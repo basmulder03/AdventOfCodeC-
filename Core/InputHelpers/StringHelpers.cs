@@ -2,9 +2,11 @@
 
 public static class StringHelpers
 {
+    private static readonly string[] PossibleNewLines = [ "\r\n", "\r", "\n" ];
+
     public static List<string> ReadLines(this string input)
     {
-        return input.Split(["\r\n", "\r", "\n"], StringSplitOptions.RemoveEmptyEntries).ToList();
+        return input.Split(PossibleNewLines, StringSplitOptions.RemoveEmptyEntries).ToList();
     }
 
     public static List<int> ReadLinesAsInt(this string input)
@@ -21,6 +23,7 @@ public static class StringHelpers
 
     public static List<List<string>> ReadGroups(this string input)
     {
-        return input.Split($"{Environment.NewLine}{Environment.NewLine}").Select(x => x.ReadLines()).ToList();
+        var doubleNewLines = new[] { "\r\n\r\n", "\r\r", "\n\n" };
+        return input.Split(doubleNewLines, StringSplitOptions.RemoveEmptyEntries).Select(x => x.ReadLines()).ToList();
     }
 }
