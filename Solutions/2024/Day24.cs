@@ -8,50 +8,41 @@ public class Day24 : BaseDay
     public override long Part1(string input)
     {
         var splitInput = input.ReadGroups();
-        var knownValues = splitInput[0].Select(x => x.Split(": ")).ToDictionary(x => x[0], x => x[1] == "1");
-        var unknownValues = splitInput[1].Select(x => x.Split(" -> ")).ToDictionary(x => x[1], x => x[0]);
+        var knownValues = splitInput[0]
+            .Select(x => x.Split(": "))
+            .ToDictionary(x => x[0], x => x[1] == "1");
+        var unknownValues = splitInput[1]
+            .Select(x => x.Split(" -> "))
+            .ToDictionary(x => x[1], x => x[0]);
+
         foreach (var key in unknownValues.Keys)
         {
-            if (knownValues.ContainsKey(key)) continue;
-            knownValues[key] = Result(key, knownValues, unknownValues);
+            if (!knownValues.ContainsKey(key))
+                knownValues[key] = EvaluateResult(key, knownValues, unknownValues);
         }
 
-        var orderedKeysThatStartWithZ = knownValues.Where(x => x.Key.StartsWith("z")).OrderByDescending(x => x.Key)
+        var orderedKeysThatStartWithZ = knownValues
+            .Where(x => x.Key.StartsWith("z"))
+            .OrderByDescending(x => x.Key)
             .Select(x => x.Value);
-        return ConvertBinaryToBase10(orderedKeysThatStartWithZ);
+
+        return ConvertBinaryToDecimal(orderedKeysThatStartWithZ);
     }
 
     public override string Part2String(string input)
     {
         var splitInput = input.ReadGroups();
-        var knownValues = splitInput[0].Select(x => x.Split(": ")).ToDictionary(x => x[0], x => x[1] == "1");
-        var unknownValues = splitInput[1].Select(x => x.Split(" -> ")).ToDictionary(x => x[1], x => x[0]);
-        foreach (var key in unknownValues.Keys)
-        {
-            if (knownValues.ContainsKey(key)) continue;
-            knownValues[key] = Result(key, knownValues, unknownValues);
-        }
+        var knownValues = splitInput[0]
+            .Select(x => x.Split(": "))
+            .ToDictionary(x => x[0], x => x[1] == "1");
+        var configurations = splitInput[1].ToList();
 
-        var binaryAs = knownValues.Where(x => x.Key.StartsWith("a")).OrderByDescending(x => x.Key).ToDictionary(x => x.Key[1..], x => x.Value);
-        var binaryBs = knownValues.Where(x => x.Key.StartsWith("b")).OrderByDescending(x => x.Key).ToDictionary(x => x.Key[1..], x => x.Value);
-        var binaryZs = knownValues.Where(x => x.Key.StartsWith("z")).OrderByDescending(x => x.Key).ToDictionary(x => x.Key[1..], x => x.Value);
+        var swaps = CheckParallelAdders(configurations);
 
-        for (var i = 0; i < binaryAs.Count; i++)
-        {
-            var beforeKey = binaryAs.Keys.ElementAt(i);
-            var binaryA = binaryAs[beforeKey];
-            var binaryB = binaryBs[beforeKey];
-            var binaryZ = binaryZs[i];
-            if (binaryA != binaryB)
-            {
-                binaryZ = binaryA;
-            }
-        }
-        
-        return "";
+        return string.Join(",", swaps.OrderBy(x => x));
     }
 
-    private static bool Result(string valueToGet, Dictionary<string, bool> knownValues,
+    private static bool EvaluateResult(string valueToGet, Dictionary<string, bool> knownValues,
         Dictionary<string, string> unknownValues)
     {
         if (knownValues.TryGetValue(valueToGet, out var knownValue)) return knownValue;
@@ -59,8 +50,9 @@ public class Day24 : BaseDay
         if (!unknownValues.TryGetValue(valueToGet, out var unknownValue)) return false;
 
         var splitOperation = unknownValue.Split(" ");
-        var startOperation = Result(splitOperation[0], knownValues, unknownValues);
-        var endOperation = Result(splitOperation[2], knownValues, unknownValues);
+        var startOperation = EvaluateResult(splitOperation[0], knownValues, unknownValues);
+        var endOperation = EvaluateResult(splitOperation[2], knownValues, unknownValues);
+
         var result = splitOperation[1] switch
         {
             "AND" => startOperation & endOperation,
@@ -68,13 +60,88 @@ public class Day24 : BaseDay
             "XOR" => startOperation ^ endOperation,
             _ => throw new NotImplementedException()
         };
+
         knownValues[valueToGet] = result;
         return result;
     }
 
-    private static long ConvertBinaryToBase10(IEnumerable<bool> booleanValues)
+    private static long ConvertBinaryToDecimal(IEnumerable<bool> booleanValues)
     {
-        var convertToBinary = string.Join("", booleanValues.Select(x => x ? "1" : "0"));
-        return Convert.ToInt64(convertToBinary, 2);
+        var binaryString = string.Join("", booleanValues.Select(x => x ? "1" : "0"));
+        return Convert.ToInt64(binaryString, 2);
+    }
+
+    private static List<string> CheckParallelAdders(List<string> configurations)
+    {
+        string? currentCarryWire = null;
+        var swaps = new List<string>();
+        var bit = 0;
+
+        while (true)
+        {
+            var xWire = $"x{bit:D2}";
+            var yWire = $"y{bit:D2}";
+            var zWire = $"z{bit:D2}";
+
+            if (bit == 0)
+            {
+                currentCarryWire = FindGate(xWire, yWire, "AND", configurations);
+            }
+            else
+            {
+                var abXorGate = FindGate(xWire, yWire, "XOR", configurations);
+                var abAndGate = FindGate(xWire, yWire, "AND", configurations);
+
+                var cinAbXorGate = FindGate(abXorGate, currentCarryWire, "XOR", configurations);
+                if (cinAbXorGate == null)
+                {
+                    swaps.Add(abXorGate);
+                    swaps.Add(abAndGate);
+                    configurations = SwapOutputWires(abXorGate, abAndGate, configurations);
+                    bit = 0;
+                    continue;
+                }
+
+                if (cinAbXorGate != zWire)
+                {
+                    swaps.Add(cinAbXorGate);
+                    swaps.Add(zWire);
+                    configurations = SwapOutputWires(cinAbXorGate, zWire, configurations);
+                    bit = 0;
+                    continue;
+                }
+
+                var cinAbAndGate = FindGate(abXorGate, currentCarryWire, "AND", configurations);
+                currentCarryWire = FindGate(abAndGate, cinAbAndGate, "OR", configurations);
+            }
+
+            bit++;
+            if (bit >= 45) break;
+        }
+
+        return swaps;
+    }
+
+    private static string? FindGate(string xWire, string yWire, string gateType, List<string> configurations)
+    {
+        var subStrA = $"{xWire} {gateType} {yWire} -> ";
+        var subStrB = $"{yWire} {gateType} {xWire} -> ";
+
+        return configurations
+            .FirstOrDefault(config => config.StartsWith(subStrA) || config.StartsWith(subStrB))?
+            .Split(" -> ")[^1];
+    }
+
+    private static List<string> SwapOutputWires(string wireA, string wireB, List<string> configurations)
+    {
+        return configurations.Select(config =>
+        {
+            var parts = config.Split(" -> ");
+            var inputWires = parts[0];
+            var outputWire = parts[1];
+
+            if (outputWire == wireA) return $"{inputWires} -> {wireB}";
+            return outputWire == wireB ? $"{inputWires} -> {wireA}" : config;
+        }).ToList();
     }
 }
